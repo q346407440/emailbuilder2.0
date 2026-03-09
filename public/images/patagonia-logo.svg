@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="48" viewBox="0 0 180 48" fill="none">
+  <!-- Mountain silhouette -->
+  <path d="M30 8L45 32H15L30 8Z" fill="#1A1A1A"/>
+  <path d="M42 14L54 32H30L42 14Z" fill="#1A1A1A"/>
+  <path d="M22 16L10 32H34L22 16Z" fill="#1A1A1A"/>
+  <!-- Snow caps -->
+  <path d="M30 8L34 14H26L30 8Z" fill="#FFFFFF"/>
+  <path d="M42 14L45 18.5H39L42 14Z" fill="#FFFFFF"/>
+  <!-- Brand text: patagonia -->
+  <text x="32" y="44" font-family="Georgia, serif" font-size="11" font-weight="bold" letter-spacing="2.5" fill="#1A1A1A">patagonia</text>
+</svg>

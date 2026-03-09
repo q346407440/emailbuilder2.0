@@ -1,0 +1,231 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  /* 企业蓝色彩体系 */
+  --bg-base: #F4F6F9;                           /* 冷灰浅底 */
+  --bg-panel: #FFFFFF;                          /* 白色 */
+  --bg-canvas-area: #E8ECF1;                    /* 冷灰画布 */
+  --surface: #FFFFFF;                          /* 白色 */
+  --text-primary: #1C2333;                      /* 主文字（带蓝调，更专业） */
+  --text-secondary: #5C6B7A;                    /* 次级文字 */
+  --text-muted: #8A949C;                        /* 弱化文字 */
+  --accent: #1976D2;                            /* 企业蓝 */
+  --accent-hover: #1565C0;                      /* 企业蓝加深 */
+  --accent-subtle: rgba(25, 118, 210, 0.07);   /* 企业蓝淡底 */
+  --accent-subtle-hover: rgba(25, 118, 210, 0.12); /* 企业蓝淡底 hover */
+  --border: #E2E7EE;                            /* 边框灰（标准分隔） */
+  --border-strong: #CDD4DE;                     /* 边框深（强调） */
+  /* 边框层级（interface-design：强度与重要性匹配） */
+  --border-subtle: rgba(0, 0, 0, 0.05);         /* 最弱分隔，侧栏/区块 */
+  --border-default: #E2E7EE;                    /* 标准 */
+  --border-emphasis: #CDD4DE;                   /* 强调/ hover */
+  --border-focus: var(--accent);                /* 焦点环 */
+  /* 表面层级（Surface Elevation：堆叠时层级清晰） */
+  --surface-base: #F4F6F9;                      /* 页面底 */
+  --surface-raised: #FFFFFF;                    /* 卡片/面板，略高于底 */
+  --surface-overlay: #FFFFFF;                   /* 下拉/浮层，高于卡片 */
+  --surface-inset: #EDF0F5;                    /* 输入框等"凹入"区域 */
+  /* 文字层级（四层：primary / secondary / tertiary / muted） */
+  --text-tertiary: #6B7785;                     /* 元信息、辅助说明 */
+  --success: #16a34a;                           /* 成功绿（Toast 成功态等） */
+  --danger: #DC3545;                            /* 危险红（删除、警告操作） */
+  --danger-subtle: rgba(220, 53, 69, 0.08);     /* 危险红淡底 */
+  --accent-border-subtle: rgba(25, 118, 210, 0.22); /* 强调色细边框（Tab 激活态等） */
+  --accent-glow: rgba(25, 118, 210, 0.35);      /* 强调色光晕（插入指示器等） */
+  /* 侧边栏专用深色区域（品牌感） */
+  --sidebar-bg: #1C2333;                        /* 侧边栏深色背景 */
+  --sidebar-logo-bg: #151C2B;                   /* Logo 区域更深 */
+  --sidebar-text: rgba(255, 255, 255, 0.65);    /* 侧边栏文字 */
+  --sidebar-text-active: #FFFFFF;               /* 侧边栏激活文字 */
+  --sidebar-item-hover: rgba(255, 255, 255, 0.07); /* hover 背景 */
+  --sidebar-item-active: rgba(25, 118, 210, 0.22); /* 激活背景 */
+  --sidebar-border: rgba(255, 255, 255, 0.07);  /* 侧边栏内部分隔线 */
+  /* AI 聊天面板独立强调色（与企业蓝互补，仅用于 AIChatPanel） */
+  --ai-accent: #10A37F;                         /* Teal，与主应用蓝区分、易识别 */
+  --ai-accent-hover: #0d8a6d;
+  --ai-accent-subtle: rgba(16, 163, 127, 0.12);
+
+  /* 阴影体系 */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 4px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.06);
+  --shadow-canvas: 0 8px 40px rgba(0, 0, 0, 0.14), 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-nav: 0 1px 0 var(--border), 0 4px 16px rgba(0, 0, 0, 0.04);
+  --shadow-panel: inset -1px 0 0 var(--border);
+  --shadow-panel-right: inset 1px 0 0 var(--border);
+
+  /* 过渡时间（统一动效节奏）*/
+  --duration-fast: 100ms;
+  --duration-normal: 160ms;
+  --duration-slow: 240ms;
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* 应用页面（企业级尺度）：紧凑、克制，见 enterprise-app-design.mdc */
+  --page-padding: 20px 24px;
+  --page-title-size: 1.125rem;      /* 18px 主标题 */
+  --page-subtitle-size: 0.8125rem;  /* 13px 副标题/正文 */
+  --page-caption-size: 0.75rem;     /* 12px 提示/总数 */
+  --page-header-margin: 16px;
+  --page-section-gap: 14px;
+  --page-toolbar-gap: 8px;
+  --page-card-padding: 16px;
+  --control-height: 32px;
+  --control-radius: 4px;
+  --control-padding-y: 6px;
+  --control-padding-x: 10px;
+  --btn-primary-padding-x: 14px;
+  --table-header-height: 36px;
+  --table-cell-padding: 9px 14px;
+
+  /* 应用页 Tab（底线指示器）：非模板编辑器页面 */
+  --tab-gap: 4px;
+  --tab-padding-y: 8px;
+  --tab-padding-x: 14px;
+  --tab-indicator-height: 2px;
+  --tab-indicator-radius: 1px;
+
+  /* 邮件编辑器 UI 设计 token（Figma 风格，左侧/右侧面板统一改此处即可生效） */
+  --editor-font-size-lg: 0.8125rem;   /* 13px 区块标题 */
+  --editor-font-size-md: 0.6875rem;   /* 11px 正文/标签/Tab/输入框 */
+  --editor-font-size-sm: 0.5625rem;   /* 9px 辅助说明 */
+  --editor-font-size-xs: 0.625rem;    /* 10px 卡片描述等 */
+  --editor-font-weight-default: 400;
+  --editor-font-weight-medium: 500;
+  --editor-font-weight-strong: 600;
+  --editor-space-1: 3px;
+  --editor-space-2: 4px;
+  --editor-space-3: 6px;
+  --editor-space-4: 8px;
+  --editor-space-5: 10px;
+  --editor-space-6: 12px;
+  --editor-space-7: 16px;
+  --editor-space-8: 24px;
+  --editor-space-9: 32px;
+  --editor-radius-sm: 2px;
+  --editor-radius-md: 3px;
+  --editor-radius-lg: 5px;            /* Figma radius-medium，下拉/卡片等 */
+  --editor-radius-xl: 6px;           /* 按钮、区块等略大圆角 */
+  --editor-control-height: 24px;
+  --editor-control-height-md: 26px;   /* Select 触发器、工具栏行高 */
+  --editor-control-height-lg: 32px;  /* 上传按钮、间距行等 */
+  --editor-input-padding: 4px 7px;
+  --editor-panel-title-padding: 7px 8px 7px 10px;
+  --editor-panel-inner-padding: 8px;  /* 左右面板内容区水平 padding，与标题行对齐 */
+  --editor-section-padding: 6px 10px;
+  --editor-config-section-padding: 12px 0 10px;
+  --editor-section-title-gap: 8px;    /* 区块标题与内容间距 */
+  --editor-row-min-height: 24px;
+  --editor-card-height: 72px;
+  --editor-card-gap: 6px;
+  --editor-icon-size-sm: 14px;
+  --editor-icon-size-md: 20px;
+  --editor-icon-size-inline: 16px;    /* 行内帮助图标、树节点等 */
+  --editor-shadow-menu: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --editor-shadow-focus: 0 0 0 2px rgba(25, 118, 210, 0.08);
+  --editor-bg-input: #f5f5f5;       /* 输入框浅灰底（Figma 风格，区别于面板白底） */
+
+  font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.45;
+  font-weight: 400;
+  color: var(--text-primary);
+  background-color: var(--bg-base);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#root {
+  height: 100vh;
+  overflow: hidden;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--accent-hover);
+}
+
+button {
+  border-radius: var(--control-radius);
+  border: 1px solid var(--border);
+  padding: var(--control-padding-y) var(--control-padding-x);
+  font-size: var(--page-subtitle-size);
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--bg-panel);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out);
+}
+button:hover {
+  background-color: var(--bg-canvas-area);
+  border-color: var(--border-strong);
+}
+button:focus {
+  outline: none;
+}
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* 全局焦点态：鼠标点击不显示，键盘导航显示蓝色焦点环 */
+:where(button, [role="button"], a, [tabindex]):focus {
+  outline: none;
+}
+:where(button, [role="button"], a, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.12);
+}
+:where(input, select, textarea):focus-visible {
+  outline: none;
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.12) !important;
+}
+
+/* 全局细滚动条（面板、列表等） */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 10px;
+  transition: background var(--duration-fast);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #b0bbc8;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox 细滚动条 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}

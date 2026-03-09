@@ -1,0 +1,374 @@
+.page {
+  padding: 28px 36px;
+  font-family: 'Source Sans 3', sans-serif;
+  box-sizing: border-box;
+}
+
+/* 返回行（与 AutomationEditorPage、ImportContactsPage、TemplatePreviewPage 等二级页一致） */
+.backRow {
+  margin-bottom: var(--page-header-margin);
+}
+
+.backBtn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: var(--page-subtitle-size);
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.backBtn:hover {
+  text-decoration: underline;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* Preview */
+.previewSection {}
+
+.previewFrame {
+  position: relative;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 9/14;
+  background: var(--surface-inset);
+}
+
+.previewImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.previewEmpty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--bg-canvas-area);
+  color: var(--text-muted);
+}
+
+.previewEmptyIcon {
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+.previewEmptyText {
+  font-size: 0.8125rem;
+  line-height: 1.3;
+}
+
+.previewOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  opacity: 0;
+
+}
+
+.previewFrame:hover .previewOverlay { opacity: 1; }
+
+/* Info */
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.nameRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.editNameBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  border: 1px solid var(--border-default);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0;
+
+  flex-shrink: 0;
+}
+
+.editNameBtn:hover { color: var(--accent); border-color: var(--accent); }
+
+.nameEdit { display: flex; gap: 8px; align-items: center; }
+
+.nameInput {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid var(--accent);
+  border-radius: 7px;
+  background: var(--surface-raised);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-family: inherit;
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+.nameSave, .nameCancel {
+  padding: 7px 14px;
+  border-radius: 7px;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.nameSave {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+}
+
+.nameCancel {
+  background: transparent;
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+}
+
+/* Meta */
+.meta {
+  background: var(--surface-base);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.metaLabel {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  min-width: 100px;
+  flex-shrink: 0;
+}
+
+.metaValue {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+
+/* Variable section */
+.varSection {}
+
+.varTitle {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 10px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.varEmpty {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.varList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.varItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--accent-subtle);
+  border: 1px solid rgba(25, 118, 210, 0.15);
+}
+
+.varKey {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--accent);
+  font-family: 'Source Code Pro', monospace;
+  flex: 1;
+}
+
+.varType, .varGroup {
+  font-size: 0.7rem;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(25, 118, 210, 0.12);
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.primaryBtn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Source Sans 3', sans-serif;
+
+}
+
+.primaryBtn:hover:not(:disabled) { background: var(--accent-hover); }
+.primaryBtn:disabled { opacity: 0.65; cursor: not-allowed; }
+
+.primaryBtnOutline {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.primaryBtnOutline:hover:not(:disabled) {
+  background: var(--accent-subtle);
+}
+
+.primaryBtnDanger {
+  background: transparent;
+  color: #DC3545;
+  border: 1px solid #DC3545;
+}
+
+.primaryBtnDanger:hover:not(:disabled) {
+  background: rgba(220, 53, 69, 0.06);
+}
+
+/* Loading skeleton */
+.skeleton {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 32px;
+}
+
+.skeletonPreview {
+  border-radius: 8px;
+  aspect-ratio: 9/14;
+  background: var(--border-subtle);
+  animation: shimmer 1.5s infinite;
+}
+
+.skeletonInfo { display: flex; flex-direction: column; gap: 14px; }
+
+.skeletonLine {
+  border-radius: 6px;
+  background: var(--border-subtle);
+  animation: shimmer 1.5s infinite;
+}
+
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 60px;
+  color: var(--text-secondary);
+}
+
+@keyframes shimmer {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .layout { grid-template-columns: 1fr; }
+}
+
+/* ── Tab 切换（与模板库页底线指示器一致，见 app-pages-design.mdc）── */
+.tabs {
+  display: flex;
+  gap: var(--tab-gap);
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 24px;
+}
+
+.tab {
+  padding: var(--tab-padding-y) var(--tab-padding-x);
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: var(--page-subtitle-size);
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: var(--tab-indicator-height) solid transparent;
+  margin-bottom: -1px;
+  border-radius: var(--tab-indicator-radius) var(--tab-indicator-radius) 0 0;
+  font-family: inherit;
+
+}
+
+.tab:hover {
+  color: var(--text-primary);
+}
+
+.tabActive {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ── 接入配置面板 ── */
+.endpointsPanel {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  overflow: hidden;
+}

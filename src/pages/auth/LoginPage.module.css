@@ -1,0 +1,329 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  background: var(--bg-base);
+  font-family: 'Source Sans 3', sans-serif;
+  overflow: hidden;
+}
+
+/* ── 左侧品牌区 ── */
+.brandPanel {
+  width: 44%;
+  min-width: 320px;
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px 48px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* 品牌面板背景装饰 */
+.brandPanel::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: rgba(25, 118, 210, 0.08);
+  pointer-events: none;
+}
+
+.brandPanel::after {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  left: -60px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: rgba(25, 118, 210, 0.05);
+  pointer-events: none;
+}
+
+.brandTop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.brandLogoIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.brandLogoText {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.01em;
+}
+
+.brandMain {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  padding: 40px 0;
+}
+
+.brandHeadline {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+
+.brandDesc {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.6;
+  margin: 0 0 32px;
+  max-width: 320px;
+}
+
+/* 特性列表 */
+.featureList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.featureIcon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(25, 118, 210, 0.3);
+  border: 1px solid rgba(25, 118, 210, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--accent);
+  margin-top: 1px;
+}
+
+.featureText {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.5;
+}
+
+.brandBottom {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.25);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 右侧表单区 ── */
+.formPanel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 48px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.formInner {
+  width: 100%;
+  max-width: 360px;
+}
+
+.formTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 4px;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.formSubtitle {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  margin: 0 0 24px;
+  line-height: 1.45;
+}
+
+/* ── Tab 切换 ── */
+.tabRow {
+  display: flex;
+  gap: 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.tabBtn {
+  flex: 1;
+  padding: 8px 14px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  margin-bottom: -1px;
+  font-family: inherit;
+  text-align: center;
+}
+
+.tabBtn:hover {
+  color: var(--text-primary);
+}
+
+.tabBtnActive {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+
+/* ── 表单 ── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.errorMsg {
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: var(--control-radius);
+  background: rgba(220, 53, 69, 0.06);
+  border: 1px solid rgba(220, 53, 69, 0.18);
+  color: #DC3545;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.fieldLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--control-padding-y) var(--control-padding-x);
+  min-height: var(--control-height);
+  border: 1px solid var(--border);
+  border-radius: var(--control-radius);
+  background: var(--surface-inset);
+  color: var(--text-primary);
+  font-size: 0.8125rem;
+  font-family: inherit;
+  outline: none;
+  font-weight: 400;
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.input:focus {
+  border-color: var(--accent);
+  background: var(--bg-panel);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+.input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.hint {
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 8px var(--btn-primary-padding-x);
+  min-height: var(--control-height);
+  box-sizing: border-box;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--control-radius);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  margin-top: 4px;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.submitBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* ── 加载态 ── */
+.loadingWrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-base);
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── 响应式：窄屏隐藏品牌面板 ── */
+@media (max-width: 768px) {
+  .brandPanel {
+    display: none;
+  }
+  .formPanel {
+    padding: 32px 24px;
+  }
+}

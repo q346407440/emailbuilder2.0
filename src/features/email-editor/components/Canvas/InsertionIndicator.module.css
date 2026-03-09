@@ -1,0 +1,47 @@
+.indicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  height: 0;
+  z-index: 10;
+  pointer-events: none;
+  animation: indicatorAppear 0.15s ease;
+}
+
+.indicatorBefore {
+  top: -1px;
+}
+
+.indicatorAfter {
+  bottom: -1px;
+}
+
+.line {
+  flex: 1;
+  height: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow);
+  border-radius: 1px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent-glow);
+  flex-shrink: 0;
+}
+
+@keyframes indicatorAppear {
+  from {
+    opacity: 0;
+    transform: scaleX(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}

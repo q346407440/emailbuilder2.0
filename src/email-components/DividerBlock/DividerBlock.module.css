@@ -1,0 +1,11 @@
+.dividerLine {
+  width: 100%;
+  border: none;
+  border-top-style: solid;
+  margin: 0;
+}
+
+.dividerBlock {
+  width: 100%;
+  margin: 0;
+}

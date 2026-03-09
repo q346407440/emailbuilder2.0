@@ -1,0 +1,6 @@
+export { default as AIChatContainer } from './components/AIChatContainer'
+export { default as AIChatPanel } from './components/AIChatPanel'
+export { default as ChatMessageItem } from './components/ChatMessageItem'
+export { useChatController } from './hooks/useChatController'
+export { useFloatingChatPanel } from './hooks/useFloatingChatPanel'
+export { useChatStore } from './store/useChatStore'

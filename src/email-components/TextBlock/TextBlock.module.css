@@ -1,0 +1,121 @@
+/* fit-content + max-width 100% 使「内容对齐」左/中/右在容器内生效 */
+.text {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0;
+  overflow-wrap: break-word;
+  /* 無 leading 的 strut（1em）比 chip（1em + 2px border）稍矮，
+     chip 成為 line box 的上下邊界，vertical-align: middle 使 chip 貼合四邊，零間距。
+     若用戶在 props 中設置了 lineHeight，inline style 優先級高於此 class rule，自動覆蓋。 */
+  line-height: 1;
+}
+
+/* 富文本 HTML 内标签样式 */
+.text p {
+  margin: 0 0 0.5em;
+}
+.text p:last-child {
+  margin-bottom: 0;
+}
+.text strong {
+  font-weight: 700;
+}
+.text em {
+  font-style: italic;
+}
+.text u {
+  text-decoration: underline;
+}
+.text s,
+.text strike {
+  text-decoration: line-through;
+}
+.text a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.text a:hover {
+  color: var(--accent-hover);
+}
+.text ul,
+.text ol {
+  margin: 0.4em 0;
+  padding-left: 1.5em;
+}
+.text ol {
+  list-style-type: decimal;
+}
+.text ul {
+  list-style-type: disc;
+}
+.text li {
+  margin: 0.2em 0;
+}
+
+.mdP {
+  margin: 0 0 0.5em;
+}
+.mdP:last-child {
+  margin-bottom: 0;
+}
+
+.mdStrong {
+  font-weight: 700;
+}
+
+.mdEm {
+  font-style: italic;
+}
+
+.mdU {
+  text-decoration: underline;
+}
+
+.mdDel {
+  text-decoration: line-through;
+}
+
+.mdA {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.mdA:hover {
+  color: var(--accent-hover);
+}
+
+.mdUl,
+.mdOl {
+  margin: 0.4em 0;
+  padding-left: 1.5em;
+}
+.mdOl {
+  list-style-type: decimal;
+}
+.mdUl {
+  list-style-type: disc;
+}
+
+.mdLi {
+  margin: 0.2em 0;
+}
+
+/* 畫布中的變量 chip：覆蓋編輯器的 user-select 限制，允許正常選取文字。
+   vertical-align 已在全局 .variable-chip 設為 0.2em，此處不再重複。 */
+.text :global(.variable-chip) {
+  cursor: default;
+  user-select: text;
+  pointer-events: none;
+}
+.text :global(.variable-chip-label) {
+  user-select: text;
+}
+
+/* 嵌套列表缩进 */
+.text .mdUl .mdUl,
+.text .mdOl .mdOl,
+.text .mdUl .mdOl,
+.text .mdOl .mdUl {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+  padding-left: 1.2em;
+}

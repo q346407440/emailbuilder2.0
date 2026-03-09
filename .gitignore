@@ -1,0 +1,69 @@
+# Dependencies
+node_modules/
+server/node_modules/
+
+# Build outputs
+dist/
+dist-ssr/
+server/dist/
+
+# Logs and runtime artifacts
+logs/
+server/logs/
+*.log
+*.pid
+*.pid.lock
+.playwright-mcp
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Local environment files (keep examples in repo)
+.env
+.deploy.env
+.env.*
+!.env.example
+server/.env
+server/.env.*
+!server/.env.example
+*.local
+
+# pgAdmin 安裝包（體積大，勿提交）
+*.dmg
+# pgAdmin 伺服器設定（本機連線用，每人可自行匯入或手動建立）
+docs/pgadmin-email_editor-server.json
+
+# 臨時文件統一放項目根 tmp/，見 .cursor/rules/tmp-files.mdc
+tmp/
+scripts/local/.deploy-archives/
+
+# Generated uploads/previews on server
+server/uploads/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+server/scripts/reset-other-user-password.ts
+价值估算文档.md
+项目说明文档.md
+.agent/
+.agents/
+.kiro/
+.trae/skills/
+.trae/documents/
+skills-lock.json
+.cursor/skills/ui-ux-pro-max/
+.cursor/skills/frontend-design-system/
+.cursor/skills/figma-editor-design-language/
+__pycache__/
+*.py[cod]
+ui-ux-pro-max-skill/

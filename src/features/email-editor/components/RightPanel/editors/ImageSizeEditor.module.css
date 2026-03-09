@@ -1,0 +1,211 @@
+/* ── 尺寸编辑器容器：与右侧面板 3px 节奏统一 ── */
+.sizeEditor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-space-1);
+  grid-column: 1 / -1;
+}
+
+/* ── 模式选择器（Figma 设计语言：紧凑控件、小圆角、11px 字号） ── */
+.modeSelector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--editor-space-1);
+}
+
+.modeBtn {
+  font-family: inherit;
+  font-size: var(--editor-font-size-md);
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--editor-bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-sm);
+  padding: var(--editor-space-1) var(--editor-space-2);
+  outline: none;
+  cursor: pointer;
+  transition: color 0.1s ease, background-color 0.1s ease, border-color 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--editor-space-2);
+  min-height: var(--editor-control-height);
+  height: var(--editor-control-height);
+  box-sizing: border-box;
+}
+
+.modeBtn svg {
+  flex-shrink: 0;
+  width: var(--editor-icon-size-sm);
+  height: var(--editor-icon-size-sm);
+  opacity: 0.75;
+}
+
+.modeBtn:hover {
+  background: var(--bg-base);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+.modeBtn:hover svg {
+  opacity: 1;
+}
+
+.modeBtn.active {
+  background: var(--accent-subtle);
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: none;
+}
+
+.modeBtn.active:hover {
+  background: rgba(25, 118, 210, 0.12);
+  color: var(--accent);
+}
+
+.modeBtn.active svg {
+  opacity: 1;
+}
+
+/* ── 固定尺寸模式内容：与面板 3px 节奏统一 ── */
+.fixedModeContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-space-1);
+}
+
+.dimensionRow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--editor-space-2);
+  align-items: end;
+}
+
+/* 锁定比例按钮：与输入框同高，与面板控件统一 */
+.lockBtn {
+  font-size: 0;
+  color: var(--text-muted);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-md);
+  padding: 0;
+  width: var(--editor-control-height);
+  height: var(--editor-control-height);
+  min-width: var(--editor-control-height);
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  margin-bottom: 0;
+  box-sizing: border-box;
+}
+
+.lockBtn svg {
+  width: var(--editor-icon-size-sm);
+  height: var(--editor-icon-size-sm);
+}
+
+.lockBtn:hover {
+  background: var(--bg-base);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.lockBtn.locked {
+  background: var(--accent-subtle);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.lockBtn.locked:hover {
+  background: var(--accent);
+  color: white;
+}
+
+/* ── 快捷比例：与面板控件高度、间距统一 ── */
+.quickRatios {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-space-1);
+}
+
+.quickRatiosLabel {
+  font-size: var(--editor-font-size-sm);
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
+}
+
+.ratioButtons {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--editor-space-1);
+}
+
+.ratioBtn {
+  font-family: inherit;
+  font-size: var(--editor-font-size-md);
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-md);
+  padding: 0 var(--editor-space-2);
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: var(--editor-control-height);
+  height: var(--editor-control-height);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ratioBtn:hover {
+  background: var(--bg-base);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.ratioBtn:active {
+  background: var(--accent-subtle);
+  transform: scale(0.96);
+}
+
+/* ── 铺满容器/固定尺寸解释文本：与面板辅助字号、间距统一 ── */
+.fillModeContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.fillModeHint {
+  margin: 0;
+  font-size: var(--editor-font-size-sm);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ── 原图尺寸模式内容 ── */
+.originalModeContent {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--editor-space-1) var(--editor-space-3);
+}
+
+.dimensionHint {
+  grid-column: 1 / -1;
+  font-size: var(--editor-font-size-sm);
+  color: var(--text-muted);
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-md);
+  padding: var(--editor-space-2) var(--editor-space-3);
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.02em;
+}

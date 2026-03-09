@@ -1,0 +1,288 @@
+/* ─── RgbaColorPicker 组件 ─── */
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+/* ── 色塊 + 文字行（獨佔一行時整行鋪滿） ── */
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  width: 100%;
+}
+
+/* 紧凑行高：与面板内字段间距一致 */
+.rowDense {
+  gap: var(--editor-space-3);
+  min-height: var(--editor-control-height);
+}
+
+/* ── 色块（透明棋盘格 + 实际颜色叠加） ── */
+.swatch {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+  background: none;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.swatch:hover {
+  border-color: var(--border-strong);
+}
+
+.swatch:focus-visible {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+/* 紧凑模式（如富文本工具栏）：border-box 确保含边框恰好 26px，与图标按钮一致 */
+.swatchCompact {
+  width: 26px;
+  height: 26px;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+/* 紧凑行高：与面板内其他控件尺寸一致 */
+.swatchDense {
+  width: var(--editor-control-height);
+  height: var(--editor-control-height);
+  border-radius: var(--editor-radius-sm);
+}
+
+.swatch:disabled,
+.swatchDisabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.swatchDisabled:hover {
+  border-color: var(--border);
+}
+
+.wrapperDisabled .textInput {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background: var(--bg-base);
+}
+
+.wrapperDisabled .alphaLabel {
+  opacity: 0.6;
+}
+
+.swatchCheckerboard {
+  position: absolute;
+  inset: 0;
+  border-radius: 5px;
+  background-image:
+    repeating-conic-gradient(
+      #d0d0d0 0% 25%,
+      #ffffff 0% 50%
+    );
+  background-size: 8px 8px;
+}
+
+.swatchColor {
+  position: absolute;
+  inset: 0;
+  border-radius: 5px;
+}
+
+/* ── 文字输入 ── */
+.textInput {
+  flex: 1;
+  font-family: inherit;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 7px 10px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.15s ease;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.textInput:hover {
+  background: var(--bg-base);
+}
+
+.textInput:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+/* 紧凑行高：输入框与面板内 .input / PxInput 样式统一 */
+.rowDense .textInput {
+  padding: var(--editor-input-padding);
+  font-size: var(--editor-font-size-md);
+  color: var(--text-primary);
+  background: var(--editor-bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-sm);
+  min-height: var(--editor-control-height);
+  height: var(--editor-control-height);
+  box-sizing: border-box;
+}
+
+.rowDense .textInput:hover {
+  background: var(--editor-bg-input);
+  border-color: var(--border-strong);
+}
+
+.rowDense .textInput:focus {
+  box-shadow: var(--editor-shadow-focus);
+}
+
+.rowDense .alphaLabel {
+  min-width: 2.5em;
+  font-size: var(--editor-font-size-sm);
+  color: var(--text-muted);
+}
+
+/* ── Alpha 百分比标签 ── */
+.alphaLabel {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
+  min-width: 28px;
+  text-align: right;
+}
+
+/* ── Popover ── */
+.popover {
+  position: fixed;
+  z-index: 1000;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: var(--shadow-md), 0 8px 24px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  width: 220px;
+}
+
+/* 从下方弹出（默认） */
+.popoverBelow {
+  animation: rgbaPopoverFromBelow 0.15s ease;
+}
+
+/* 从上方弹出 */
+.popoverAbove {
+  animation: rgbaPopoverFromAbove 0.15s ease;
+}
+
+@keyframes rgbaPopoverFromBelow {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rgbaPopoverFromAbove {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* react-colorful 覆写：让它适配面板尺寸 */
+.popover :global(.react-colorful) {
+  width: 100% !important;
+  height: auto !important;
+}
+
+.popover :global(.react-colorful__saturation) {
+  height: 140px;
+  border-radius: 6px 6px 0 0;
+}
+
+.popover :global(.react-colorful__hue),
+.popover :global(.react-colorful__alpha) {
+  height: 12px;
+  border-radius: 6px;
+  margin-top: 8px;
+}
+
+.popover :global(.react-colorful__pointer) {
+  width: 18px;
+  height: 18px;
+  border-width: 2px;
+}
+
+/* 「透明背景 alpha 条」的棋盘格 */
+.popover :global(.react-colorful__alpha) {
+  background-image:
+    repeating-conic-gradient(
+      #d0d0d0 0% 25%,
+      #ffffff 0% 50%
+    );
+  background-size: 8px 8px;
+}
+
+/* ── Popover 底部预览（水平对齐：色块与输入框同一行） ── */
+.popoverInfo {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.popoverPreview {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.popoverValueInput {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.75rem;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  color: var(--text-primary);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 8px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.popoverValueInput:hover {
+  border-color: var(--border-strong);
+}
+.popoverValueInput:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+.popoverValueInput::placeholder {
+  color: var(--text-muted);
+}

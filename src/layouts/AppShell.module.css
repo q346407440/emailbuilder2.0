@@ -1,0 +1,552 @@
+.shell {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg-base);
+  font-family: 'Source Sans 3', sans-serif;
+}
+
+/* 无障碍：跳过导航链接，仅键盘聚焦时可见 */
+.skipLink {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  padding: 8px 14px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+  transform: translateY(-100%);
+}
+.skipLink:focus {
+  transform: translateY(0);
+  outline: 2px solid var(--accent-hover);
+  outline-offset: 2px;
+}
+
+/* ===== Sidebar — 深色品牌侧边栏 ===== */
+.sidebar {
+  width: 192px;
+  min-width: 192px;
+  height: 100vh;
+  background: var(--sidebar-bg);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.sidebarInner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+}
+
+/* Logo */
+.logoArea {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 12px 12px;
+  background: var(--sidebar-logo-bg);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  flex-shrink: 0;
+}
+
+.logoIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logoText {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+/* 产品类型标签 */
+.logoTag {
+  margin-left: auto;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  padding: 1px 5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Nav */
+.nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 8px 6px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.nav::-webkit-scrollbar {
+  display: none;
+}
+
+/* 导航分组标签 */
+.navGroup {
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.22);
+  padding: 12px 10px 3px;
+  margin-top: 2px;
+}
+
+.navGroup:first-child {
+  padding-top: 4px;
+  margin-top: 0;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  color: var(--sidebar-text);
+  text-decoration: none;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.navItem:hover {
+  background: var(--sidebar-item-hover);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.navItemActive {
+  background: var(--sidebar-item-active);
+  color: var(--sidebar-text-active);
+}
+
+/* 激活态左侧竖线指示器 */
+.navItemActive::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 14px;
+  background: #5BA4F5;
+  border-radius: 0 2px 2px 0;
+}
+
+.navIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  opacity: 0.65;
+  transition: opacity var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-spring);
+}
+
+.navItem:hover .navIcon {
+  opacity: 0.9;
+  transform: scale(1.08);
+}
+
+.navItemActive .navIcon {
+  opacity: 1;
+}
+
+.navLabel {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Bottom section */
+.bottomSection {
+  padding: 6px 6px 8px;
+  border-top: 1px solid var(--sidebar-border);
+  flex-shrink: 0;
+}
+
+/* User row */
+.userRow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 8px;
+  margin-top: 2px;
+  border-radius: 4px;
+  background: transparent;
+  border: 1px solid var(--sidebar-border);
+  cursor: pointer;
+  outline: none;
+}
+
+.userRow:hover,
+.userRowActive {
+  background: var(--sidebar-item-hover);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.userRow:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(25, 118, 210, 0.35);
+  color: #fff;
+  font-size: 0.625rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.userInfo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.userName {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.82);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.3;
+}
+
+.userEmail {
+  font-size: 0.625rem;
+  color: rgba(255, 255, 255, 0.38);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.3;
+}
+
+.userRowChevron {
+  display: flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+}
+
+/* ── 账户浮层（高于父表面一层，见 surface-overlay） ── */
+.accountPopover {
+  background: var(--surface-overlay);
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  min-width: 220px;
+  z-index: 9999;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.popoverHeader {
+  padding: 8px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.popoverName {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.popoverEmail {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.popoverDivider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 2px;
+}
+
+.popoverItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.popoverItem svg {
+  color: var(--text-muted);
+}
+
+.popoverItem:hover {
+  background: var(--accent-subtle);
+  color: var(--accent);
+}
+
+.popoverItem:hover svg {
+  color: var(--accent);
+}
+
+.popoverItemDanger {
+  color: var(--text-primary);
+}
+
+.popoverItemDanger:hover {
+  background: rgba(220, 53, 69, 0.08);
+  color: #DC3545;
+}
+
+.popoverItemDanger:hover svg {
+  color: #DC3545;
+}
+
+.popoverForm {
+  padding: 6px 4px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.popoverFormHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  padding: 0 4px;
+}
+
+.popoverBack {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.popoverBack:hover {
+  background: var(--bg-base);
+  color: var(--text-primary);
+}
+
+.popoverInput {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  font-size: 0.8125rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--bg-base);
+  outline: none;
+}
+
+.popoverInput:focus {
+  border-color: var(--accent);
+  background: var(--bg-panel);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+.popoverSubmit {
+  margin-top: 4px;
+  padding: 8px 14px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  width: 100%;
+}
+
+.popoverSubmit:hover:not(:disabled) { background: var(--accent-hover); }
+.popoverSubmit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* 未登入時側欄登入/註冊按鈕 */
+.guestActions {
+  display: flex;
+  gap: 6px;
+  padding: 10px 4px;
+  margin-top: 4px;
+}
+
+.guestBtn,
+.guestBtnPrimary {
+  flex: 1;
+  padding: 7px 10px;
+  border-radius: 5px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.guestBtn {
+  border: 1px solid var(--sidebar-border);
+  background: transparent;
+  color: var(--sidebar-text);
+}
+
+.guestBtn:hover {
+  background: var(--sidebar-item-hover);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.guestBtnPrimary {
+  border: none;
+  background: var(--accent);
+  color: #fff;
+}
+
+.guestBtnPrimary:hover {
+  background: var(--accent-hover);
+}
+
+/* 未登入時主內容區頂部登入提示條 */
+.loginBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 9px 24px;
+  background: var(--accent-subtle);
+  border-bottom: 1px solid rgba(25, 118, 210, 0.15);
+  flex-shrink: 0;
+}
+
+.loginBarText {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+
+.loginBarActions {
+  display: flex;
+  gap: 8px;
+}
+
+.loginBarBtn,
+.loginBarBtnPrimary {
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.loginBarBtn {
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text-secondary);
+}
+
+.loginBarBtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.loginBarBtnPrimary {
+  border: none;
+  background: var(--accent);
+  color: #fff;
+}
+
+.loginBarBtnPrimary:hover {
+  background: var(--accent-hover);
+}
+
+.modalInput {
+  width: 100%;
+  padding: 8px 11px;
+  font-size: 0.8125rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  outline: none;
+}
+
+.modalInput:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+.modalInput::placeholder {
+  color: var(--text-muted);
+}
+
+/* ===== Main content ===== */
+.main {
+  flex: 1;
+  min-width: 0;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--bg-base);
+  scroll-margin-top: 8px;
+}

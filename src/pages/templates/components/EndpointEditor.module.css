@@ -1,0 +1,230 @@
+.editor {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── 步骤指示器 ── */
+.steps {
+  display: flex;
+  align-items: center;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-base);
+  gap: 0;
+}
+
+.stepItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.stepConnector {
+  flex: 1;
+  height: 1px;
+  background: var(--border-strong);
+  margin: 0 10px;
+  min-width: 20px;
+}
+
+.stepConnectorDone {
+  background: var(--accent);
+}
+
+.stepNum {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--bg-panel);
+  border: 1.5px solid var(--border-strong);
+  color: var(--text-muted);
+  flex-shrink: 0;
+
+}
+
+.stepActive .stepNum {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.stepDone .stepNum {
+  background: var(--accent-subtle);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.stepLabel {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+
+}
+
+.stepActive .stepLabel {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.stepDone .stepLabel {
+  color: var(--accent);
+}
+
+/* ── 步骤内容 ── */
+.stepContent {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stepDesc {
+  font-size: var(--page-subtitle-size);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.fieldLabel {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.input {
+  width: 100%;
+  padding: var(--control-padding-y) var(--control-padding-x);
+  min-height: var(--control-height);
+  border: 1px solid var(--border);
+  border-radius: var(--control-radius);
+  background: var(--bg-panel);
+  font-size: var(--page-subtitle-size);
+  color: var(--text-primary);
+  font-family: inherit;
+  box-sizing: border-box;
+  outline: none;
+
+}
+
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+.textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--control-radius);
+  background: var(--bg-panel);
+  font-size: 0.8125rem;
+  color: var(--text-primary);
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  box-sizing: border-box;
+  resize: vertical;
+  outline: none;
+
+  line-height: 1.5;
+}
+
+.textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+.error {
+  font-size: 0.8125rem;
+  color: var(--危険紅, #DC3545);
+  margin: 0;
+}
+
+.hint {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.mappingWrap {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* ── 操作按钮 ── */
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.cancelBtn {
+  padding: var(--control-padding-y) 14px;
+  min-height: var(--control-height);
+  border: 1px solid var(--border);
+  border-radius: var(--control-radius);
+  background: var(--bg-panel);
+  color: var(--text-secondary);
+  font-size: var(--page-subtitle-size);
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+
+  box-sizing: border-box;
+}
+
+.cancelBtn:hover {
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+.secondaryBtn {
+  padding: var(--control-padding-y) 14px;
+  min-height: var(--control-height);
+  border: 1px solid var(--accent);
+  border-radius: var(--control-radius);
+  background: var(--bg-panel);
+  color: var(--accent);
+  font-size: var(--page-subtitle-size);
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+
+  box-sizing: border-box;
+}
+
+.secondaryBtn:hover {
+  background: var(--accent-subtle);
+}
+
+.primaryBtn {
+  padding: var(--control-padding-y) var(--btn-primary-padding-x);
+  min-height: var(--control-height);
+  border: none;
+  border-radius: var(--control-radius);
+  background: var(--accent);
+  color: #fff;
+  font-size: var(--page-subtitle-size);
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+
+  box-sizing: border-box;
+}
+
+.primaryBtn:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.primaryBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}

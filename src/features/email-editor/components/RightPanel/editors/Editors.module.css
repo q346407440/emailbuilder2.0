@@ -1,0 +1,1168 @@
+/* ---- FormField 通用表单字段 ---- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-space-1);
+  min-width: 0;
+}
+
+.label {
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-default);
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+
+/* .field 内单标签行与其它小标题行同高，与下间距 3px 统一 */
+.field > .label:first-child {
+  min-height: var(--editor-control-height);
+  display: flex;
+  align-items: center;
+}
+
+/* 标签 + 右侧操作按钮（如「绑定变量」）行：与其它小标题行同高，与下间距 3px 统一 */
+.labelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--editor-space-4);
+  min-height: var(--editor-control-height);
+}
+
+/* 标题右侧按钮与标题文字同高（如圆角规范）：不撑高整行，按钮缩小至与 label 一行等高 */
+.labelRowCompact {
+  min-height: 0;
+}
+
+.labelRowCompact .bindVariableBtn {
+  height: auto;
+  padding: 2px var(--editor-space-2);
+  font-size: var(--editor-font-size-sm);
+  line-height: 1.2;
+  border-radius: var(--editor-radius-sm);
+}
+
+.labelRowCompact .variableBindingTag {
+  font-size: var(--editor-font-size-sm);
+}
+
+/* 全宽区块内「标签行 + 下方控件」：与 .field 一致，gap 3px */
+.fieldWithLabelRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-space-1);
+}
+
+/* 文本内容等全宽区块的标题行：与下方编辑器留出间距，层次更清晰 */
+.textContentHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--editor-space-4);
+  margin-bottom: var(--editor-space-4);
+}
+
+.labelHelpWrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  z-index: 1;
+}
+
+.labelHelpBtn {
+  width: var(--editor-icon-size-inline);
+  height: var(--editor-icon-size-inline);
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-panel);
+  color: var(--text-muted);
+  font-size: var(--editor-font-size-sm);
+  font-weight: 700;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.15s ease;
+}
+
+.labelHelpBtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+.labelHelpBtn:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+.labelHelpPopover {
+  position: fixed;
+  z-index: 1200;
+  width: 260px;
+  max-width: calc(100vw - var(--editor-space-4) * 2);
+  padding: var(--editor-space-4) var(--editor-space-5);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--editor-radius-xl);
+  background: var(--bg-panel);
+  color: var(--text-secondary);
+  font-size: var(--editor-font-size-md);
+  line-height: 1.5;
+  box-shadow: var(--editor-shadow-menu);
+  white-space: pre-line;
+}
+
+.input,
+.select,
+.textarea {
+  font-family: inherit;
+  font-size: var(--editor-font-size-md);
+  color: var(--text-primary);
+  background: var(--editor-bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-sm);
+  padding: var(--editor-input-padding);
+  outline: none;
+  box-shadow: none;
+  transition: border-color 0.1s ease;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  min-height: var(--editor-control-height);
+}
+
+.input:hover,
+.select:hover,
+.textarea:hover {
+  background: var(--editor-bg-input);
+  border-color: var(--border-strong);
+  box-shadow: none;
+}
+
+.input:disabled,
+.select:disabled,
+.textarea:disabled {
+  background: var(--bg-base);
+  color: var(--text-muted);
+  border-color: var(--border);
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.input:disabled::placeholder,
+.textarea:disabled::placeholder {
+  color: var(--text-muted);
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: var(--accent);
+  box-shadow: var(--editor-shadow-focus);
+  background: var(--editor-bg-input);
+}
+
+.textarea {
+  resize: both;
+  min-height: 80px;
+  line-height: 1.5;
+}
+
+.businessAutoTextarea {
+  font-family: inherit;
+  font-size: var(--editor-font-size-md);
+  color: var(--text-primary);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-xl);
+  padding: var(--editor-input-padding) var(--editor-space-5);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.15s ease;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--editor-control-height-md);
+  resize: none;
+  overflow: hidden;
+  line-height: 1.5;
+}
+
+.businessAutoTextarea:hover {
+  background: var(--bg-base);
+  border-color: var(--border-strong);
+}
+
+.businessAutoTextarea:focus {
+  border-color: var(--accent);
+  box-shadow: var(--editor-shadow-focus);
+}
+
+.select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%235C6B7A' viewBox='0 0 16 16'%3E%3Cpath d='M4.646 5.646a.5.5 0 0 1 .708 0L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
+}
+
+/* 公共 Select 组件：触发器浅底圆角、选中项企业蓝+勾选（全项目下拉统一） */
+.selectWrap {
+  position: relative;
+  display: inline-block;
+}
+
+.selectWrapFullWidth {
+  width: 100%;
+}
+
+.selectTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--editor-space-3);
+  width: 100%;
+  min-width: 0;
+  padding: var(--editor-input-padding);
+  min-height: var(--editor-control-height-md);
+  box-sizing: border-box;
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-sm);
+  background: var(--editor-bg-input);
+  color: var(--text-primary);
+  font-size: var(--editor-font-size-md);
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.1s, color 0.1s;
+}
+
+.selectWrap:not(.selectWrapFullWidth) .selectTrigger {
+  width: auto;
+}
+
+.selectTrigger:hover:not(:disabled) {
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+.selectTrigger:focus {
+  border-color: var(--accent);
+  box-shadow: var(--editor-shadow-focus);
+}
+
+.selectTrigger:disabled {
+  background: var(--bg-base);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.selectLabel {
+  flex: 1;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.selectChevron {
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition: transform 0.2s;
+}
+
+.selectWrapOpen .selectChevron {
+  transform: rotate(180deg);
+}
+
+/* 下拉面板：Figma 风格，小圆角，轻阴影 */
+.selectMenu {
+  margin-top: var(--editor-space-2);
+  background: var(--bg-panel);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--editor-radius-xl);
+  box-shadow: var(--editor-shadow-menu);
+  z-index: 1100;
+  padding: var(--editor-space-2);
+  max-height: 280px;
+  overflow-y: auto;
+  animation: selectMenuFadeIn 0.1s ease;
+}
+
+@keyframes selectMenuFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.selectItem {
+  display: flex;
+  align-items: center;
+  gap: var(--editor-space-3);
+  width: 100%;
+  padding: var(--editor-space-3) var(--editor-space-5);
+  border: none;
+  border-radius: var(--editor-radius-md);
+  background: transparent;
+  color: var(--text-primary);
+  font-size: var(--editor-font-size-md);
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.1s ease;
+}
+
+.selectItem:hover {
+  background: var(--bg-base);
+  color: var(--text-primary);
+}
+
+.selectItemSelected {
+  background: var(--accent);
+  color: #fff;
+}
+
+.selectItemSelected:hover {
+  background: var(--accent-hover);
+  color: #fff;
+}
+
+.selectCheck {
+  flex-shrink: 0;
+  margin-left: auto;
+  opacity: 0.95;
+}
+
+.urlInputGroup {
+  display: flex;
+  gap: var(--editor-space-4);
+  width: 100%;
+  min-width: 0;
+}
+
+.urlProtocolSelectWrap {
+  width: 118px;
+  flex: 0 0 118px;
+  min-width: 0;
+}
+
+.urlProtocolSelectWrap > div {
+  width: 100%;
+}
+
+.urlRestInput {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---- color input 特殊处理 ---- */
+.colorRow {
+  display: flex;
+  align-items: center;
+  gap: var(--editor-space-4);
+  min-width: 0;
+}
+
+.colorSwatch {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-xl);
+  padding: 0;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.colorSwatch::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.colorSwatch::-webkit-color-swatch {
+  border: none;
+  border-radius: var(--editor-radius-lg);
+}
+
+.colorText {
+  flex: 1;
+}
+
+/* ---- number input ---- */
+.numberInput {
+  width: 100%;
+}
+
+/* ---- px 单位输入：Figma 风格，白底，极小圆角 ---- */
+.pxInputWrap {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-sm);
+  background: var(--editor-bg-input);
+  box-shadow: none;
+  transition: border-color 0.1s ease;
+}
+
+.pxInputWrap:hover {
+  border-color: var(--border-strong);
+  box-shadow: none;
+}
+
+.pxInputWrap:focus-within {
+  border-color: var(--accent);
+  box-shadow: var(--editor-shadow-focus);
+  background: var(--editor-bg-input);
+}
+
+.pxInput {
+  font-family: inherit;
+  font-size: var(--editor-font-size-md);
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  padding: var(--editor-space-2) var(--editor-space-2) var(--editor-space-2) 7px;
+  outline: none;
+  min-width: 0;
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pxInput::placeholder {
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.pxSuffix {
+  font-size: var(--editor-font-size-sm);
+  color: var(--text-muted);
+  padding: var(--editor-space-2) var(--editor-input-padding) var(--editor-space-2) 0;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.pxInputWrap.pxInputWrapSmall .pxInput {
+  font-size: var(--editor-font-size-md);
+  padding: var(--editor-space-1) var(--editor-space-1) var(--editor-space-1) var(--editor-space-3);
+  height: var(--editor-control-height);
+  box-sizing: border-box;
+}
+
+.pxInputWrap.pxInputWrapSmall .pxSuffix {
+  font-size: var(--editor-font-size-sm);
+  padding: var(--editor-space-1) var(--editor-space-2) var(--editor-space-1) 0;
+}
+
+.pxInputWrap.pxInputWrapDisabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ---- background field（小标题与配置行间距与 .field 一致）---- */
+.backgroundField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-space-1);
+  grid-column: 1 / -1;
+}
+
+/* 小标题行与「描边」等带操作按钮的行同高，视觉上标题与下间距统一 */
+.backgroundField > .label {
+  min-height: var(--editor-control-height);
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.imageFieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-space-1);
+}
+
+.uploadButton {
+  font-family: inherit;
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-medium);
+  color: var(--text-secondary);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-xl);
+  padding: var(--editor-input-padding) var(--editor-space-5);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.15s ease, color 0.15s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--editor-space-3);
+  height: var(--editor-control-height-lg);
+}
+
+.uploadButton:hover {
+  background: var(--bg-base);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.uploadButton:disabled {
+  background: var(--bg-base);
+  color: var(--text-muted);
+  border-color: var(--border);
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.uploadButton:active {
+  background: var(--accent-subtle);
+}
+
+.uploadButton svg {
+  flex-shrink: 0;
+}
+
+/* ---- spacing field ---- */
+.spacingField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-space-1);
+  grid-column: 1 / -1;
+}
+
+/* 统一/分别模式内容区：与面板内控件高度一致 */
+.spacingFieldContent {
+  min-height: var(--editor-control-height);
+  width: 100%;
+}
+
+.spacingHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--editor-space-2);
+  min-height: var(--editor-control-height);
+}
+
+/* 右侧操作按钮与小标题文本同高，不撑高整行，保证标题行与下间距视觉统一 */
+.modeToggle {
+  font-family: inherit;
+  font-size: 0;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  padding: var(--editor-space-1) var(--editor-space-2);
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--editor-radius-md);
+  transition: color 0.2s ease, background-color 0.2s ease;
+  flex-shrink: 0;
+  height: var(--editor-control-height);
+  box-sizing: border-box;
+}
+
+.modeToggle svg {
+  width: var(--editor-icon-size-sm);
+  height: var(--editor-icon-size-sm);
+}
+
+.modeToggle:hover {
+  color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+.spacingGrid,
+.radiusGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--editor-space-3);
+}
+
+.spacingCell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-space-2);
+  min-width: 0;
+}
+
+.spacingCellLabel {
+  font-size: var(--editor-font-size-sm);
+  font-weight: var(--editor-font-weight-medium);
+  color: var(--text-muted);
+  text-align: left;
+}
+
+/* 统一模式下的单行输入，与分别模式的 .inputSmall 行高一致，占满父级宽度 */
+.inputRowSingle {
+  height: var(--editor-control-height-lg);
+  padding: var(--editor-input-padding) var(--editor-space-5);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.inputSmall {
+  font-family: inherit;
+  font-size: var(--editor-font-size-md);
+  color: var(--text-primary);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-xl);
+  padding: var(--editor-input-padding) var(--editor-space-4);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.15s ease;
+  text-align: center;
+  min-width: 0;
+  height: var(--editor-control-height-lg);
+  box-sizing: border-box;
+}
+
+.inputSmall::placeholder {
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.inputSmall:hover {
+  background: var(--bg-base);
+}
+
+.inputSmall:focus {
+  border-color: var(--accent);
+  box-shadow: var(--editor-shadow-focus);
+}
+
+.inputSmall:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ---- border field（两行布局，区块内项间距与 section 一致）---- */
+.borderField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-space-2);
+  grid-column: 1 / -1;
+}
+
+.labelSmall {
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-default);
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
+  margin-bottom: var(--editor-space-1);
+  display: block;
+}
+
+/* 边框区块内「颜色」「样式」小标题行与「描边」行同高，视觉上下间距统一 */
+.borderField .field .labelSmall {
+  min-height: var(--editor-control-height);
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+/* ---- Editor section ---- */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-space-3);
+}
+
+/* 大标题为最外层的配置区块容器：内边距 0，仅用 gap 控制节奏，视觉上无额外包裹感 */
+.configSectionBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-space-1);
+  padding: 0;
+}
+
+.configSectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--editor-space-3);
+}
+
+.configSectionContentStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-space-1);
+}
+
+.configSectionEmptyState {
+  margin: 0;
+  padding: var(--editor-space-6) 0;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--editor-font-size-lg);
+}
+
+/* 两列网格 */
+.sectionGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--editor-space-3);
+}
+
+.sectionGridTight {
+  gap: var(--editor-space-3) var(--editor-space-2);
+}
+
+/* 区块内行与行间距与「小标题-配置行」一致（3px），用于图片样式等 */
+.sectionVerticalTight {
+  row-gap: var(--editor-space-1);
+}
+
+.fieldFullWidth {
+  grid-column: 1 / -1;
+}
+
+.bindingMapItem {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--editor-space-5) var(--editor-space-6);
+  align-items: end;
+}
+
+.bindingHint {
+  margin: var(--editor-space-3) var(--editor-space-2) 0;
+  font-size: var(--editor-font-size-md);
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+/* 同行左右排列：模式選擇 + 數值輸入 */
+.fieldRow {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--editor-space-5);
+  align-items: end;
+}
+
+/* 文本对齐双列：水平对齐在左，垂直对齐在右 */
+.alignPairRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--editor-space-5) var(--editor-space-6);
+  align-items: start;
+}
+
+/* 覆盖 AlignmentField 默认的 grid-column: 1 / -1，确保两列并排 */
+.alignPairRow > * {
+  grid-column: auto;
+}
+
+.sectionTitle {
+  font-size: var(--editor-font-size-lg);
+  font-weight: var(--editor-font-weight-strong);
+  color: var(--text-primary);
+  text-transform: none;
+  letter-spacing: -0.01em;
+  margin: 0;
+  padding: 0 0 var(--editor-section-title-gap) 0;
+  border-bottom: none;
+  border-left: none;
+  grid-column: 1 / -1;
+  line-height: 1;
+}
+
+/* 同一 configSection 内多个 section 的分隔 */
+.sectionWithBlockSpacing {
+  margin-top: var(--editor-space-5);
+  padding-top: var(--editor-space-5);
+  border-top: 1px solid var(--border);
+}
+
+/* 同一 configSection 内「后续」区块：与上方内容间距与 groupInnerSection 一致（8px + 分隔线），视觉统一；分隔线与标题留足间距 */
+.sectionWithBlockSpacingTight {
+  margin-top: var(--editor-space-4);
+  padding-top: var(--editor-space-4);
+  border-top: 1px solid var(--border);
+}
+
+/* ---- 布局模式切换按钮：与其它标题行同高，不撑高整块 ---- */
+.layoutModeToggle {
+  font-family: inherit;
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-medium);
+  color: var(--text-secondary);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-md);
+  padding: var(--editor-space-1) var(--editor-space-3);
+  min-height: var(--editor-control-height);
+  height: var(--editor-control-height);
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--editor-space-3);
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.15s ease, box-shadow 0.2s ease;
+}
+
+.layoutModeToggle:hover {
+  background: var(--bg-base);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.layoutModeToggle svg {
+  width: var(--editor-icon-size-sm);
+  height: var(--editor-icon-size-sm);
+  flex-shrink: 0;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.layoutModeToggle:hover svg {
+  opacity: 1;
+}
+
+.layoutModeToggleText {
+  flex: 1;
+  text-align: left;
+}
+
+.layoutModeToggleBadge {
+  font-family: 'Outfit', sans-serif;
+  font-size: var(--editor-font-size-sm);
+  font-weight: var(--editor-font-weight-strong);
+  letter-spacing: 0.05em;
+  padding: 2px var(--editor-space-2);
+  border-radius: var(--editor-radius-sm);
+  background: var(--bg-base);
+  color: var(--text-muted);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* 激活态 */
+.layoutModeToggleActive {
+  background: var(--accent-subtle);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.layoutModeToggleActive svg {
+  opacity: 1;
+}
+
+.layoutModeToggleActive .layoutModeToggleBadge {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.layoutModeToggleActive:hover {
+  background: rgba(25, 118, 210, 0.12);
+}
+
+/* 布局模式提示文字：与其它解释文本（如铺满容器说明）字号、间距统一 */
+.layoutModeHint {
+  margin: var(--editor-space-1) 0 0;
+  font-size: var(--editor-font-size-sm);
+  color: var(--text-muted);
+  line-height: 1.4;
+  padding-left: 0;
+}
+
+.selectorSummary {
+  border: 1px solid var(--border-strong);
+  border-radius: var(--editor-radius-xl);
+  background: var(--bg-panel);
+  padding: var(--editor-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-space-4);
+}
+
+.selectorSummaryHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--editor-space-4);
+}
+
+.selectorSummaryTitle {
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-strong);
+  color: var(--accent);
+}
+
+.selectorSummaryCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 22px;
+  padding: 0 var(--editor-space-4);
+  border-radius: 999px;
+  border: 1px solid rgba(25, 118, 210, 0.35);
+  background: var(--accent-subtle);
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-strong);
+  color: var(--accent);
+}
+
+.selectorSummaryList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--editor-space-3);
+}
+
+.selectorSummaryTag {
+  max-width: 100%;
+  padding: var(--editor-space-2) var(--editor-space-4);
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-base);
+  color: var(--text-secondary);
+  font-size: var(--editor-font-size-md);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.selectorSummaryEmpty {
+  font-size: var(--editor-font-size-md);
+  color: var(--text-secondary);
+}
+
+.shopProductFeature {
+  margin-top: 4px;
+  padding: 0;
+}
+
+.shopProductActions {
+  display: flex;
+  gap: var(--editor-space-4);
+  margin-top: var(--editor-space-5);
+}
+
+.shopProductPrimaryBtn {
+  justify-content: center;
+  color: #FFFFFF;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.shopProductPrimaryBtn:hover {
+  color: #FFFFFF;
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.shopProductPrimaryBtn:disabled {
+  color: #FFFFFF;
+  border-color: var(--accent);
+  background: var(--accent);
+  opacity: 0.45;
+}
+
+.shopProductSecondaryBtn {
+  justify-content: center;
+  color: var(--accent);
+  background: var(--bg-panel);
+  border-color: var(--accent);
+}
+
+.shopProductSecondaryBtn:hover {
+  color: var(--accent-hover);
+  border-color: var(--accent-hover);
+  background: var(--accent-subtle);
+}
+
+/* ---- 多选勾选行（如多选项勾选） ---- */
+.checkboxRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--editor-space-4);
+  grid-column: 1 / -1;
+}
+
+.checkboxItem {
+  display: flex;
+  align-items: center;
+  gap: var(--editor-space-4);
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-medium);
+  color: var(--text-secondary);
+  cursor: pointer;
+  min-height: var(--editor-control-height-lg);
+}
+
+.checkboxItem input[type="checkbox"] {
+  width: var(--editor-icon-size-inline);
+  height: var(--editor-icon-size-inline);
+  margin: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ---- 文字样式切换行（粗体/斜体/下划线等） ---- */
+.textStyleField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-space-2);
+  grid-column: 1 / -1;
+}
+
+.textStyleRow {
+  display: flex;
+  gap: var(--editor-space-2);
+}
+
+.textStyleBtn {
+  width: var(--editor-control-height-lg);
+  height: var(--editor-control-height-lg);
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-xl);
+  background: var(--bg-panel);
+  color: var(--text-muted);
+  font-size: var(--editor-font-size-lg);
+  font-weight: var(--editor-font-weight-strong);
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.textStyleBtn:hover {
+  background: var(--bg-base);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.textStyleBtnActive {
+  background: var(--accent-subtle);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ---- 綁定商品彈窗：映射選項膠囊按鈕（平面風格） ---- */
+.mappingFieldBlock {
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-xl);
+  padding: var(--editor-space-6) var(--editor-space-6);
+}
+
+.mappingFieldLabel {
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-strong);
+  color: var(--text-primary);
+  margin-bottom: var(--editor-space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--editor-space-3);
+}
+
+.mappingOptionGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--editor-space-4);
+}
+
+.mappingOptionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--editor-space-3);
+  padding: var(--editor-space-3) var(--editor-space-6);
+  border-radius: var(--editor-radius-xl);
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text-secondary);
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-default);
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.mappingOptionBtn:hover {
+  background: var(--bg-base);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+.mappingOptionBtnSelected {
+  background: var(--bg-panel);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.mappingOptionBtnSelected:hover {
+  background: var(--accent-subtle);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+
+/* 变量绑定行：已绑定时的展示 */
+.variableBindingTag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--editor-space-3);
+  padding: var(--editor-space-2) var(--editor-space-4);
+  border-radius: var(--editor-radius-xl);
+  background: var(--accent-subtle);
+  color: var(--accent);
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-medium);
+}
+
+.variableBindingUnbindBtn {
+  padding: var(--editor-space-2) var(--editor-space-3);
+  border: none;
+  border-radius: var(--editor-radius-md);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: var(--editor-font-size-md);
+  font-family: inherit;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.variableBindingUnbindBtn:hover {
+  background: var(--border);
+  color: var(--text-primary);
+}
+
+.bindVariableBtn {
+  box-sizing: border-box;
+  height: var(--editor-control-height);
+  padding: 0 var(--editor-space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--editor-radius-md);
+  background: var(--bg-panel);
+  color: var(--text-secondary);
+  font-size: var(--editor-font-size-md);
+  font-family: inherit;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.bindVariableBtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}

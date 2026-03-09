@@ -1,0 +1,205 @@
+/* ─── Modal 内容区 ─────────────────────────────────────────────── */
+.modalBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modalDesc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ─── 编辑器整体 ────────────────────────────────────────────────── */
+.editor {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ─── 工具栏 ─────────────────────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.toolbarCount {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.jsonPasteLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.jsonPasteInput {
+  width: 220px;
+  height: 26px;
+  padding: 0 7px;
+  font-size: 12px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  resize: none;
+  overflow: hidden;
+  line-height: 26px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  transition: border-color 0.15s;
+}
+
+.jsonPasteInput:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.jsonError {
+  font-size: 12px;
+  color: #DC3545;
+  margin: 0;
+}
+
+/* ─── 列标题行 ─────────────────────────────────────────────────── */
+.fieldHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 4px;
+}
+
+.fieldHeaderCell {
+  flex: 1;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fieldHeaderAction {
+  width: 22px;
+  flex-shrink: 0;
+}
+
+/* ─── 数据列表 ─────────────────────────────────────────────────── */
+.emptyHint {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 16px 0;
+  margin: 0;
+}
+
+.itemList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.itemRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.itemIndex {
+  width: 20px;
+  flex-shrink: 0;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.itemFields {
+  display: flex;
+  flex: 1;
+  gap: 6px;
+}
+
+.itemInput {
+  flex: 1;
+  height: 32px;
+  padding: 0 8px;
+  font-size: 13px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  min-width: 0;
+  transition: border-color 0.15s;
+}
+
+.itemInput:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: #fff;
+}
+
+.removeBtn {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1;
+  padding: 0;
+  transition: background 0.12s, color 0.12s;
+}
+
+.removeBtn:hover {
+  background: rgba(220, 53, 69, 0.08);
+  color: #DC3545;
+}
+
+/* ─── 添加按钮 ─────────────────────────────────────────────────── */
+.addBtn {
+  align-self: flex-start;
+  padding: 6px 14px;
+  font-size: 13px;
+  border: 1.5px dashed var(--border-strong);
+  border-radius: 6px;
+  background: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.addBtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+/* ─── schema 为空时的提示 ─────────────────────────────────────── */
+.schemaEmpty {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  padding: 16px;
+  background: var(--bg-base);
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}

@@ -1,0 +1,38 @@
+.page { padding: var(--page-padding); font-family: 'Source Sans 3', sans-serif; box-sizing: border-box; }
+.header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--page-header-margin); }
+.title { font-family: 'Outfit', sans-serif; font-size: var(--page-title-size); font-weight: 700; color: var(--text-primary); margin: 0 0 4px; }
+.subtitle { font-size: var(--page-subtitle-size); color: var(--text-secondary); margin: 0; }
+.addBtn { padding: var(--control-padding-y) var(--btn-primary-padding-x); min-height: var(--control-height); box-sizing: border-box; border-radius: var(--control-radius); border: none; background: var(--accent); color: #fff; font-size: var(--page-subtitle-size); font-weight: 600; cursor: pointer; font-family: inherit; white-space: nowrap; flex-shrink: 0; }
+.addBtn:hover { background: var(--accent-hover); }
+.loading { color: var(--text-muted); padding: 32px; text-align: center; }
+.groupSection { margin-bottom: var(--page-header-margin); }
+.groupTitle { font-size: var(--page-caption-size); font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 8px; }
+.tableWrap { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.table { width: 100%; border-collapse: collapse; font-size: var(--page-subtitle-size); table-layout: fixed; }
+.table th { background: var(--bg-base); padding: var(--table-cell-padding); text-align: left; font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.table th:nth-child(1) { width: 20%; }
+.table th:nth-child(2) { width: 22%; }
+.table th:nth-child(3) { width: 14%; }
+.table th:nth-child(4) { width: 28%; }
+.table th:nth-child(5) { width: 16%; }
+.table td { padding: var(--table-cell-padding); border-bottom: 1px solid var(--border); vertical-align: middle; color: var(--text-primary); }
+.table tr:last-child td { border-bottom: none; }
+.keyCode { font-family: monospace; font-size: 0.8125rem; color: var(--accent); }
+.typeBadge { font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 4px; background: var(--bg-base); border: 1px solid var(--border); }
+.muted { color: var(--text-muted); font-size: var(--page-caption-size); font-family: monospace; }
+.deleteBtn { background: none; border: 1px solid rgba(220,53,69,.3); color: #DC3545; border-radius: 5px; padding: 3px 10px; cursor: pointer; font-size: 0.75rem; font-family: inherit; }
+.deleteBtn:hover { background: rgba(220,53,69,.06); }
+/* Modal */
+.modalBackdrop { position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 500; display: flex; align-items: center; justify-content: center; }
+.modal { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 14px; padding: 24px; width: 420px; max-width: 90vw; box-shadow: 0 8px 32px rgba(0,0,0,.12); }
+.modalTitle { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text-primary); margin: 0 0 18px; }
+.modalForm { display: flex; flex-direction: column; gap: 14px; }
+.field { display: flex; flex-direction: column; gap: 5px; font-size: var(--page-caption-size); font-weight: 600; color: var(--text-secondary); }
+.input { padding: var(--control-padding-y) var(--control-padding-x); min-height: var(--control-height); box-sizing: border-box; border: 1px solid var(--border); border-radius: var(--control-radius); background: var(--bg-base); color: var(--text-primary); font-size: var(--page-subtitle-size); font-family: inherit; outline: none;  }
+.input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-subtle); }
+.input::placeholder { color: var(--text-muted); }
+.modalActions { display: flex; gap: var(--page-toolbar-gap); justify-content: flex-end; }
+.cancelBtn { padding: var(--control-padding-y) var(--btn-primary-padding-x); min-height: var(--control-height); box-sizing: border-box; border-radius: var(--control-radius); border: 1px solid var(--border); background: transparent; color: var(--text-secondary); font-size: var(--page-subtitle-size); cursor: pointer; font-family: inherit; }
+.saveBtn { padding: var(--control-padding-y) 18px; min-height: var(--control-height); box-sizing: border-box; border-radius: var(--control-radius); border: none; background: var(--accent); color: #fff; font-size: var(--page-subtitle-size); font-weight: 600; cursor: pointer; font-family: inherit; }
+.saveBtn:hover:not(:disabled) { background: var(--accent-hover); }
+.saveBtn:disabled { opacity: 0.6; cursor: not-allowed; }

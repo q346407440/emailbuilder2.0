@@ -1,0 +1,510 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+}
+
+.panelTitleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--editor-space-4);
+  padding: var(--editor-panel-title-padding);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  min-width: 0;
+  background: transparent;
+}
+
+/* 画布模式标题（与左侧面板标题视觉统一） */
+.panelTitle {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-medium);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.panelTitleComponent {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: var(--editor-font-size-lg);
+  font-weight: var(--editor-font-weight-medium);
+  color: var(--text-primary);
+  letter-spacing: 0;
+  cursor: text;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: var(--editor-radius-md);
+  padding: 1px var(--editor-space-1);
+  margin-left: -3px;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.panelTitleComponent:hover {
+  background: var(--bg-base);
+}
+
+/* 未自定义名称时用次级色 */
+.panelTitleComponent[data-named="false"] {
+  color: var(--text-secondary);
+}
+
+/* 内联编辑输入框 */
+.titleEditInput {
+  flex: 1;
+  min-width: 0;
+  font-family: 'Outfit', sans-serif;
+  font-size: var(--editor-font-size-lg);
+  font-weight: var(--editor-font-weight-strong);
+  color: var(--text-primary);
+  letter-spacing: 0;
+  background: var(--bg-base);
+  border: 1.5px solid var(--accent);
+  border-radius: var(--editor-radius-lg);
+  outline: none;
+  padding: 1px var(--editor-space-3);
+  margin: 0;
+  line-height: 1.4;
+  box-shadow: var(--editor-shadow-focus);
+}
+
+.titleEditInput::placeholder {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* 画布图标 */
+.canvasIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--editor-control-height-md);
+  height: var(--editor-control-height-md);
+  border-radius: var(--editor-radius-xl);
+  background: var(--bg-base);
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+/* Figma 风格：内边距 8px，最大化内容宽度 */
+.panelInner {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0 var(--editor-panel-inner-padding);
+  background: transparent;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.panelInner::-webkit-scrollbar {
+  width: var(--editor-space-2);
+}
+.panelInner::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: var(--editor-radius-md);
+  transition: background 0.2s;
+}
+.panelInner:hover::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+}
+
+
+/* 组件图标（在 panelTitleRow 中使用） */
+.componentIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--editor-control-height-md);
+  height: var(--editor-control-height-md);
+  border-radius: var(--editor-radius-xl);
+  background: var(--accent-subtle);
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+/* ===== Export JSON Button（与画布图标同高，左右面板视觉统一）===== */
+.exportJsonBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--editor-control-height-md);
+  height: var(--editor-control-height-md);
+  padding: 0;
+  border-radius: var(--editor-radius-xl);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color 0.12s ease, border-color 0.12s ease, background-color 0.12s ease;
+}
+
+.exportJsonBtn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+
+/* ===== Config Sections =====
+   Figma 风格：区块之间靠充足留白分隔，不用细线；
+   每个区块顶部有粗体标题作为视觉锚点。
+*/
+
+.configSection {
+  padding: var(--editor-config-section-padding);
+  border-bottom: none;
+}
+
+/* 相邻大区块之间的分隔线 */
+.configSection + .configSection {
+  border-top: 1px solid var(--border);
+}
+
+/* 首个区块与 Tab 栏间距：与面板内其他间距节奏统一，不预留过多顶部空白 */
+.tabContent > .configSection:first-child {
+  padding-top: var(--editor-space-4);
+}
+
+.configSection:last-child {
+  border-bottom: none;
+}
+
+.groupInnerSection {
+  padding: var(--editor-space-4) 0;
+  border-bottom: none;
+}
+
+/* ===== Tab Bar ===== */
+
+.tabBar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg-panel);
+  margin: 0 calc(var(--editor-panel-inner-padding) * -1);
+  padding: 0 var(--editor-panel-inner-padding);
+  border-bottom: 1px solid var(--border);
+  box-shadow: none;
+  transition: box-shadow 0.2s ease;
+  display: flex;
+  gap: 0;
+}
+
+.tabBar[data-scrolled="true"] {
+  box-shadow: var(--editor-shadow-menu);
+}
+
+.tabBtn {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--editor-space-2);
+  padding: var(--editor-space-3) var(--editor-space-2) 5px;
+  border: none;
+  border-bottom: 1.5px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: 'Outfit', sans-serif;
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-medium);
+  cursor: pointer;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  transition:
+    color 0.12s ease,
+    border-color 0.12s ease;
+  line-height: 1;
+  margin-bottom: -1px;
+}
+
+.tabBtn:hover {
+  color: var(--text-primary);
+  background: transparent;
+  border-bottom-color: var(--border-strong);
+}
+
+.tabBtn:focus-visible {
+  outline: 1.5px solid var(--accent);
+  outline-offset: -2px;
+  border-radius: var(--editor-radius-md);
+}
+
+.tabBtn[data-active="true"] {
+  color: var(--accent);
+  background: transparent;
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.tabDot {
+  display: none;
+}
+
+.tabBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--editor-icon-size-inline);
+  height: var(--editor-icon-size-inline);
+  padding: 0 var(--editor-space-2);
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: var(--editor-font-size-sm);
+  font-weight: var(--editor-font-weight-strong);
+  line-height: 1;
+}
+
+.tabContent {
+  padding-top: var(--editor-space-3);
+  animation: tabFadeIn 0.13s ease;
+}
+
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ===== 显示条件 / 条件分支 折叠区块容器：浅底与内边距，与上方内容/样式/布局区分 ===== */
+.collapsibleBlockWrap {
+  margin: var(--editor-space-6) calc(var(--editor-panel-inner-padding) * -1) 0;
+  padding: var(--editor-space-2) var(--editor-panel-inner-padding) 0;
+  background: var(--bg-base);
+  border-top: 1px solid var(--border);
+}
+
+/* ===== 预览数据空状态 ===== */
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--editor-space-4);
+  padding: var(--editor-space-9) var(--editor-space-7);
+  text-align: center;
+}
+
+.emptyStateIcon {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.emptyStateTitle {
+  margin: 0;
+  font-family: 'Outfit', sans-serif;
+  font-size: var(--editor-font-size-lg);
+  font-weight: var(--editor-font-weight-strong);
+  color: var(--text-secondary);
+}
+
+.emptyStateHint {
+  margin: 0;
+  font-size: var(--editor-font-size-md);
+  color: var(--text-muted);
+  line-height: 1.5;
+  max-width: 200px;
+}
+
+/* ===== Accordion Sections (保留用于画布配置) ===== */
+.accordionSection {
+  /* 区块之间靠 configSection padding 分隔，无底线 */
+  border-bottom: none;
+}
+
+.accordionHeader {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--editor-space-4);
+  /* 区块标题下方间距，与内容拉开 */
+  padding: 0 0 var(--editor-section-title-gap);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  color: var(--text-primary);
+  transition: color 100ms ease;
+}
+
+.accordionHeader:hover {
+  color: var(--text-primary);
+  background: transparent;
+}
+
+.accordionHeader:focus-visible {
+  outline: 1.5px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--editor-radius-md);
+}
+
+/* Figma 风格：区块标题，约 13px，粗体 */
+.accordionTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: var(--editor-font-size-lg);
+  font-weight: var(--editor-font-weight-strong);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.accordionHeaderRight {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--editor-space-4);
+}
+
+.accordionBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 20px;
+  padding: 0 var(--editor-space-4);
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-base);
+  color: var(--text-muted);
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-strong);
+  line-height: 1;
+}
+
+.accordionBadge[data-variant="active"] {
+  border-color: var(--accent-border-subtle);
+  background: var(--accent-subtle);
+  color: var(--accent);
+}
+
+.accordionChevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: transform 0.2s var(--ease-in-out), color var(--duration-fast) var(--ease-out);
+}
+
+.accordionChevron[data-expanded="true"] {
+  transform: rotate(180deg);
+  color: var(--accent);
+}
+
+.accordionContent {
+  padding-bottom: 6px;
+}
+
+/* ===== Template Config ===== */
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--editor-space-4);
+  margin-bottom: var(--editor-space-7);
+}
+
+.sectionIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--editor-control-height);
+  height: var(--editor-control-height);
+  color: var(--text-muted);
+}
+
+.sectionTitle {
+  margin: 0;
+  font-family: 'Outfit', sans-serif;
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-strong);
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-space-5);
+}
+
+/* ===== 复合组件模式标签 ===== */
+.compositeTag {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--editor-space-2) var(--editor-space-4);
+  font-family: 'Outfit', sans-serif;
+  font-size: var(--editor-font-size-sm);
+  font-weight: var(--editor-font-weight-strong);
+  letter-spacing: 0.04em;
+  border-radius: var(--editor-radius-md);
+  flex-shrink: 0;
+}
+
+.compositeTag[data-mode="business"] {
+  background: var(--accent);
+  color: #FFFFFF;
+}
+
+.compositeTag[data-mode="native"] {
+  background: var(--bg-base);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+/* ===== 切换到原生模式 ===== */
+.switchNativeBar {
+  display: flex;
+  align-items: center;
+  gap: var(--editor-space-5);
+  padding: var(--editor-space-5) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.switchNativeBtn {
+  font-family: inherit;
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-medium);
+  color: var(--text-secondary);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-xl);
+  padding: var(--editor-space-2) var(--editor-space-6);
+  cursor: pointer;
+  transition: color 0.12s ease, border-color 0.12s ease, background-color 0.12s ease;
+  white-space: nowrap;
+}
+
+.switchNativeBtn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+.switchNativeHint {
+  font-size: var(--editor-font-size-md);
+  color: var(--text-muted);
+}

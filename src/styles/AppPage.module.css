@@ -1,0 +1,384 @@
+/**
+ * 非邮件编辑器应用页 — 统一布局与表面层级
+ * 遵循 enterprise-app-design.mdc：紧凑、克制、信息优先
+ * 供 dashboard / 模板库 / 广播 / 自动化 / 受众 / 集成 / 数据 等页面复用
+ */
+
+/* ---- 页面根 ---- */
+.page {
+  padding: var(--page-padding);
+  font-family: 'Source Sans 3', sans-serif;
+  box-sizing: border-box;
+  min-height: 100%;
+}
+
+/* ---- 页面头部 ---- */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: var(--page-header-margin);
+}
+
+.title {
+  font-family: 'Outfit', sans-serif;
+  font-size: var(--page-title-size);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 3px;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.subtitle {
+  font-size: var(--page-subtitle-size);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ---- 主操作 / 次级按钮 ---- */
+.primaryBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: var(--control-padding-y) var(--btn-primary-padding-x);
+  min-height: var(--control-height);
+  box-sizing: border-box;
+  border-radius: var(--control-radius);
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: var(--page-subtitle-size);
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color var(--duration-normal) var(--ease-out);
+}
+
+.primaryBtn:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.primaryBtn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--surface-raised), 0 0 0 4px var(--accent);
+}
+
+.primaryBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.secondaryBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: var(--control-padding-y) 12px;
+  min-height: var(--control-height);
+  box-sizing: border-box;
+  border-radius: var(--control-radius);
+  border: 1px solid var(--border-default);
+  background: var(--surface-raised);
+  color: var(--text-secondary);
+  font-size: var(--page-subtitle-size);
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--duration-normal) var(--ease-out), border-color var(--duration-normal) var(--ease-out), color var(--duration-normal) var(--ease-out);
+}
+
+.secondaryBtn:hover {
+  background: var(--accent-subtle);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.secondaryBtn:focus-visible {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+/* ---- 工具栏（Tab / 筛选 / 搜索）---- */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--page-toolbar-gap);
+  margin-bottom: var(--page-section-gap);
+  padding-bottom: 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.tabs {
+  display: flex;
+  gap: var(--tab-gap);
+}
+
+.tab {
+  padding: var(--tab-padding-y) var(--tab-padding-x);
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: var(--page-subtitle-size);
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: var(--tab-indicator-height) solid transparent;
+  margin-bottom: -1px;
+  border-radius: var(--tab-indicator-radius) var(--tab-indicator-radius) 0 0;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: color var(--duration-normal) var(--ease-out), border-color var(--duration-normal) var(--ease-out);
+}
+
+.tab:hover {
+  color: var(--text-primary);
+}
+
+.tab:focus-visible {
+  outline: none;
+  color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+.tabActive {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+
+/* ---- 区块 / 卡片（表面抬升）---- */
+.section {
+  margin-bottom: var(--page-section-gap);
+}
+
+.sectionCard {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: var(--page-card-padding);
+  box-shadow: var(--shadow-card);
+}
+
+.sectionTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 10px;
+}
+
+.sectionDesc {
+  font-size: var(--page-caption-size);
+  color: var(--text-muted);
+  margin: 0 0 10px;
+}
+
+/* ---- 表格容器 ---- */
+.tableWrap {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  min-height: 120px;
+  box-shadow: var(--shadow-card);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--page-subtitle-size);
+  table-layout: fixed;
+}
+
+.table th {
+  background: var(--surface-base);
+  padding: var(--table-cell-padding);
+  text-align: left;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--border-subtle);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: var(--table-cell-padding);
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.table tr {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.table tbody tr {
+  transition: background-color var(--duration-normal) var(--ease-out);
+}
+
+.table tbody tr:hover {
+  background: var(--accent-subtle);
+}
+
+.table tbody tr:last-child {
+  border-bottom: none;
+}
+
+/* ---- 空状态 ---- */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 36px 24px;
+  color: var(--text-secondary);
+  font-size: var(--page-subtitle-size);
+}
+
+.emptyState p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.emptyIcon {
+  flex-shrink: 0;
+  stroke: var(--border-strong);
+}
+
+/* ---- 统计行 ---- */
+.statsRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--page-section-gap);
+  padding: var(--control-padding-y) 0;
+  margin-bottom: var(--page-section-gap);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.statItem {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.statValue {
+  font-family: 'Outfit', sans-serif;
+  font-size: var(--page-subtitle-size);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.statLabel {
+  font-size: var(--page-caption-size);
+  color: var(--text-muted);
+}
+
+.statLink {
+  margin-left: auto;
+  font-size: var(--page-caption-size);
+  color: var(--accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.statLink:hover {
+  text-decoration: underline;
+}
+
+.statLink:focus-visible {
+  outline: none;
+  text-decoration: underline;
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+  border-radius: 2px;
+}
+
+.linkBtn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+  border-radius: 2px;
+}
+
+/* ---- 搜索框（inset 表面）---- */
+.search {
+  width: 220px;
+  min-width: 140px;
+  padding: var(--control-padding-y) var(--control-padding-x);
+  min-height: var(--control-height);
+  box-sizing: border-box;
+  border: 1px solid var(--border-default);
+  border-radius: var(--control-radius);
+  background: var(--surface-inset);
+  color: var(--text-primary);
+  font-size: var(--page-subtitle-size);
+  font-family: inherit;
+  outline: none;
+}
+
+.search::placeholder {
+  color: var(--text-muted);
+}
+
+.search:focus {
+  border-color: var(--border-focus);
+  background: var(--bg-panel);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+.search:focus-visible {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+/* ---- 卡片网格 ---- */
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.linkBtn {
+  font-size: var(--page-caption-size);
+  color: var(--accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.linkBtn:hover {
+  text-decoration: underline;
+}
+
+.totalHint {
+  font-size: var(--page-caption-size);
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ---- 无障碍：尊重用户减少动效偏好（ui-ux-pro-max）---- */
+@media (prefers-reduced-motion: reduce) {
+  .primaryBtn,
+  .secondaryBtn,
+  .tab,
+  .table tbody tr,
+  .linkBtn,
+  .statLink {
+    transition: none;
+  }
+}

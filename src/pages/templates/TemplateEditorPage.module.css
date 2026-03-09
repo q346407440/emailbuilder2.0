@@ -1,0 +1,320 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.app {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.tabBar {
+  width: 44px;
+  min-width: 44px;
+  /* Figma 风格：深色侧栏，与浅色内容面板形成强对比层次 */
+  background: #1C2333;
+  border-right: none;
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: width 0.22s var(--ease-in-out), min-width 0.22s var(--ease-in-out);
+}
+
+.tabBarInner {
+  width: 44px;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 8px;
+  gap: 2px;
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 0.22s var(--ease-in-out), opacity 0.18s ease;
+  will-change: transform;
+}
+
+.tabBarCollapsed {
+  width: 0 !important;
+  min-width: 0 !important;
+  border-right-color: transparent;
+  pointer-events: none;
+}
+
+.tabBarCollapsed .tabBarInner {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.leftContent {
+  width: 256px;
+  min-width: 256px;
+  /* Figma 风格：纯白面板，无渐变，用细边框分隔 */
+  background: #FFFFFF;
+  border-right: 1px solid var(--border);
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: width 0.22s var(--ease-in-out), min-width 0.22s var(--ease-in-out), border-color 0.22s ease;
+}
+
+.leftContentInner {
+  width: 256px;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 0.22s var(--ease-in-out), opacity 0.18s ease;
+  will-change: transform;
+}
+
+.leftContentInner::-webkit-scrollbar {
+  width: 4px;
+}
+.leftContentInner::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.leftContentInner:hover::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+}
+
+.leftContentCollapsed {
+  width: 0;
+  min-width: 0;
+  border-right-color: transparent;
+  pointer-events: none;
+}
+
+.leftContentCollapsed .leftContentInner {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+/* 画布工作区 — 背景色跟随「页面背景色（外层）」配置，默认深灰底色 */
+.canvasArea {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--canvas-area-bg, #2C2C2C);
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+  overflow: hidden;
+}
+
+/* 画布内容滚动区 */
+.canvasScroll {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 36px 40px;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+.canvasScroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.canvasScroll::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 6px;
+}
+.canvasScroll::-webkit-scrollbar-thumb:hover {
+  background: #b0bbc8;
+}
+
+.configPanel {
+  width: 280px;
+  min-width: 280px;
+  /* Figma 风格：右侧属性面板纯白，无渐变，细边框分隔 */
+  background: #FFFFFF;
+  border-left: 1px solid var(--border);
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: width 0.22s var(--ease-in-out), min-width 0.22s var(--ease-in-out), border-color 0.22s ease;
+}
+
+.configPanelInner {
+  width: 280px;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 0.22s var(--ease-in-out), opacity 0.18s ease;
+  will-change: transform;
+}
+
+.configPanelInner::-webkit-scrollbar {
+  width: 4px;
+}
+.configPanelInner::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+}
+.configPanelInner:hover::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+}
+
+.configPanelCollapsed {
+  width: 0;
+  min-width: 0;
+  border-left-color: transparent;
+  pointer-events: none;
+}
+
+.configPanelCollapsed .configPanelInner {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* ===== 收起/展开触发器：各自贴近左右容器边缘 ===== */
+
+.leftEdgeTrigger,
+.rightEdgeTrigger {
+  position: absolute;
+  top: 12px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition:
+    color 100ms ease,
+    border-color 100ms ease,
+    background-color 100ms ease;
+}
+
+.leftEdgeTrigger {
+  left: 8px;
+}
+
+.rightEdgeTrigger {
+  right: 8px;
+}
+
+.leftEdgeTrigger:hover,
+.rightEdgeTrigger:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--bg-panel);
+}
+
+.leftEdgeTrigger svg,
+.rightEdgeTrigger svg {
+  display: block;
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+/* ===== 离开确认弹窗 footer ===== */
+
+.leaveModalBody {
+  padding: 4px 0 8px;
+}
+
+.leaveModalDesc {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.leaveModalFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+}
+
+.leaveModalFooterRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.leaveBtnSecondary {
+  padding: 7px 16px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--text-secondary);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.12s ease, border-color 0.12s ease;
+  white-space: nowrap;
+}
+
+.leaveBtnSecondary:hover {
+  background: var(--bg-base);
+  border-color: var(--border-strong);
+}
+
+.leaveBtnDanger {
+  padding: 7px 16px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: #DC3545;
+  background: var(--bg-panel);
+  border: 1px solid #DC3545;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease;
+  white-space: nowrap;
+}
+
+.leaveBtnDanger:hover {
+  background: #fff0f0;
+}
+
+.leaveBtnPrimary {
+  padding: 7px 16px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: #FFFFFF;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.12s ease, transform 0.1s ease;
+  white-space: nowrap;
+}
+
+.leaveBtnPrimary:hover {
+  background: var(--accent-hover);
+}
+
+.leaveBtnPrimary:active {
+  transform: scale(0.97);
+}

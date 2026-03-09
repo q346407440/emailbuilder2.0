@@ -1,0 +1,55 @@
+.page { padding: var(--page-padding); font-family: 'Source Sans 3', sans-serif; box-sizing: border-box; }
+.loading { color: var(--text-muted); padding: 40px; text-align: center; }
+.breadcrumb { display: flex; align-items: center; gap: 6px; font-size: var(--page-caption-size); color: var(--text-muted); margin-bottom: var(--page-header-margin); }
+.breadLink { background: none; border: none; color: var(--accent); font-size: inherit; cursor: pointer; padding: 0; font-family: inherit; }
+.breadLink:hover { text-decoration: underline; }
+.breadSep { color: var(--text-muted); }
+
+.layout { display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--page-section-gap); align-items: start; }
+
+.infoCol { display: flex; flex-direction: column; gap: var(--page-toolbar-gap); }
+.card { background: var(--surface-raised); border: 1px solid var(--border); border-radius: 6px; padding: var(--page-card-padding); }
+.cardHead { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--page-toolbar-gap); margin-bottom: var(--page-section-gap); }
+.title { font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin: 0; line-height: 1.3; }
+.cardTitle { font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin: 0 0 16px; }
+
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:3px;font-size:.6875rem;font-weight:600;background:var(--surface-base);color:var(--text-secondary);border:1px solid var(--border);flex-shrink:0;white-space:nowrap}
+.badge_draft{color:var(--text-muted)}
+.badge_scheduled{color:var(--accent);background:var(--accent-subtle);border-color:rgba(25,118,210,.2)}
+.badge_sending{color:#d97706;background:rgba(217,119,6,.08);border-color:rgba(217,119,6,.2)}
+.badge_completed{color:#16a34a;background:rgba(22,163,74,.08);border-color:rgba(22,163,74,.2)}
+.badge_paused{color:#ca8a04;background:rgba(202,138,4,.08);border-color:rgba(202,138,4,.2)}
+.badge_failed{color:#DC3545;background:rgba(220,53,69,.08);border-color:rgba(220,53,69,.2)}
+.dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pulse 1.2s infinite;display:inline-block}
+
+.meta{display:flex;flex-direction:column;gap:8px}
+.metaRow { display: flex; gap: var(--page-toolbar-gap); font-size: var(--page-subtitle-size); align-items: flex-start; }
+.metaLabel { color: var(--text-muted); min-width: 80px; flex-shrink: 0; font-size: var(--page-caption-size); }
+.muted{color:var(--text-muted)}
+
+.actionRow{display:flex;gap:10px}
+.pauseBtn{flex:1;padding:var(--control-padding-y) var(--btn-primary-padding-x);min-height:var(--control-height);box-sizing:border-box;border-radius:var(--control-radius);border:1px solid rgba(217,119,6,.35);background:rgba(217,119,6,.06);color:#d97706;font-size:var(--page-subtitle-size);font-weight:600;cursor:pointer;font-family:inherit}
+.pauseBtn:hover:not(:disabled){background:rgba(217,119,6,.1)}
+.pauseBtn:disabled{opacity:.6;cursor:not-allowed}
+.analyticsBtn{flex:1;padding:var(--control-padding-y) var(--btn-primary-padding-x);min-height:var(--control-height);box-sizing:border-box;border-radius:var(--control-radius);border:1px solid var(--border-default);background:var(--surface-raised);color:var(--text-secondary);font-size:var(--page-subtitle-size);cursor:pointer;font-family:inherit}
+.analyticsBtn:hover{background:var(--surface-base)}
+
+.progressCol{display:flex;flex-direction:column;gap:14px}
+
+.progressNumbers{display:flex;justify-content:space-around;margin-bottom:16px}
+.progressStat{display:flex;flex-direction:column;align-items:center;gap:3px}
+.progressNum{font-family:'Outfit',sans-serif;font-size:1.75rem;font-weight:700;color:var(--text-primary);line-height:1}
+.progressStat span:last-child{font-size:.75rem;color:var(--text-muted)}
+
+.progressBarWrap{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.progressBar{flex:1;height:8px;background:var(--border-subtle);border-radius:4px;overflow:hidden;display:flex}
+.progressFillGreen{height:100%;background:#16a34a}
+.progressFillRed{height:100%;background:#DC3545}
+.progressPct{font-size:.8125rem;font-weight:600;color:var(--text-secondary);flex-shrink:0;min-width:36px;text-align:right}
+
+.pollingNote{display:flex;align-items:center;gap:6px;font-size:.8125rem;color:var(--text-muted);margin:0}
+.completedNote{font-size:.8125rem;color:#16a34a;margin:0}
+.templateThumb{width:100%;border-radius:6px;object-fit:cover;max-height:180px}
+
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@media(max-width:768px){.layout{grid-template-columns:1fr}}

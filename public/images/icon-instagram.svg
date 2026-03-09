@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+  <circle cx="16" cy="16" r="16" fill="#1A1A1A"/>
+  <!-- Outer rounded rectangle -->
+  <rect x="8" y="8" width="16" height="16" rx="4.5" stroke="#FFFFFF" stroke-width="1.8" fill="none"/>
+  <!-- Center circle (camera lens) -->
+  <circle cx="16" cy="16" r="3.8" stroke="#FFFFFF" stroke-width="1.8" fill="none"/>
+  <!-- Flash dot (top-right) -->
+  <circle cx="21.2" cy="10.8" r="1.1" fill="#FFFFFF"/>
+</svg>

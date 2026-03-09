@@ -1,0 +1,248 @@
+/* ── 根容器 ── */
+.root {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.root::-webkit-scrollbar { width: 4px; }
+.root::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* ── 空状态 ── */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--editor-space-2);
+  margin: var(--editor-space-4) var(--editor-space-5);
+  padding: 24px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-lg);
+  background: var(--bg-base);
+  text-align: center;
+}
+.emptyText {
+  margin: 0;
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-medium);
+  color: var(--text-secondary);
+}
+.emptyHint {
+  margin: 0;
+  font-size: var(--editor-font-size-sm);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ── 分区 ── */
+.section {
+  border-bottom: 1px solid var(--border);
+}
+.section:last-child {
+  border-bottom: none;
+}
+
+/* 分区标题按钮（可折叠） */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--editor-space-3);
+  width: 100%;
+  padding: var(--editor-section-padding);
+  border: none;
+  background: var(--bg-panel);
+  cursor: pointer;
+  text-align: left;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  min-height: 32px;
+  transition: background 0.1s;
+}
+.sectionHeader:hover {
+  background: var(--bg-base);
+}
+
+.sectionChevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform 0.18s ease;
+}
+.sectionChevron[data-expanded='true'] {
+  transform: rotate(90deg);
+}
+
+.sectionTitle {
+  font-size: var(--editor-font-size-lg);
+  font-weight: var(--editor-font-weight-medium);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex: 1;
+}
+
+.sectionBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 16px;
+  padding: 0 5px;
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-md);
+  font-size: var(--editor-font-size-sm);
+  color: var(--text-secondary);
+  font-weight: var(--editor-font-weight-medium);
+  flex-shrink: 0;
+}
+
+/* ── 卡片列表 ── */
+.cardList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-space-2);
+  padding: 0 var(--editor-space-5) var(--editor-space-5);
+}
+
+/* 每张逻辑卡片 —— 整张可点击，跳转到对应组件 */
+.logicCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-space-2);
+  width: 100%;
+  min-height: 32px;
+  padding: var(--editor-space-3) var(--editor-space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-lg);
+  background: var(--bg-panel);
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  transition: border-color 0.12s, background 0.12s, box-shadow 0.12s;
+}
+.logicCard:hover {
+  border-color: var(--accent);
+  background: var(--bg-base);
+  box-shadow: 0 1px 4px rgba(25, 118, 210, 0.08);
+}
+.logicCard:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* 卡片首行：组件名 + 类型徽标 */
+.cardTopRow {
+  display: flex;
+  align-items: center;
+  gap: var(--editor-space-2);
+}
+.cardCompName {
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-medium);
+  color: var(--text-primary);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.compTypeBadge {
+  font-size: var(--editor-font-size-sm);
+  padding: 1px 5px;
+  border-radius: 20px;
+  background: var(--bg-canvas-area);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* ── 条件行（显示条件 & 循环区块使用） ── */
+.conditionRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--editor-space-2);
+}
+.conditionIcon,
+.loopIcon {
+  display: flex;
+  align-items: center;
+  margin-top: 1px;
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+/* ── 条件文本（key / op / value 三段） ── */
+.conditionText {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--editor-space-1);
+  font-size: var(--editor-font-size-md);
+  line-height: 1.4;
+}
+/* 变量 key：企业蓝等宽字体 */
+.conditionKey {
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: var(--editor-font-size-sm);
+  color: var(--accent);
+  word-break: break-all;
+}
+/* 运算符：弱化次级色 */
+.conditionOp {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  font-size: var(--editor-font-size-sm);
+}
+/* 值：带引号，深色等宽 */
+.conditionValue {
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: var(--editor-font-size-sm);
+  color: var(--text-secondary);
+  word-break: break-all;
+}
+
+/* ── 条件分支列表 ── */
+.branchList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-space-1);
+  padding-left: 2px;
+}
+.branchRow {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--editor-space-1);
+  font-size: var(--editor-font-size-md);
+  line-height: 1.4;
+}
+/* 分支名称（如「VIP 版本」） */
+.branchLabel {
+  font-size: var(--editor-font-size-sm);
+  font-weight: var(--editor-font-weight-medium);
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.branchSep {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  font-size: var(--editor-font-size-sm);
+}
+
+/* ── 循环区块特有 ── */
+.loopLabel {
+  font-size: var(--editor-font-size-sm);
+  font-weight: var(--editor-font-weight-medium);
+  color: var(--text-muted);
+  flex-shrink: 0;
+}

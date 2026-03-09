@@ -1,0 +1,123 @@
+/* ── 容器尺寸编辑器 ── */
+.sizeEditor {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  grid-column: 1 / -1;
+}
+
+/* ── 宽度与高度一行并排 ── */
+.dimensionsRow {
+  display: flex;
+  gap: 12px;
+  grid-column: 1 / -1;
+}
+
+/* ── 宽/高维度区块：下拉 + 可选输入 ── */
+.dimensionBlock {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── 宽高均为固定时的附加内容 ── */
+.fixedContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dimensionRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.lockBtn {
+  font-size: 0;
+  color: var(--text-muted);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0;
+  width: 36px;
+  height: 36px;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  margin-bottom: 0;
+}
+
+.lockBtn:hover {
+  background: var(--bg-base);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.lockBtn.locked {
+  background: var(--accent-subtle);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.lockBtn.locked:hover {
+  background: var(--accent);
+  color: white;
+}
+
+/* ── 快捷比例 ── */
+.quickRatios {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quickRatiosLabel {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+}
+
+.ratioButtons {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+
+.ratioBtn {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 7px 8px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: 32px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ratioBtn:hover {
+  background: var(--bg-base);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.ratioBtn:active {
+  background: var(--accent-subtle);
+  transform: scale(0.96);
+}

@@ -1,0 +1,26 @@
+.wrapper {
+  max-height: 320px;
+  overflow: hidden;
+  opacity: 0.5;
+  pointer-events: none;
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.14),
+    0 0 0 1px rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  animation: ghostAppear 0.12s ease;
+}
+
+@keyframes ghostAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+}
+
+.blockContent {
+  position: relative;
+}

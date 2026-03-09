@@ -1,0 +1,289 @@
+.contentWrap {
+  min-height: 460px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modeSwitch {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.modeBtn {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--text-secondary);
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.modeBtn:hover {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+.modeBtnActive {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.required {
+  color: var(--text-muted);
+}
+
+.textarea {
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  outline: none;
+  resize: vertical;
+  min-height: 72px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.12);
+}
+
+.textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* 保存位置（仅新建时）：与可选区同级，企业蓝体系 + 清晰层级 */
+.saveLocationSection {
+  margin-top: 4px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.saveLocationOptions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  width: 100%;
+}
+
+.radioWrap {
+  position: relative;
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 8px 12px;
+  box-sizing: border-box;
+  font-size: 0.82rem;
+  font-family: inherit;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.radioWrap:hover:not(:has(.radioInput:disabled)) {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+  background: var(--bg-base);
+}
+
+.radioWrap:has(.radioInput:checked) {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+.radioWrap:has(.radioInput:disabled) {
+  color: var(--text-muted);
+  background: var(--bg-base);
+  border-color: var(--border);
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+
+.radioInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.radioWrap:has(.radioInput:focus-visible) {
+  border-color: var(--accent);
+}
+
+/* 可選區：與表單主體分組，精煉層級 */
+.optionalSection {
+  margin-top: 4px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.optionalLabel {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+
+.checkboxWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.checkbox:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.overwriteList {
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 覆盖模式：覆盖目标分段控件与下方列表保持清晰区块间距 */
+.overwriteList > .saveLocationSection {
+  margin-bottom: 14px;
+}
+
+.hint {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  padding: 16px 0;
+}
+
+.templateOptions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 460px;
+  overflow-y: auto;
+}
+
+.optionRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-panel);
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  position: relative;
+  z-index: 0;
+  outline: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.optionRow:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-base);
+}
+
+.optionRowSelected {
+  border-color: var(--border);
+  background: var(--accent-subtle);
+  z-index: 1;
+}
+
+.optionRow:focus-visible {
+  background: var(--bg-panel);
+}
+
+.radio {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 50%;
+  background: var(--bg-panel);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.radioChecked {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: inset 0 0 0 2px var(--bg-panel);
+}
+
+.optionThumb {
+  width: 48px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.optionThumbPlaceholder {
+  width: 48px;
+  height: 36px;
+  border-radius: 4px;
+  background: var(--bg-canvas-area);
+  flex-shrink: 0;
+}
+
+.optionTitle {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,406 @@
+.wrap {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-panel);
+  overflow: hidden;
+}
+
+/* 工具列：所有控件统一 26px 高度、垂直居中 */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-panel);
+}
+
+/* 字号 + 颜色 同一行，与图标按钮等高、垂直居中 */
+.fontSizeColorRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  height: 26px;
+}
+
+/* 字号：下拉 + 输入一体，与 .iconBtn 同高 (26px) */
+.fontSizeWrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 26px;
+}
+.fontSizeWrap > div {
+  min-width: 64px;
+  height: 26px;
+}
+.fontSizeWrap > div > button {
+  height: 26px;
+  min-height: 26px;
+  padding: 0 8px;
+  font-size: 0.75rem;
+  box-sizing: border-box;
+  line-height: 1;
+}
+.fontSizeInput {
+  width: 48px;
+  height: 26px;
+}
+.fontSizeInput :global(.pxInputWrap) {
+  height: 26px;
+  min-height: 26px;
+  box-sizing: border-box;
+}
+/* 覆盖 small 尺寸的 input 内边距，使整体保持 26px，文字垂直居中 */
+.fontSizeInput :global(.pxInputWrap.pxInputWrapSmall .pxInput) {
+  height: 100%;
+  min-height: 0;
+  padding: 2px 6px 2px 8px;
+  line-height: 1.2;
+  box-sizing: border-box;
+}
+.fontSizeInput :global(.pxInputWrap.pxInputWrapSmall .pxSuffix) {
+  padding: 2px 8px 2px 0;
+}
+
+/* 颜色色块：严格约束为 26px，与 .iconBtn 完全一致 */
+.colorWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* 分隔线：与控件同高，视觉统一 */
+.sep {
+  width: 1px;
+  height: 26px;
+  background: var(--border);
+  margin: 0 3px;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+/* 通用图标按钮 */
+.iconBtn {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+  flex-shrink: 0;
+}
+
+.iconBtn:hover {
+  background: var(--border-strong);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+.iconBtn.active {
+  background: var(--accent-subtle);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* 无选取时弱化（非禁用，只是降低视觉权重，操作仍有效） */
+.iconBtn.dimmed {
+  opacity: 0.38;
+}
+.iconBtn.dimmed:hover {
+  opacity: 0.7;
+}
+
+/* 链接按钮区域 */
+.linkWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.linkPopover {
+  position: fixed;
+  z-index: 1200;
+  padding: 10px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  background: var(--bg-panel);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 240px;
+}
+.linkInput {
+  font-family: inherit;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+.linkInput:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+.linkInput::placeholder {
+  color: var(--text-muted);
+}
+.linkActions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+.linkBtnPrimary,
+.linkBtnSecondary {
+  font-size: 0.75rem;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text-primary);
+}
+.linkBtnPrimary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.linkBtnPrimary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+.linkBtnSecondary:hover {
+  background: var(--bg-base);
+  border-color: var(--border-strong);
+}
+
+/* 编辑区：与工具条保留一点间距，避免贴得过紧 */
+.content {
+  min-height: 100px;
+}
+
+.content :global(.ProseMirror) {
+  min-height: 100px;
+  padding: 12px 12px;
+  font-size: 0.875rem;
+  outline: none;
+  /* 淡灰底色：讓白色/淺色文字在未選中時也可見 */
+  background-color: #f5f7fa;
+}
+
+/* 選中態使用較深背景，確保白色/淺色文字在選中時也清晰可見 */
+.content :global(.ProseMirror ::selection) {
+  background: rgba(25, 118, 210, 0.5);
+}
+.content :global(.ProseMirror ::-moz-selection) {
+  background: rgba(25, 118, 210, 0.5);
+}
+
+.content :global(.ProseMirror p) {
+  margin: 0 0 0.5em;
+}
+
+.content :global(.ProseMirror p:last-child) {
+  margin-bottom: 0;
+}
+
+.content :global(.ProseMirror:empty::before) {
+  content: attr(data-placeholder);
+  color: var(--text-muted);
+}
+
+.content :global(.ProseMirror strong) {
+  font-weight: 700;
+}
+.content :global(.ProseMirror em) {
+  font-style: italic;
+}
+.content :global(.ProseMirror u) {
+  text-decoration: underline;
+}
+.content :global(.ProseMirror s) {
+  text-decoration: line-through;
+}
+.content :global(.ProseMirror ul) {
+  margin: 0.4em 0;
+  padding-left: 1.5em;
+  list-style-type: disc;
+}
+.content :global(.ProseMirror ol) {
+  margin: 0.4em 0;
+  padding-left: 1.5em;
+  list-style-type: decimal;
+}
+.content :global(.ProseMirror li) {
+  margin: 0.15em 0;
+}
+
+.editorInner {
+  min-height: 80px;
+}
+
+/* 偽選取高亮（工具列彈層打開時保留的選區視覺，與 ::selection 同調：深一點以便白字可見） */
+:global(.faux-sel) {
+  background: rgba(25, 118, 210, 0.48);
+  border-radius: 2px;
+}
+
+/* ─── Variable Chip ────────────────────────────────────────────── */
+:global(.variable-chip) {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  overflow: hidden;
+  /* 比正文字号略小（0.85×），视觉上更轻量；高度 0.85em < strut 1em，不撑高行高 */
+  font-size: 0.85em;
+  line-height: 1;
+  font-weight: 500;
+  font-family: inherit;
+  color: #1565C0;
+  background: rgba(25, 118, 210, 0.1);
+  /* 用 box-shadow inset 代替 border：視覺效果完全相同，但不計入 box model。
+     border: 1px 使 chip 高度 = 1em + 2px，把所在行撐高；
+     box-shadow 不佔空間，chip 高度精確 = 1em，不再撐高行高。 */
+  border: none;
+  box-shadow: inset 0 0 0 1px rgba(25, 118, 210, 0.28);
+  border-radius: 0.28em;
+  /* 仅保留水平 padding，垂直方向不加 padding，保持总高度 = 1em */
+  padding: 0 0.42em;
+  white-space: nowrap;
+  cursor: default;
+  user-select: none;
+  /* middle 基於拉丁 x-height，對 CJK 偏低；用 relative 微調上移使 chip 與漢字視覺居中 */
+  vertical-align: middle;
+  position: relative;
+  top: -0.08em;
+  transition: background 0.12s, box-shadow 0.12s;
+}
+
+/* {} 前置图标：固定不缩减 */
+
+/* 标签文字：超出时省略，保证 chip 边框完整闭合 */
+:global(.variable-chip-label) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+:global(.ProseMirror .variable-chip:hover) {
+  background: rgba(25, 118, 210, 0.17);
+  box-shadow: inset 0 0 0 1px rgba(25, 118, 210, 0.5);
+}
+
+/* NodeSelection（直接點擊 chip）選中態 */
+:global(.ProseMirror .variable-chip.ProseMirror-selectednode) {
+  background: rgba(25, 118, 210, 0.26);
+  box-shadow: inset 0 0 0 1px #1976D2;
+  outline: 2px solid rgba(25, 118, 210, 0.38);
+  outline-offset: 1px;
+}
+
+/* TextSelection 框選跨過 chip 時的選中態 */
+:global(.ProseMirror .variable-chip.variable-chip-in-sel) {
+  background: rgba(25, 118, 210, 0.26);
+  box-shadow: inset 0 0 0 1px #1976D2;
+  outline: 2px solid rgba(25, 118, 210, 0.38);
+  outline-offset: 1px;
+}
+
+/* ─── 建議浮窗 ──────────────────────────────────────────────────── */
+.suggestionPopup {
+  position: fixed;
+  z-index: 1500;
+  min-width: 220px;
+  max-width: 300px;
+  padding: 4px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  animation: suggestionFadeIn 0.12s ease;
+}
+
+@keyframes suggestionFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.suggestionHeader {
+  padding: 5px 10px 4px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3px;
+}
+
+.suggestionItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.1s;
+}
+
+.suggestionItem:hover {
+  background: var(--bg-base);
+}
+
+.suggestionItemActive {
+  background: var(--accent-subtle);
+}
+
+.suggestionItemActive .suggestionLabel {
+  color: var(--accent);
+}
+
+.suggestionLabel {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.suggestionKey {
+  font-size: 0.68rem;
+  font-family: var(--font-mono, monospace);
+  color: var(--text-muted);
+  flex-shrink: 0;
+  background: var(--bg-base);
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+}

@@ -1,0 +1,231 @@
+.layout {
+  display: flex;
+  width: 100%;
+  min-height: 40px;
+}
+
+.layout.horizontal {
+  flex-direction: row;
+}
+
+/* 拖放瞄準時，整個容器高亮（與 Canvas 的 insideTarget 視覺一致） */
+.layoutDropTarget {
+  box-shadow: inset 0 0 0 2px var(--accent);
+  background: rgba(25, 118, 210, 0.045);
+  border-radius: 4px;
+  transition: box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.layout.vertical {
+  flex-direction: column;
+}
+
+/* flex: 1 1 0% — 所有 cell 等分空间，gap 自然被扣除，不再因百分比 basis + gap 溢出 */
+.cell {
+  flex: 1 1 0%;
+  min-width: 0;
+  min-height: 20px;
+  overflow: hidden;
+}
+
+/* 垂直布局时：每行按内容高度排列，不等分、不裁切；交叉軸由父級 stretch 鋪滿容器寬度 */
+.cellVertical {
+  flex: 0 0 auto;
+  min-height: 20px;
+  min-width: 0;
+  align-self: stretch;
+}
+
+/* 自适应内容模式：cell 按内容大小排列，不等分、不裁切 */
+.cellAuto {
+  flex: 0 0 auto;
+  min-height: 20px;
+}
+
+/* ── cell wrapper：包含子組件 + 插入區，保持 flex 佈局 ── */
+.cellWrapper {
+  position: relative;
+  display: flex;
+}
+
+.cellWrapperH {
+  flex-direction: row;
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+.cellWrapperV {
+  flex-direction: column;
+  flex: 0 0 auto;
+  min-width: 0;
+  align-self: stretch;
+}
+
+/* cellWrapper 中的 cell 佔據主空間 */
+.cellWrapperH > .cell,
+.cellWrapperH > .cellAuto {
+  flex: 1 1 0%;
+}
+
+.cellWrapperV > .cellVertical {
+  flex: 0 0 auto;
+}
+
+/* ── 插入 drop zone ── */
+
+/* 垂直方向：上下插入，水平長條 */
+.insertZoneV {
+  position: relative;
+  flex: 0 0 0px;
+  align-self: stretch;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.insertZoneV[data-dragging] {
+  flex: 0 0 16px;
+  margin: -8px 0;
+  pointer-events: auto;
+}
+
+/* 水平方向：左右插入，垂直長條 */
+.insertZoneH {
+  position: relative;
+  flex: 0 0 0px;
+  align-self: stretch;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.insertZoneH[data-dragging] {
+  flex: 0 0 16px;
+  margin: 0 -8px;
+  pointer-events: auto;
+}
+
+/* ── 插入指示線 ── */
+
+/* 垂直方向的指示線（水平線） */
+.insertIndicatorV {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  height: 0;
+  z-index: 10;
+  pointer-events: none;
+  animation: indicatorAppear 0.15s ease;
+}
+
+/* 水平方向的指示線（垂直線） */
+.insertIndicatorH {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 0;
+  z-index: 10;
+  pointer-events: none;
+  animation: indicatorAppearV 0.15s ease;
+}
+
+.insertLine {
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(25, 118, 210, 0.35);
+  border-radius: 1px;
+}
+
+/* 水平指示線的 line 方向 */
+.insertIndicatorV .insertLine {
+  flex: 1;
+  height: 2px;
+}
+
+/* 垂直指示線的 line 方向 */
+.insertIndicatorH .insertLine {
+  flex: 1;
+  width: 2px;
+}
+
+.insertDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px rgba(25, 118, 210, 0.4);
+  flex-shrink: 0;
+}
+
+@keyframes indicatorAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) scaleX(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) scaleX(1);
+  }
+}
+
+@keyframes indicatorAppearV {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scaleY(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scaleY(1);
+  }
+}
+
+/* ── 空 layout 佔位 ── */
+.emptyLayout {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 64px;
+  background: var(--bg-base);
+  border: 1.5px dashed var(--border);
+  border-radius: 8px;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.emptyLayoutOver {
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+.emptyLayoutOver .emptyIcon {
+  color: var(--accent);
+  opacity: 1;
+}
+
+.emptyLayoutOver .emptyText {
+  color: var(--accent);
+  opacity: 1;
+}
+
+.emptyIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--text-muted);
+  opacity: 0.5;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.emptyText {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  opacity: 0.6;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}

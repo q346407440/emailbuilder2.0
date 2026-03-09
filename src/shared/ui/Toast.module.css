@@ -1,0 +1,99 @@
+/* Toast 容器：頁面正上方居中，符合 frontdesign + 企業藍色彩體系 */
+.container {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  max-width: min(380px, calc(100vw - 32px));
+  width: 100%;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  font-family: 'Source Sans 3', -apple-system, sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-md), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  animation: toastSlideDown 0.28s ease forwards;
+}
+
+.toastExiting {
+  animation: toastSlideUp 0.28s ease forwards;
+}
+
+@keyframes toastSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toastSlideUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+}
+
+.message {
+  flex: 1;
+  min-width: 0;
+  word-break: break-word;
+}
+
+/* 成功：成功綠左緣與圖標（常規語義） */
+.toastSuccess {
+  border-left: 3px solid var(--success);
+}
+
+.toastSuccess .icon {
+  color: var(--success);
+}
+
+/* 錯誤：危險紅左緣 */
+.toastError {
+  border-left: 3px solid #DC3545;
+}
+
+.toastError .icon {
+  color: #DC3545;
+}
+
+/* 一般提示 */
+.toastInfo {
+  border-left: 3px solid var(--text-muted);
+}
+
+.toastInfo .icon {
+  color: var(--text-muted);
+}

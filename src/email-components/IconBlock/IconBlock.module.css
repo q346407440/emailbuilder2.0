@@ -1,0 +1,118 @@
+/* fit-content 使「内容对齐」左/中/右在容器内生效；min-width:0 與 overflow 防止在 flex 父級下溢出 */
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.iconWrap a {
+  display: inline-flex;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 自定義圖標 img（非 SVG 或外部 URL 時）；約束不溢出父級 */
+.customImg {
+  display: block;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* 自定義 SVG 內聯渲染，用於 data URL 以便應用 color；約束在設定的 size 內不溢出父級 */
+.customInlineSvg {
+  display: inline-block;
+  flex-shrink: 0;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* 默認：限制寬度時，SVG 以寬度為準、高度自適應 */
+.customInlineSvg svg {
+  display: block;
+  vertical-align: top;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* 限制高度時：SVG 以高度填滿容器，寬度按比例，避免下半部分被裁切 */
+.customInlineSvg.sizeByHeight svg {
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* 自定義圖標無來源佔位 */
+.customPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-base);
+  border: 1.5px dashed var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+/* App Store / Google Play 標準徽章 */
+.storeBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  background: #000;
+  color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.storeBadgeLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.storeBadgeLogo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.storeBadgeLogo svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.storeBadgeText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  line-height: 1.15;
+}
+
+.storeBadgeLine1 {
+  font-size: 0.6em;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.storeBadgeLine2 {
+  font-size: 1em;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}

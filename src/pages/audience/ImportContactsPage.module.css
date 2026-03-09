@@ -1,0 +1,71 @@
+.page { padding: var(--page-padding); font-family: 'Source Sans 3', sans-serif; box-sizing: border-box; }
+.header { display: flex; align-items: center; gap: var(--page-toolbar-gap); margin-bottom: var(--page-header-margin); }
+.backBtn { background: none; border: none; color: var(--accent); font-size: var(--page-subtitle-size); cursor: pointer; padding: 0; font-family: inherit; }
+.backBtn:hover { text-decoration: underline; }
+.title { font-family: 'Outfit', sans-serif; font-size: var(--page-title-size); font-weight: 700; color: var(--text-primary); margin: 0; letter-spacing: -0.02em; }
+
+/* Steps */
+.stepsRow { display: flex; align-items: center; gap: 4px; margin-bottom: 32px; }
+.stepItem { display: flex; align-items: center; gap: 8px; }
+.stepNum { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--border); color: var(--text-muted); font-size: 0.75rem; font-weight: 700; flex-shrink: 0; background: var(--bg-base);  }
+.stepLabel { font-size: 0.8125rem; color: var(--text-muted); white-space: nowrap; }
+.stepArrow { color: var(--border-strong); font-size: 0.75rem; padding: 0 4px; }
+.stepActive .stepNum { border-color: var(--accent); color: var(--accent); background: var(--accent-subtle); }
+.stepActive .stepLabel { color: var(--accent); font-weight: 600; }
+.stepDone .stepNum { border-color: #16a34a; color: #16a34a; background: rgba(22,163,74,0.08); }
+.stepDone .stepLabel { color: var(--text-secondary); }
+
+.content { }
+
+/* Drop zone */
+.dropZone { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 48px 36px; border: 2px dashed var(--border); border-radius: 6px; cursor: pointer; background: var(--bg-panel); }
+.dropZone:hover { border-color: var(--accent); background: var(--accent-subtle); }
+.dropZoneDragging { border-color: var(--accent); background: var(--accent-subtle); }
+.dropTitle { font-size: 1rem; font-weight: 600; color: var(--text-primary); margin: 0; }
+.dropHint { font-size: 0.8125rem; color: var(--text-muted); margin: 0; }
+
+/* Map card */
+.mapCard { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 6px; padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+.mapInfo { font-size: 0.875rem; color: var(--text-secondary); margin: 0; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.mapFields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.mapField { display: flex; flex-direction: column; gap: 6px; font-size: 0.8125rem; font-weight: 600; color: var(--text-secondary); }
+.required { color: #DC3545; }
+.mapLabel { font-size: 0.8125rem; font-weight: 600; color: var(--text-secondary); }
+.mapSelect { padding: var(--control-padding-y) 10px; min-height: var(--control-height); box-sizing: border-box; border: 1px solid var(--border); border-radius: var(--control-radius); background: var(--bg-base); color: var(--text-primary); font-size: var(--page-subtitle-size); font-family: inherit; outline: none;  }
+.mapSelect:focus { border-color: var(--accent); }
+
+/* Preview */
+.preview { }
+.previewTitle { font-size: 0.8125rem; font-weight: 600; color: var(--text-secondary); margin: 0 0 8px; }
+.previewTable { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; }
+.previewTable table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; }
+.previewTable th { background: var(--bg-base); padding: 8px 10px; text-align: left; font-weight: 600; color: var(--text-secondary); border-bottom: 1px solid var(--border); white-space: nowrap; }
+.previewTable td { padding: 7px 10px; color: var(--text-primary); border-bottom: 1px solid var(--border); max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.previewTable tr:last-child td { border-bottom: none; }
+
+.mapActions { display: flex; gap: 12px; align-items: center; justify-content: flex-end; }
+.backBtn2 { padding: 9px 18px; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--text-secondary); font-size: 0.875rem; cursor: pointer; font-family: inherit; }
+.backBtn2:hover { background: var(--bg-base); }
+.submitBtn { padding: var(--control-padding-y) 22px; min-height: var(--control-height); box-sizing: border-box; border-radius: var(--control-radius); border: none; background: var(--accent); color: #fff; font-size: var(--page-subtitle-size); font-weight: 600; cursor: pointer; font-family: inherit;  }
+.submitBtn:hover:not(:disabled) { background: var(--accent-hover); }
+.submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Progress */
+.progressCard { display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 60px 40px; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 14px; }
+.progressSpinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
+.progressTitle { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin: 0; font-family: 'Outfit', sans-serif; }
+.progressBar { width: 100%; max-width: 320px; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.progressFill { height: 100%; background: var(--accent); border-radius: 4px;  }
+.progressHint { font-size: 0.8125rem; color: var(--text-muted); margin: 0; }
+
+/* Result */
+.resultCard { display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 48px 40px; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 14px; }
+.resultIcon { font-size: 3rem; }
+.resultTitle { font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin: 0; }
+.resultStats { display: flex; gap: 32px; }
+.resultStat { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.resultStatNum { font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 700; }
+.resultStat span:last-child { font-size: 0.8125rem; color: var(--text-secondary); }
+.resultActions { display: flex; gap: 12px; }
+
+@keyframes spin { to { transform: rotate(360deg); } }

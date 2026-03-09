@@ -1,0 +1,66 @@
+/* 集成占位空状态：极简、克制，与列表/表格区统一 */
+.block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  padding: var(--page-section-gap);
+  text-align: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 280px;
+  padding: 24px 20px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+}
+
+.icon {
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+.title {
+  font-family: 'Outfit', sans-serif;
+  font-size: var(--page-subtitle-size);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.desc {
+  font-size: var(--page-caption-size);
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.primaryAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+  padding: 6px 14px;
+  min-height: var(--control-height);
+  font-size: var(--page-caption-size);
+  font-weight: 500;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--control-radius);
+  text-decoration: none;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.primaryAction:hover {
+  background: var(--accent-hover);
+}

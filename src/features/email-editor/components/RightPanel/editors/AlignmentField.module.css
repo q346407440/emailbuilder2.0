@@ -1,0 +1,100 @@
+/* Figma 风格：对齐按钮无边框，靠 hover/active 背景区分；与 .field 节奏统一：label 行 24px + gap 3px */
+.alignmentField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-space-1);
+  grid-column: 1 / -1;
+}
+
+.alignmentLabelRow {
+  min-height: var(--editor-control-height);
+  display: flex;
+  align-items: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: var(--editor-space-1);
+  width: 100%;
+  max-width: 112px;
+}
+
+.horizontalRow {
+  display: flex;
+  gap: var(--editor-space-1);
+}
+
+.cellHorizontal {
+  width: var(--editor-icon-size-md);
+  height: var(--editor-icon-size-md);
+  flex: none;
+  aspect-ratio: unset;
+}
+
+.cell {
+  font-size: 0;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  border-radius: var(--editor-radius-md);
+  padding: var(--editor-space-1);
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.1s ease, background-color 0.1s ease;
+  box-sizing: border-box;
+}
+
+.cell:hover {
+  background: var(--bg-base);
+  color: var(--text-primary);
+}
+
+.cell:active {
+  background: var(--accent-subtle);
+}
+
+.cellActive {
+  background: var(--accent-subtle);
+  color: var(--accent);
+  box-shadow: none;
+}
+
+.cellActive:hover {
+  background: rgba(25, 118, 210, 0.12);
+  color: var(--accent);
+}
+
+.iconSvg {
+  width: var(--editor-icon-size-sm);
+  height: var(--editor-icon-size-sm);
+  display: block;
+}
+
+.iconOutline {
+  stroke: currentColor;
+  opacity: 0.5;
+}
+
+.iconFill {
+  fill: currentColor;
+  stroke: none;
+  opacity: 0.6;
+}
+
+.iconFillActive {
+  fill: var(--accent);
+  stroke: none;
+}
+
+.cellActive .iconOutline {
+  opacity: 0.8;
+}
+
+.cellActive .iconFill {
+  opacity: 1;
+}

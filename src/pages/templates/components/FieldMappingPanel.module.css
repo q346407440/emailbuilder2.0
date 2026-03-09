@@ -1,0 +1,151 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.empty {
+  padding: 24px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--page-subtitle-size);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--bg-base);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.headerLeft,
+.headerRight {
+  flex: 1;
+}
+
+.headerRight {
+  text-align: right;
+}
+
+.varBlock {
+  border-bottom: 1px solid var(--border);
+}
+
+.varBlock:last-child {
+  border-bottom: none;
+}
+
+.varRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+}
+
+.varInfo {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.varLabel {
+  font-size: var(--page-subtitle-size);
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.varKey {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1px 5px;
+  white-space: nowrap;
+}
+
+.badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-subtle);
+  border-radius: 3px;
+  padding: 1px 6px;
+  white-space: nowrap;
+}
+
+.fieldSelect {
+  flex: 1;
+  min-width: 0;
+}
+
+.select {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--control-radius);
+  background: var(--bg-panel);
+  font-size: var(--page-subtitle-size);
+  color: var(--text-primary);
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.12s;
+}
+
+.select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+.itemFields {
+  background: var(--bg-base);
+  border-top: 1px solid var(--border);
+  padding: 8px 12px 8px 28px;
+}
+
+.itemFieldsTitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+.itemFieldRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.itemFieldRow:last-child {
+  border-bottom: none;
+}
+
+.itemFieldInfo {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.itemFieldLabel {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}

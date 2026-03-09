@@ -1,0 +1,64 @@
+/* 字段按钮 — 外观与右侧面板其他 input 保持一致 */
+.field {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 32px;
+  padding: 0 10px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.12s;
+  outline: none;
+}
+.field:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-base);
+}
+.field:focus-visible {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.12);
+}
+
+/* 有值时加深边框，暗示可点击更改 */
+.field[data-has-value='true'] {
+  border-color: var(--border-strong);
+}
+
+.fieldKey {
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.76rem;
+  color: var(--accent);
+  flex-shrink: 0;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.fieldLabel {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.fieldPlaceholder {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  flex: 1;
+}
+.fieldIcon {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  margin-left: auto;
+  opacity: 0.6;
+}
+.field:hover .fieldIcon {
+  opacity: 1;
+  color: var(--accent);
+}

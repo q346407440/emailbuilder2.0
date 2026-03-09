@@ -1,0 +1,1903 @@
+/* AI 面板使用獨立 Teal 強調色，與主應用企業藍互襯、易識別 */
+.aiFloatingToggle {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 220;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 2px solid var(--ai-accent);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ai-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  cursor: grab;
+  user-select: none;
+  box-shadow: 0 4px 12px rgba(16, 163, 127, 0.2);
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.aiFloatingToggle svg {
+  display: block;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.aiToggleIcon {
+  overflow: visible;
+}
+
+.aiToggleBubble {
+  vector-effect: non-scaling-stroke;
+}
+
+.aiToggleSparkPrimary {
+  transform-origin: 18.2px 5.4px;
+  animation: aiSparkPulse 1.8s ease-in-out infinite;
+}
+
+.aiToggleSparkSecondary {
+  transform-origin: 20.3px 10.6px;
+  animation: aiSparkPulse 1.8s ease-in-out infinite;
+  animation-delay: 0.45s;
+}
+
+@keyframes aiSparkPulse {
+  0%,
+  100% {
+    opacity: 0.72;
+    transform: scale(0.9);
+  }
+  45% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+.aiFloatingToggle:hover {
+  border-color: var(--ai-accent-hover);
+  color: var(--ai-accent-hover);
+  /* 半透明外框表达可拖动，不用光晕 */
+  box-shadow: 0 4px 12px rgba(16, 163, 127, 0.2), 0 0 0 3px var(--ai-accent-subtle);
+}
+
+.aiFloatingToggle:active {
+  cursor: grabbing;
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(16, 163, 127, 0.2);
+}
+
+.aiFloatingToggleLongPressing {
+  box-shadow: 0 4px 12px rgba(16, 163, 127, 0.2), 0 0 0 3px var(--ai-accent-subtle);
+}
+
+.aiFloatingToggleDragReady {
+  box-shadow: 0 4px 12px rgba(16, 163, 127, 0.2), 0 0 0 4px var(--ai-accent-subtle);
+}
+
+.aiFloatingPanel {
+  position: fixed;
+  width: 372px;
+  min-width: 280px;
+  max-width: 560px;
+  height: 640px;
+  z-index: 220;
+  box-sizing: border-box;
+  --ai-space-1: 4px;
+  --ai-space-2: 8px;
+  --ai-space-3: 12px;
+  --ai-space-4: 16px;
+  --ai-space-5: 20px;
+  --ai-font-xs: 0.72rem;
+  --ai-font-sm: 0.78rem;
+  --ai-font-md: 0.82rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transform-origin: var(--ai-origin-x, 22px) var(--ai-origin-y, 22px);
+}
+
+.aiPanelResizeHandle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  cursor: ew-resize;
+  z-index: 2;
+}
+
+.aiPanelResizeHandleLeft {
+  left: 0;
+}
+
+.aiPanelResizeHandleRight {
+  right: 0;
+}
+
+.aiPanelResizeHandle:hover {
+  background: var(--ai-accent-subtle);
+}
+
+.aiPanelResizeHandle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 32px;
+  border-radius: 1px;
+  background: var(--border);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.aiPanelResizeHandleLeft::after {
+  left: 2px;
+}
+
+.aiPanelResizeHandleRight::after {
+  right: 2px;
+  left: auto;
+}
+
+.aiPanelResizeHandle:hover::after {
+  opacity: 1;
+  background: var(--ai-accent);
+}
+
+.aiFloatingPanelOpening {
+  animation: aiPanelGrowFromBubble 120ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.aiFloatingPanelClosing {
+  animation: aiPanelShrinkToBubble 110ms ease-in both;
+  pointer-events: none;
+}
+
+@keyframes aiPanelGrowFromBubble {
+  0% {
+    opacity: 0;
+    transform: scale(0.12);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes aiPanelShrinkToBubble {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aiFloatingPanelOpening,
+  .aiFloatingPanelClosing {
+    animation-duration: 0ms;
+  }
+
+  .aiFloatingToggle,
+  .aiFloatingClose {
+    transition: none;
+  }
+
+  .aiToggleSparkPrimary,
+  .aiToggleSparkSecondary {
+    animation: none;
+  }
+
+  .aiToolBlock {
+    animation: none;
+  }
+
+  .aiStreamingCursor {
+    animation: none;
+    opacity: 1;
+  }
+
+  .aiPlanProgressDropup {
+    animation: none;
+  }
+}
+
+/* 头部：与输入区同一平面语言，单一边框分隔、无阴影 */
+.aiFloatingHeader {
+  padding: 12px 14px;
+  background: var(--bg-base);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  cursor: move;
+  user-select: none;
+  min-height: 48px;
+  box-sizing: border-box;
+}
+
+.aiFloatingHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
+.aiFloatingHeaderMain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+/* 新会话：纯文字 + padding，无外框 */
+.aiHeaderAction {
+  appearance: none;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 6px 10px;
+  font-size: var(--ai-font-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.aiHeaderAction:hover {
+  color: var(--ai-accent);
+  background: var(--ai-accent-subtle);
+}
+
+.aiHeaderBackButton {
+  appearance: none;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 6px 10px;
+  font-size: var(--ai-font-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.aiHeaderBackButton:hover {
+  color: var(--ai-accent);
+  background: var(--ai-accent-subtle);
+}
+
+.aiHeaderHistoryTitle {
+  color: var(--text-primary);
+  font-size: var(--ai-font-sm);
+  font-weight: 600;
+  flex-shrink: 0;
+  padding: 0 4px;
+}
+
+/* 助手图标：无外框，仅图标 + 右侧 padding，与标题对齐 */
+.aiAgentBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0 8px 0 0;
+}
+
+.aiAgentGlyph {
+  color: var(--ai-accent);
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.aiFloatingSubTitle {
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+}
+
+/* 关闭：外框贴合图标，无内间距；hover 时图标与背景均有颜色反馈 */
+.aiFloatingClose {
+  appearance: none;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  flex-shrink: 0;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.aiFloatingClose:hover {
+  color: var(--ai-accent);
+  background: var(--ai-accent-subtle);
+}
+
+.aiFloatingClose:active {
+  color: var(--ai-accent-hover);
+  background: var(--border);
+}
+
+.aiFloatingClose:focus-visible {
+  outline: 2px solid var(--ai-accent);
+  outline-offset: 1px;
+}
+
+.aiFloatingBody {
+  flex: 1;
+  padding: 10px;
+  color: var(--text-primary);
+  font-size: var(--ai-font-md);
+  line-height: 1.45;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.aiHistoryList {
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 2px;
+}
+
+.aiHistoryEmpty {
+  color: var(--text-secondary);
+  font-size: var(--ai-font-sm);
+  padding: 14px 10px;
+}
+
+.aiHistoryItem {
+  appearance: none;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.aiHistoryItem:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-base);
+}
+
+.aiHistoryTitle {
+  color: var(--text-primary);
+  font-size: var(--ai-font-sm);
+  font-weight: 600;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.aiHistoryMetaRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.aiHistoryMeta {
+  color: var(--text-secondary);
+  font-size: var(--ai-font-xs);
+}
+
+.aiHistoryCurrentTag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: 999px;
+  font-size: var(--ai-font-xs);
+  color: var(--ai-accent);
+  background: var(--ai-accent-subtle);
+  border: 1px solid rgba(16, 163, 127, 0.28);
+}
+
+.aiChatContent {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ai-space-2);
+  min-height: 0;
+}
+
+.aiQuickActions {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--ai-space-2);
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0 2px;
+  scrollbar-width: none;
+}
+
+.aiQuickActions::-webkit-scrollbar {
+  display: none;
+}
+
+.aiQuickAction {
+  flex: 0 0 auto;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: var(--ai-font-sm);
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.aiQuickAction:hover {
+  background: var(--ai-accent-subtle);
+  border-color: var(--ai-accent);
+  color: var(--ai-accent);
+}
+
+.aiMessageList {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 8px 6px;
+  border-radius: 10px;
+  background: transparent;
+  scrollbar-width: none;
+}
+
+.aiMessageList::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── fix-step-header：子任务启动标题行 ── */
+.fixStepHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 92%;
+  max-width: 92%;
+  padding: 8px 12px;
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  margin: 4px 0;
+  box-sizing: border-box;
+}
+
+.fixStepBadge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 2px 6px;
+  line-height: 1.3;
+}
+
+.fixStepDesc {
+  flex: 1;
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fixStepSpinner {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border-strong);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: fixStepSpin 0.7s linear infinite;
+}
+
+@keyframes fixStepSpin {
+  to { transform: rotate(360deg); }
+}
+
+.fixStepDone {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aiMessageRow {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.aiMessageRowAssistant {
+  align-items: flex-start;
+}
+
+.aiMessageRowUser {
+  align-items: flex-end;
+}
+
+.aiMessageItem {
+  max-width: 92%;
+  border-radius: 14px;
+  padding: 10px 14px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: var(--ai-font-md);
+  line-height: 1.5;
+  position: relative;
+}
+
+/* 助手消息：无气泡，纯文本流 */
+.aiMessageAssistant {
+  background: transparent;
+  color: var(--text-primary);
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  padding: 4px 2px;
+}
+
+/* 用户气泡：卡片感，统一圆角 */
+.aiMessageUser {
+  background: var(--surface);
+  color: var(--text-primary);
+  border-radius: 14px;
+  box-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.6) inset;
+  border: 1px solid var(--border);
+}
+
+.aiUserImageGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.aiUserImageThumb {
+  max-width: 180px;
+  max-height: 140px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+}
+
+.aiMessageAttachments {
+  margin-top: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: 92%;
+}
+
+/* 思考块：无外框包裹，与工具/文本统一宽度 */
+.aiThinkBlock {
+  width: 92%;
+  max-width: 92%;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  overflow: hidden;
+}
+
+.aiThinkHeader {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 2px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s ease;
+  border-radius: 4px;
+}
+
+.aiThinkHeader:hover {
+  background: var(--ai-accent-subtle);
+}
+
+.aiThinkHeaderIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: var(--ai-accent);
+}
+
+.aiThinkHeaderTitle {
+  flex: 1;
+  font-size: var(--ai-font-xs);
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.aiThinkStreaming .aiThinkHeaderTitle {
+  animation: aiThinkTitlePulse 1.5s ease-in-out infinite;
+}
+
+@keyframes aiThinkTitlePulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+.aiThinkChevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  color: var(--text-muted);
+  transition: transform 0.2s ease, opacity 0.15s ease;
+  flex-shrink: 0;
+}
+
+.aiThinkChevronOpen {
+  transform: rotate(180deg);
+}
+
+.aiThinkBody {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aiThinkBodyOpen {
+  max-height: 200px;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.aiThinkContent {
+  padding: 0 2px 8px;
+  font-size: var(--ai-font-sm);
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+.aiMessageMarkdown {
+  font-size: inherit;
+  line-height: 1.5;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.aiMessageMarkdown p {
+  margin: 0 0 0.5em;
+}
+
+.aiMessageMarkdown p:last-child {
+  margin-bottom: 0;
+}
+
+.aiMessageMarkdown code {
+  background: rgba(0, 0, 0, 0.12);
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+  font-size: 0.92em;
+}
+
+.aiMessageMarkdown pre {
+  margin: 0.4em 0;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.12);
+  overflow-x: auto;
+}
+
+.aiMessageMarkdown pre code {
+  padding: 0;
+  background: none;
+}
+
+.aiMessageMarkdown ul,
+.aiMessageMarkdown ol {
+  margin: 0.4em 0;
+  padding-left: 1.2em;
+}
+
+.aiMessageMarkdown a {
+  color: var(--ai-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.aiMessageMarkdown a:hover {
+  color: var(--ai-accent-hover);
+}
+
+.aiMessageMarkdown strong {
+  font-weight: 600;
+}
+
+.aiMarkdownImage {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0.5em 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: zoom-in;
+  background: var(--surface);
+}
+
+.aiMessageTableWrap {
+  overflow-x: auto;
+  margin: 0.5em 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.aiMessageMarkdown .aiMessageTableWrap table {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+
+.aiMessageMarkdown .aiMessageTableWrap th,
+.aiMessageMarkdown .aiMessageTableWrap td {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.aiMessageMarkdown .aiMessageTableWrap th {
+  font-weight: 600;
+  background: var(--bg-base);
+}
+
+.aiToolList {
+  width: 92%;
+  max-width: 92%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* 工具调用块：紧凑单行 + 可展开详情 */
+.aiToolBlock {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  animation: aiToolSlideIn 0.2s ease-out;
+}
+
+@keyframes aiToolSlideIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.aiToolBlockHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  background: var(--bg-base);
+  padding: 5px 10px;
+}
+
+.aiToolHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.aiToolHeaderLeft .aiToolName {
+  font-weight: 500;
+}
+
+.aiToolStateLabel {
+  color: var(--text-secondary);
+  font-size: var(--ai-font-xs);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.aiToolBlockExtension {
+  border-top: 1px solid var(--border);
+  padding: 8px 10px;
+  background: var(--surface);
+}
+
+.aiToolBlockExtension .aiChangeCardSummary {
+  margin-bottom: 6px;
+}
+
+/* captureCanvasPreview 成功时卡片内展示的截图缩略图，可点击放大；固定最大高度，不随图片撑大 MCP 卡片 */
+.aiToolPreviewImgWrap {
+  display: block;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: zoom-in;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: opacity 0.15s ease;
+  max-height: 120px;
+}
+
+.aiToolPreviewImgWrap:hover {
+  opacity: 0.9;
+}
+
+.aiToolPreviewImg {
+  display: block;
+  max-width: 100%;
+  max-height: 100px;
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  object-fit: contain;
+  border: 1px solid var(--border);
+}
+
+.aiToolName {
+  color: var(--text-primary);
+  font-size: var(--ai-font-sm);
+}
+
+.aiToolStateIcon {
+  display: inline-flex;
+  width: 12px;
+  height: 12px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.aiToolStateIconRunning {
+  border: 1.6px solid var(--ai-accent-subtle);
+  border-top-color: var(--ai-accent);
+  border-radius: 999px;
+  animation: aiToolSpin 0.9s linear infinite;
+}
+
+.aiToolStateIconCompleted {
+  color: var(--success);
+}
+
+.aiToolStateIconFailed {
+  color: #DC3545;
+}
+
+.aiToolErrorMessage {
+  margin: 0;
+  color: #DC3545;
+  font-size: var(--ai-font-xs);
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+@keyframes aiToolSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.aiChangeCardList {
+  max-width: 86%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.aiChangeCardSummary {
+  color: var(--text-primary);
+  font-size: var(--ai-font-sm);
+  line-height: 1.35;
+  margin-bottom: 6px;
+}
+
+.aiChangeCardSummaryList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.aiChangeCardSummaryList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  word-break: break-all;
+}
+
+.aiChangeCardSummaryList li::before {
+  content: '·';
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.35;
+  flex-shrink: 0;
+}
+
+.aiChangeCard {
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 2px 8px rgba(26, 26, 26, 0.08);
+  padding: 8px 10px;
+}
+
+.aiChangeCardActions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.aiChangeCardButton {
+  appearance: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-secondary);
+  padding: 5px 10px;
+  font-size: var(--ai-font-xs);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.aiChangeCardButton:hover {
+  background: var(--bg-base);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+.aiMessageAttachmentChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 6px;
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 4px 8px;
+  font-size: 0.7rem;
+  line-height: 1.2;
+}
+
+.aiMessageAttachmentName {
+  max-width: 136px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.aiMessageAttachmentMeta {
+  color: var(--text-secondary);
+  opacity: 0.9;
+}
+
+.aiTypingDots {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 18px;
+}
+
+.aiTypingDots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--text-muted);
+  animation: aiDotBounce 1.2s ease-in-out infinite;
+}
+
+.aiTypingDots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.aiTypingDots span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes aiDotBounce {
+  0%, 60%, 100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+.aiFloatingInputArea {
+  border-top: 1px solid var(--border);
+  padding: 14px 16px;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.aiPendingAttachments {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 0;
+}
+
+/* 缩略图附件行 */
+.aiAttachThumbItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px 6px 6px;
+  border-radius: 8px;
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+}
+
+/* 可点击缩略图容器 */
+.aiAttachThumb {
+  flex-shrink: 0;
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-canvas-area);
+  cursor: zoom-in;
+  padding: 0;
+  display: block;
+}
+
+.aiAttachThumbImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 放大镜 overlay，hover 时显示 */
+.aiAttachThumbOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: background-color 0.15s ease;
+}
+
+.aiAttachThumb:hover .aiAttachThumbOverlay {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* 文件名与尺寸 */
+.aiAttachThumbMeta {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.aiAttachThumbName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-primary);
+  font-size: var(--ai-font-sm);
+}
+
+.aiAttachThumbSize {
+  color: var(--text-secondary);
+  font-size: var(--ai-font-xs);
+}
+
+/* 移除按钮 */
+.aiAttachThumbRemove {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.aiAttachThumbRemove:hover {
+  background: rgba(220, 53, 69, 0.08);
+  color: #DC3545;
+}
+
+.aiHiddenFileInput {
+  display: none;
+}
+
+/* ── 待发组件卡片（输入区）────────────────────────────────────────────────── */
+
+.aiPendingComponent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px 6px 6px;
+  border-radius: 8px;
+  background: var(--bg-base);
+  border: 1px solid var(--ai-accent, #00897b);
+  border-opacity: 0.4;
+  box-shadow: 0 0 0 1px rgba(0, 137, 123, 0.12);
+}
+
+.aiPendingCompThumb {
+  flex-shrink: 0;
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-canvas-area);
+  cursor: zoom-in;
+  padding: 0;
+  display: block;
+}
+
+.aiPendingCompThumbImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.aiPendingCompThumbEmpty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+}
+
+.aiThumbSpinner {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(0, 137, 123, 0.2);
+  border-top-color: var(--ai-accent, #00897b);
+  border-radius: 50%;
+  animation: aiThumbSpin 0.7s linear infinite;
+}
+
+@keyframes aiThumbSpin {
+  to { transform: rotate(360deg); }
+}
+
+.aiPendingCompMeta {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.aiPendingCompLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ai-accent, #00897b);
+}
+
+.aiPendingCompId {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-primary);
+  font-size: var(--ai-font-sm);
+  font-family: 'Source Code Pro', 'Fira Mono', monospace;
+}
+
+.aiPendingCompTag {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(0, 137, 123, 0.08);
+  color: var(--ai-accent, #00897b);
+  font-size: var(--ai-font-xs);
+  font-weight: 500;
+  width: fit-content;
+}
+
+/* ── 消息气泡中的组件附件卡片 ─────────────────────────────────────────────── */
+
+.aiCompAttachCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 137, 123, 0.2);
+  max-width: 240px;
+}
+
+.aiCompAttachThumb {
+  flex-shrink: 0;
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-canvas-area);
+  cursor: zoom-in;
+  padding: 0;
+  display: block;
+}
+
+.aiCompAttachThumbImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.aiCompAttachThumbEmpty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+}
+
+.aiCompAttachInfo {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.aiCompAttachLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ai-accent, #00897b);
+}
+
+.aiCompAttachId {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-primary);
+  font-size: var(--ai-font-sm);
+  font-family: 'Source Code Pro', 'Fira Mono', monospace;
+}
+
+.aiCompAttachTag {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(0, 137, 123, 0.08);
+  color: var(--ai-accent, #00897b);
+  font-size: var(--ai-font-xs);
+  font-weight: 500;
+  width: fit-content;
+}
+
+/* ── 用户消息中的图片（可点击放大）──────────────────────────────────────── */
+
+.aiUserImageClickable {
+  cursor: zoom-in;
+  transition: opacity 0.15s ease;
+}
+
+.aiUserImageClickable:hover {
+  opacity: 0.85;
+}
+
+/* 输入区：整块为一个平面，仅一层边框与背景，无内层阴影/多框 */
+.aiFloatingInputRow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: var(--bg-base);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.aiFloatingInputRow:focus-within {
+  border-color: var(--ai-accent);
+  box-shadow: 0 0 0 2px var(--ai-accent-subtle);
+}
+
+.aiFloatingInput {
+  width: 100%;
+  min-height: 22px;
+  max-height: none;
+  border: none;
+  padding: 0;
+  font-size: var(--ai-font-md);
+  color: var(--text-primary);
+  caret-color: var(--ai-accent);
+  background: transparent;
+  line-height: 1.5;
+  resize: none;
+  overflow-y: hidden;
+  font-family: inherit;
+}
+
+.aiFloatingInput::placeholder {
+  color: var(--text-muted);
+}
+
+.aiFloatingInput:focus {
+  outline: none;
+}
+
+/* 底部操作行：与输入同一平面，图标与容器左右 padding(14px) 对齐 */
+.aiComposerActionRow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 2px;
+}
+
+.aiComposerLeftActions {
+  display: flex;
+  align-items: center;
+}
+
+/* 图片按钮：外容器贴合图标，无内部 padding */
+.aiAttachButton {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.aiAttachButton:hover {
+  color: var(--ai-accent);
+  background: var(--ai-accent-subtle);
+}
+
+.aiAttachButton[data-disabled='true'] {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.aiAttachButton svg {
+  display: block;
+}
+
+/* 发送按钮：外容器贴合图标，无内部 padding */
+.aiFloatingSend {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: var(--ai-accent);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+}
+
+.aiFloatingSend svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.aiFloatingSend:hover {
+  color: var(--ai-accent-hover);
+  background: var(--ai-accent-subtle);
+}
+
+.aiFloatingSend:active {
+  transform: scale(0.96);
+}
+
+.aiFloatingSend:disabled {
+  color: var(--text-muted);
+  background: transparent;
+  cursor: not-allowed;
+}
+
+.aiFloatingStop {
+  color: var(--text-muted);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  background: var(--bg-base);
+  border: 1.5px solid var(--border-strong);
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.aiFloatingStop:hover {
+  color: var(--text-primary);
+  border-color: var(--ai-accent);
+  background: var(--ai-accent-subtle);
+}
+
+.aiFloatingStop:active {
+  transform: scale(0.92);
+}
+
+/* ── PlanCard（消息气泡内） ───────────────────────────── */
+
+/* ── 管线子步骤列表（createTemplateFromImage） ─────── */
+
+.aiPipelineSteps {
+  border-top: 1px solid var(--border);
+  padding: 6px 10px;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.aiPipelineStep {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: var(--ai-font-xs, 11px);
+}
+
+.aiPipelineStep:last-child {
+  border-bottom: none;
+}
+
+.aiPipelineStepRow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.aiPipelineStepDone {
+  color: var(--text-muted);
+}
+
+.aiPipelineStepRunning {
+  color: var(--text-secondary);
+}
+
+.aiPipelineStepIcon {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aiPipelineStepSpinner {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid var(--border-strong);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: aiPipelineSpinner 0.7s linear infinite;
+}
+
+@keyframes aiPipelineSpinner {
+  to { transform: rotate(360deg); }
+}
+
+.aiPipelineStepLabel {
+  flex: 1;
+  line-height: 1.4;
+}
+
+.aiPipelineStepToggle {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.aiPipelineStepToggle:hover {
+  background: var(--bg-canvas-area);
+  color: var(--text-secondary);
+}
+
+.aiPipelineStepOutput {
+  margin: 6px 0 2px 19px;
+  padding: 8px 10px;
+  background: var(--bg-canvas-area);
+  border-radius: 4px;
+  font-size: 10px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow-y: auto;
+  max-height: 200px;
+  line-height: 1.5;
+}
+
+.aiPlanCard {
+  border-top: 1px solid var(--border);
+  padding: 10px 12px;
+  background: var(--surface);
+}
+
+.aiPlanCardTitle {
+  font-size: var(--ai-font-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  padding: 2px 0;
+  border-radius: 4px;
+}
+
+.aiPlanCardTitle:hover {
+  background: var(--ai-accent-subtle, rgba(25, 118, 210, 0.06));
+}
+
+.aiPlanCardTitleLeft {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.aiPlanCardChevron {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.aiPlanCardChevronOpen {
+  transform: rotate(90deg);
+}
+
+.aiPlanStepList {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.aiPlanStepList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: var(--ai-font-sm);
+  color: var(--text-secondary);
+  line-height: 1.45;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.aiPlanStepList li:last-child {
+  border-bottom: none;
+}
+
+.aiPlanStepDone {
+  color: var(--text-muted);
+}
+
+.aiPlanStepDone .aiPlanStepText {
+  text-decoration: line-through;
+  opacity: 0.55;
+}
+
+.aiPlanStepPending {}
+
+.aiPlanStepIcon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.aiPlanStepText {
+  flex: 1;
+}
+
+.aiPlanCardProgress {
+  margin-top: 8px;
+  font-size: var(--ai-font-xs);
+  color: var(--text-muted);
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+}
+
+/* ── PlanProgressBar（输入框上方） ─────────────────────── */
+
+.aiPlanProgressBar {
+  position: relative;
+}
+
+.aiPlanProgressHeader {
+  padding: 8px 14px;
+  background: var(--bg-base);
+  border-top: 1px solid var(--border);
+}
+
+.aiPlanProgressDone .aiPlanProgressHeader {
+  background: rgba(22, 163, 74, 0.04);
+  border-top-color: var(--success, #16a34a);
+}
+
+.aiPlanProgressToggle {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-size: var(--ai-font-sm);
+  color: var(--text-primary);
+  border-radius: 4px;
+  padding: 2px 0;
+}
+
+.aiPlanProgressDone .aiPlanProgressToggle {
+  color: var(--success, #16a34a);
+}
+
+.aiPlanProgressToggle:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.aiPlanProgressLabel {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.aiPlanProgressChevron {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+  transform: rotate(-90deg);
+}
+
+.aiPlanProgressChevronOpen {
+  transform: rotate(90deg);
+}
+
+/* 向上展开的步骤面板 */
+.aiPlanProgressDropup {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+  max-height: 260px;
+  overflow-y: auto;
+  animation: aiDropupSlideIn 0.15s ease-out;
+  z-index: 2;
+}
+
+@keyframes aiDropupSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.aiPlanProgressSteps {
+  list-style: none;
+  margin: 0;
+  padding: 6px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  font-size: var(--ai-font-xs);
+  color: var(--text-secondary);
+}
+
+.aiPlanProgressSteps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.45;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.aiPlanProgressSteps li:last-child {
+  border-bottom: none;
+}
+
+.aiPlanProgressSteps .aiPlanStepDone {
+  color: var(--text-muted);
+}
+
+.aiPlanProgressSteps .aiPlanStepDone .aiPlanStepText {
+  text-decoration: line-through;
+  opacity: 0.55;
+}
+
+/* 全部标记完成 按钮 */
+.aiPlanMarkAllDone {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: var(--ai-font-xs);
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border);
+  width: 100%;
+  box-sizing: border-box;
+  transition: background 0.1s, color 0.1s;
+}
+
+.aiPlanMarkAllDone:hover {
+  background: var(--ai-accent-subtle, rgba(25, 118, 210, 0.06));
+  color: var(--ai-accent);
+}
+
+/* ── 进度条可视化轨道 ──────────────────────────────── */
+
+.aiPlanProgressTrack {
+  margin-top: 6px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.aiPlanProgressFill {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--ai-accent);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.aiPlanProgressDone .aiPlanProgressFill {
+  background: var(--success, #16a34a);
+}
+
+/* ── 工具分组折叠摘要 ─────────────────────────────── */
+
+.aiToolGroupSummary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.aiToolGroupSummary:hover {
+  background: var(--surface);
+  border-color: var(--border-strong);
+}
+
+.aiToolGroupLabel {
+  font-size: var(--ai-font-xs);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.aiToolChevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  color: var(--text-muted);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.aiToolChevronOpen {
+  transform: rotate(90deg);
+}
+
+/* ── 流式输出闪烁光标 ─────────────────────────────── */
+
+.aiStreamingCursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 1px;
+  background: var(--ai-accent);
+  vertical-align: text-bottom;
+  animation: aiCursorBlink 1s step-end infinite;
+}
+
+@keyframes aiCursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

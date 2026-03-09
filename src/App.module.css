@@ -1,0 +1,157 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.app {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.tabBar {
+  width: 48px;
+  min-width: 48px;
+  background: #E8ECF1;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 12px;
+  gap: 2px;
+  flex-shrink: 0;
+  transition: width 0.25s ease, min-width 0.25s ease, padding 0.25s ease, opacity 0.2s ease, border-color 0.25s ease;
+  overflow: hidden;
+}
+
+.tabBarCollapsed {
+  width: 0;
+  min-width: 0;
+  padding-top: 0;
+  border-right-color: transparent;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.leftContent {
+  width: 260px;
+  min-width: 260px;
+  background: var(--bg-panel);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-shrink: 0;
+  scrollbar-width: none;
+  transition: width 0.25s ease, min-width 0.25s ease, opacity 0.2s ease, border-color 0.25s ease;
+}
+
+.leftContentCollapsed {
+  width: 0;
+  min-width: 0;
+  border-right-color: transparent;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.leftContent::-webkit-scrollbar {
+  display: none;
+}
+
+.canvasArea {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--canvas-area-bg, var(--bg-canvas-area));
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(25, 118, 210, 0.04) 0%, transparent 50%);
+  overflow: hidden;
+}
+
+/* 顶部工具栏：左右收起 + Web/Mobile 切换，不跟随滚动 */
+.canvasToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 8px;
+  flex-shrink: 0;
+}
+
+/* 画布内容滚动区 */
+.canvasScroll {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 32px 32px;
+  overflow: auto;
+  scrollbar-width: none;
+}
+
+.canvasScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.configPanel {
+  width: 360px;
+  min-width: 360px;
+  background: var(--bg-panel);
+  border-left: 1px solid var(--border);
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-shrink: 0;
+  scrollbar-width: none;
+  transition: width 0.25s ease, min-width 0.25s ease, opacity 0.2s ease, border-color 0.25s ease;
+}
+
+.configPanelCollapsed {
+  width: 0;
+  min-width: 0;
+  border-left-color: transparent;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.configPanel::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===== 收起/展开触发器：工具栏内左右两端 ===== */
+
+.panelEdgeTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text-secondary);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.panelEdgeTrigger:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+.panelEdgeTrigger svg {
+  display: block;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}

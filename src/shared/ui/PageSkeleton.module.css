@@ -1,0 +1,48 @@
+.root {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.header {
+  height: 40px;
+  width: 220px;
+  border-radius: 8px;
+  background: var(--border);
+  animation: shimmer 1.5s infinite;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.block {
+  border-radius: 6px;
+  background: var(--border);
+  animation: shimmer 1.5s infinite;
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.card {
+  flex: 1;
+  height: 120px;
+  border-radius: 10px;
+  background: var(--border);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.5; }
+  100% { opacity: 1; }
+}

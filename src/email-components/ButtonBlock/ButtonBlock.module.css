@@ -1,0 +1,24 @@
+/* fit-content 使「内容对齐」左/中/右在容器内生效 */
+.buttonWrap {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.button {
+  display: inline-block;
+  text-decoration: none;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: center;
+  box-sizing: border-box;
+  transition: opacity 0.15s ease;
+  line-height: 1.4;
+}
+
+.buttonText {
+  display: inline;
+}
+
+.button:hover {
+  opacity: 0.88;
+}

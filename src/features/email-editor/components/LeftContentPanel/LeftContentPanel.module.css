@@ -1,0 +1,1323 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.panelTitleRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 32px;
+  gap: var(--editor-space-3);
+  padding: var(--editor-panel-title-padding);
+  border-bottom: 1px solid var(--border);
+  border-left: none;
+  flex-shrink: 0;
+  background: transparent;
+}
+
+.panelTitle {
+  margin: 0;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-medium);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+
+.clearListBtn {
+  position: absolute;
+  right: var(--editor-space-6);
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--editor-space-2);
+  min-height: var(--editor-control-height);
+  padding: 0 var(--editor-space-4);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: var(--editor-font-size-sm);
+  font-weight: var(--editor-font-weight-medium);
+  border-radius: var(--editor-radius-md);
+  cursor: pointer;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--border);
+}
+
+.clearListBtn:hover {
+  color: #DC3545;
+  border-color: rgba(220, 53, 69, 0.4);
+  background: rgba(220, 53, 69, 0.04);
+}
+
+/* ===== Tree View ===== */
+
+.treeList {
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--editor-space-3);
+  padding-bottom: var(--editor-space-6);
+}
+
+.treeNode {
+  display: flex;
+  flex-direction: column;
+}
+
+.treeRow {
+  display: flex;
+  align-items: center;
+  gap: var(--editor-space-2);
+  padding: var(--editor-space-1) var(--editor-panel-inner-padding);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  transition: background-color 100ms ease;
+  user-select: none;
+  min-height: var(--editor-row-min-height);
+}
+
+.treeRow:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.treeRowSelected {
+  background: var(--accent-subtle);
+  border-radius: var(--editor-radius-md);
+}
+
+/* Step 4 Accessibility: 键盘导航焦点态 */
+.treeRow:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  border-radius: var(--editor-radius-md);
+}
+
+.treeRowSelected .treeName {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.treeRowSelected .treeIcon {
+  color: var(--accent);
+}
+
+.chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--editor-icon-size-sm);
+  height: var(--editor-icon-size-sm);
+  padding: 0;
+  border: none;
+  border-radius: var(--editor-radius-sm);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, color 0.15s ease;
+}
+
+.chevron:hover {
+  color: var(--text-secondary);
+  background: var(--bg-base);
+}
+
+.chevronOpen {
+  transform: rotate(90deg);
+}
+
+.chevronSpacer {
+  width: var(--editor-icon-size-sm);
+  height: var(--editor-icon-size-sm);
+  flex-shrink: 0;
+}
+
+.treeIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--editor-icon-size-sm);
+  height: var(--editor-icon-size-sm);
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition: color 0.15s ease;
+}
+
+.treeName {
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-medium);
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.15s ease;
+}
+
+.treeTag {
+  margin-left: var(--editor-space-2);
+  padding: 1px 5px;
+  font-size: var(--editor-font-size-sm);
+  font-weight: var(--editor-font-weight-medium);
+  color: var(--text-muted);
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-md);
+  white-space: nowrap;
+}
+
+/* 靠右對齊的標籤（與 … 同區塊時由 .treeRowRight 控制，此類保留給其他需單獨靠右的場景） */
+.treeTagRight {
+  margin-left: auto;
+}
+
+/* 樹行右側整塊：標籤 + … 按鈕，一起靠右且標籤緊貼 … */
+.treeRowRight {
+  display: flex;
+  align-items: center;
+  gap: var(--editor-space-3);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* 樹行 … 按鈕區，與複合組件卡片的 … 交互一致 */
+.treeRowActions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.treeRowMoreBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--editor-icon-size-md);
+  height: var(--editor-icon-size-md);
+  padding: 0;
+  border: none;
+  border-radius: var(--editor-radius-md);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.treeRowMoreBtn:hover {
+  background: var(--accent-subtle);
+  color: var(--accent);
+}
+
+/* 业务模式标签（蓝底白字） */
+.treeTagBusiness {
+  background: var(--accent);
+  color: #FFFFFF;
+  border-color: var(--accent);
+}
+
+/* 禁用状态的 chevron（业务复合组件） */
+.chevronDisabled {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.treeChildren {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  animation: treeExpand 0.2s ease;
+}
+
+/* Vertical connector line */
+.treeChildren::before {
+  content: '';
+  position: absolute;
+  left: var(--connector-left, 20px);
+  top: 0;
+  bottom: 8px;
+  width: 1px;
+  background: var(--border);
+}
+
+@keyframes treeExpand {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.treeRowDragging {
+  opacity: 0.35;
+}
+
+/* ===== Tree Drop Gap ===== */
+
+.treeDropGap {
+  position: relative;
+  height: 2px;
+  margin: -1px 0;
+  z-index: 2;
+  transition: height 0.1s ease, margin 0.1s ease;
+}
+
+/* 拖拽時放大感應區，方便對準「上一個/下一個/子級」 */
+.treeDropGapVisible {
+  min-height: 14px;
+  height: 14px;
+  margin: -3px 0;
+}
+
+.treeDropGapActive {
+  min-height: 14px;
+  height: 14px;
+  margin: -3px 0;
+}
+
+/* 「放入子級」感應區：稍高一點、有內縮視覺，與 before/after 區分 */
+.treeDropGapInside.treeDropGapVisible {
+  min-height: 18px;
+  height: 18px;
+  margin: -4px 0;
+}
+
+.treeDropGapInsideActive {
+  min-height: 18px;
+  height: 18px;
+  margin: -4px 0;
+}
+
+.treeInsertionLine {
+  position: absolute;
+  left: 28px;
+  right: 8px;
+  top: 50%;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+  box-shadow: 0 0 6px rgba(25, 118, 210, 0.35);
+  transform: translateY(-50%);
+}
+
+/* 放入子級時的指示：左側短豎條 + 淡底，表示會成為子節點（綠色區分 before/after） */
+.treeInsertionBlock {
+  position: absolute;
+  left: 28px;
+  right: 8px;
+  top: 2px;
+  bottom: 2px;
+  border-left: 3px solid var(--success);
+  border-radius: 2px;
+  background: rgba(22, 163, 74, 0.08);
+  box-shadow: 0 0 0 1px rgba(22, 163, 74, 0.18);
+}
+
+.treeInsertionLine::before,
+.treeInsertionLine::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 4px rgba(25, 118, 210, 0.4);
+  transform: translateY(-50%);
+}
+
+.treeInsertionLine::before {
+  left: -2px;
+}
+
+.treeInsertionLine::after {
+  right: -2px;
+}
+
+.treeEmpty {
+  font-size: var(--editor-font-size-sm);
+  color: var(--text-muted);
+  padding: var(--editor-space-1) var(--editor-space-5);
+  font-style: italic;
+}
+
+/* ===== Empty State ===== */
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: var(--editor-space-4) var(--editor-space-5);
+  padding: 20px 16px;
+  gap: var(--editor-space-1);
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-lg);
+  background: var(--bg-base);
+  text-align: center;
+}
+
+.emptyText {
+  margin: 0;
+  font-size: var(--editor-font-size-md);
+  color: var(--text-secondary);
+  font-weight: var(--editor-font-weight-medium);
+}
+
+.emptyHint {
+  margin: 0;
+  font-size: var(--editor-font-size-sm);
+  color: var(--text-muted);
+}
+
+/* ===== Library View ===== */
+
+.libList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: var(--editor-space-2) 0 var(--editor-space-4);
+}
+
+.libCard {
+  display: flex;
+  align-items: center;
+  gap: var(--editor-space-3);
+  padding: var(--editor-space-2) var(--editor-space-5);
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  cursor: grab;
+  transition: background-color 100ms ease;
+  user-select: none;
+}
+
+.libCard:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.libCard:active {
+  cursor: grabbing;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.libCardDragging {
+  opacity: 0.4;
+}
+
+.libCardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--editor-icon-size-md);
+  height: var(--editor-icon-size-md);
+  flex-shrink: 0;
+  border-radius: var(--editor-radius-sm);
+  background: var(--bg-base);
+  color: var(--text-secondary);
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.libCard:hover .libCardIcon {
+  background: var(--accent-subtle);
+  color: var(--accent);
+}
+
+.libCardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.libCardTitle {
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-medium);
+  color: var(--text-primary);
+}
+
+.libCardDesc {
+  font-size: var(--editor-font-size-xs);
+  color: var(--text-muted);
+}
+
+.libHint {
+  margin: var(--editor-space-3) var(--editor-space-5) 0;
+  font-size: var(--editor-font-size-sm);
+  color: var(--text-muted);
+  text-align: center;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* ===== Hidden file input ===== */
+.hiddenInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ===== 导入区：紧凑单行双按钮 ===== */
+.importSection {
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-panel);
+  padding: 6px 10px;
+}
+
+.importBar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+
+.importBarBtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 4px 6px;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--text-muted);
+  background: var(--bg-base);
+  border: 1px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.importBarBtn:hover {
+  color: var(--accent);
+  background: var(--accent-subtle);
+  border-color: rgba(25, 118, 210, 0.15);
+}
+
+.importBarBtn:active {
+  background: rgba(25, 118, 210, 0.12);
+}
+
+.importBarBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+/* 导入反馈条 */
+.importMessageSuccess,
+.importMessageError {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 8px 0 0;
+  padding: 6px 8px;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  border-radius: 5px;
+  animation: importMsgIn 0.2s ease;
+}
+
+.importMessageSuccess {
+  color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+.importMessageError {
+  color: #DC3545;
+  background: rgba(220, 53, 69, 0.06);
+}
+
+.importMessageIcon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 13px;
+  height: 13px;
+}
+
+@keyframes importMsgIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Email Templates View ===== */
+
+.templateListScroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.templateListPhantom {
+  display: block;
+  width: 100%;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.templateListItem {
+  position: absolute;
+  height: 72px;
+}
+
+.templateList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0;
+}
+
+.templateCard {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  min-height: 68px;
+  height: var(--editor-card-height);
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-md);
+  background: var(--bg-panel);
+  overflow: visible;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.templateCardDefaultTag {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  z-index: 2;
+  padding: 2px 6px;
+  font-size: 0.64rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--bg-panel);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  pointer-events: none;
+}
+
+.templateCard[role="button"] {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+.templateCard[role="button"]:hover {
+  background: var(--bg-base);
+  border-color: var(--accent);
+  box-shadow: none;
+  transform: none;
+}
+
+.templateCard[role="button"]:active {
+  transform: translateY(0);
+}
+
+.templateCard[role="button"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.templateCardThumbWrap {
+  flex: 0 0 30%;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: none;
+  border-right: 1px solid var(--border);
+  background: #EDF0F5;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: background-color 0.15s ease;
+}
+
+.templateCardThumbWrap:hover {
+  background: #E2E6EC;
+}
+
+.templateCardThumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.templateCardThumbPlaceholder {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  padding: 8px;
+  text-align: center;
+}
+
+.templateCardBody {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0 6px 0 10px;
+  border: none;
+  background: transparent;
+  cursor: inherit;
+  text-align: left;
+  font: inherit;
+}
+
+.templateCardTitleWrap,
+.templateCardDescWrap {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.templateCardTitleWrap {
+  padding-top: 6px;
+}
+
+.templateCardDescWrap {
+  padding-bottom: 6px;
+}
+
+.templateCardTitle,
+.templateCardDesc {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.templateCardTitle {
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-medium);
+  line-height: 1.25;
+  color: var(--text-primary);
+}
+
+.templateCardDesc {
+  font-size: var(--editor-font-size-sm);
+  line-height: 1.35;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
+}
+
+.templateCardActions {
+  position: relative;
+  margin-left: auto;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding-right: 4px;
+}
+
+.editTemplateForm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.editField {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.editLabel {
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-medium);
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+}
+
+.editRequired {
+  color: var(--text-muted);
+}
+
+.editTextarea {
+  width: 100%;
+  padding: 5px var(--editor-space-4);
+  font-size: var(--editor-font-size-md);
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-md);
+  outline: none;
+  resize: vertical;
+  min-height: 60px;
+  line-height: 1.5;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.15s ease;
+}
+
+.editTextarea:hover {
+  background: var(--bg-base);
+}
+
+.editTextarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+.editTextarea::placeholder {
+  color: var(--text-muted);
+}
+
+.editCheckboxWrap {
+  display: flex;
+  align-items: center;
+  gap: var(--editor-space-3);
+  font-size: var(--editor-font-size-md);
+  color: var(--text-primary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.editCheckbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.editCheckboxBox {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-panel);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.editCheckboxWrap:hover .editCheckboxBox {
+  border-color: var(--border-strong);
+}
+
+.editCheckbox:focus-visible + .editCheckboxBox {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+.editCheckbox:checked + .editCheckboxBox {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.editCheckboxBoxIcon {
+  display: none;
+  color: #fff;
+  width: 10px;
+  height: 10px;
+}
+
+.editCheckbox:checked + .editCheckboxBox .editCheckboxBoxIcon {
+  display: block;
+}
+
+/* 隱藏區：用於 html2canvas 生成預覽圖 */
+.previewHidden {
+  position: fixed;
+  left: -9999px;
+  top: 0;
+  width: 600px;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* 燈箱：可縮放、可滾動且隱藏捲軸，點擊遮罩關閉 */
+.lightboxOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
+
+.lightboxContent {
+  max-width: 96vw;
+  max-height: 96vh;
+  cursor: default;
+}
+
+.lightboxToolbar {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 10px;
+  background: var(--bg-panel);
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+}
+
+.lightboxCopyBtn {
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+  white-space: nowrap;
+}
+
+.lightboxCopyBtn:hover:not(:disabled) {
+  background: var(--accent-subtle);
+  border-color: var(--accent);
+}
+
+.lightboxCopyBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.lightboxCopyBtnDone {
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #16a34a;
+  background: transparent;
+  border: 1px solid #16a34a;
+  border-radius: 6px;
+  cursor: default;
+  white-space: nowrap;
+}
+
+.lightboxZoomLabel {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.lightboxZoomSlider {
+  width: 100px;
+  height: 6px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.lightboxZoomReset {
+  min-width: 52px;
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.lightboxZoomReset:hover {
+  background: var(--accent-subtle);
+  border-color: var(--accent);
+}
+
+.lightboxScrollWrap {
+  max-width: 96vw;
+  max-height: 96vh;
+  overflow: auto;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.lightboxScrollWrap::-webkit-scrollbar {
+  display: none;
+}
+
+.lightboxImageWrap {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.lightboxImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: 8px;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ===== Library Sub-tabs ===== */
+
+.libraryContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── 与右侧 Tab 栏视觉统一：同内边距、同字重与圆角 ── */
+.subTabBar {
+  display: flex;
+  gap: 0;
+  padding: 0 var(--editor-panel-inner-padding);
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  flex-shrink: 0;
+}
+
+.subTab {
+  flex: 1;
+  min-height: 32px;
+  padding: var(--editor-space-2) 0 4px;
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-default);
+  font-family: 'Source Sans 3', sans-serif;
+  letter-spacing: 0.01em;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid transparent;
+  border-radius: 0;
+  cursor: pointer;
+  outline: none;
+  transition: color 0.12s ease, border-color 0.12s ease, background-color 0.12s ease;
+  text-align: center;
+}
+
+.subTab:focus {
+  outline: none;
+}
+.subTab:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  border-radius: var(--editor-radius-md);
+}
+
+.subTab:hover {
+  color: var(--text-primary);
+  background: var(--accent-subtle);
+}
+
+.subTabActive {
+  color: var(--accent);
+  border-bottom: 1.5px solid var(--accent);
+  font-weight: var(--editor-font-weight-medium);
+  letter-spacing: 0;
+}
+
+.subTabActive:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ===== Composite Card (template-card-like with preview thumbnail) ===== */
+
+.compositeCard {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  min-height: 68px;
+  height: var(--editor-card-height);
+  border: 1px solid var(--border);
+  border-radius: var(--editor-radius-md);
+  background: var(--bg-panel);
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.compositeCard:hover {
+  background: var(--bg-base);
+  border-color: var(--accent);
+  box-shadow: none;
+  transform: none;
+}
+
+.compositeCard:active {
+  cursor: grabbing;
+  transform: translateY(0);
+}
+
+.compositeCardDragging {
+  opacity: 0.4;
+}
+
+.compositeCard:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* 類型徽章定位在縮略圖左上角 */
+.compositeCardTypeBadge {
+  position: absolute;
+  top: var(--editor-space-3);
+  left: var(--editor-space-3);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 5px;
+  font-size: var(--editor-font-size-sm);
+  font-weight: var(--editor-font-weight-medium);
+  border-radius: var(--editor-radius-sm);
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+.compositeCardTypeBadge[data-mode="business"] {
+  background: var(--accent);
+  color: #FFFFFF;
+}
+
+.compositeCardTypeBadge[data-mode="native"] {
+  background: var(--bg-panel);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.compositeCardThumbWrap {
+  flex: 0 0 30%;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: none;
+  border-right: 1px solid var(--border);
+  background: var(--bg-canvas-area);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: background-color 0.15s ease;
+}
+
+.compositeCardThumbWrap:hover {
+  background: var(--border);
+}
+
+.compositeCardThumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.compositeCardThumbPlaceholder {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  padding: 8px;
+  text-align: center;
+}
+
+.compositeCardBody {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 6px 0 10px;
+  border: none;
+  background: transparent;
+  cursor: inherit;
+  text-align: left;
+  font: inherit;
+}
+
+.compositeCardTitle {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  font-size: var(--editor-font-size-md);
+  font-weight: var(--editor-font-weight-medium);
+  line-height: 1.25;
+  color: var(--text-primary);
+}
+
+.compositeActions {
+  position: relative;
+  margin-left: auto;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding-right: 4px;
+}
+
+.compositeListWrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--editor-card-gap);
+  padding: var(--editor-space-4) var(--editor-space-5) var(--editor-space-6);
+}
+
+.moreBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--editor-icon-size-md);
+  height: var(--editor-icon-size-md);
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--editor-radius-md);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+
+.moreBtn:hover {
+  background: var(--accent-subtle);
+  color: var(--accent);
+  border-color: rgba(25, 118, 210, 0.14);
+}
+
+.menuDropdown {
+  min-width: 136px;
+  padding: 5px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12), 0 1px 2px rgba(15, 23, 42, 0.04);
+  animation: menuIn 0.12s ease;
+}
+
+/* 依視口決策的浮窗方向，用於動畫起點 */
+.menuDropdownBottom {
+  transform-origin: top center;
+}
+.menuDropdownTop {
+  transform-origin: bottom center;
+}
+.menuDropdownLeft {
+  transform-origin: right center;
+}
+.menuDropdownRight {
+  transform-origin: left center;
+}
+
+@keyframes menuIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 28px;
+  padding: 0 9px;
+  font-size: var(--editor-font-size-md);
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+  text-align: left;
+}
+
+.menuItem:hover {
+  background: var(--accent-subtle);
+  border-color: transparent;
+}
+
+.menuItem:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.menuItem:disabled:hover {
+  background: transparent;
+}
+
+.menuItemDanger {
+  color: #DC3545;
+}
+
+.menuItemDanger:hover {
+  background: rgba(220, 53, 69, 0.08);
+}
+
+/* compositeModeBadge 已由 compositeCardTypeBadge 取代 */

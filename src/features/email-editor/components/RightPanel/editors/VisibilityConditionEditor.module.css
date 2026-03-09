@@ -1,0 +1,293 @@
+.root {
+  border-bottom: 1px solid var(--border);
+}
+
+.root:last-child {
+  border-bottom: none;
+}
+
+.header {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 13px 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  color: var(--text-primary);
+  transition: color 0.12s ease;
+}
+
+.header:hover {
+  color: var(--accent);
+}
+
+.headerTitleWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.headerLabel {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.headerSummary {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.headerRight {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 20px;
+  padding: 0 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-base);
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.badge[data-variant="active"] {
+  border-color: rgba(25, 118, 210, 0.35);
+  background: var(--accent-subtle);
+  color: var(--accent);
+}
+
+.chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: transform 0.18s ease, color 0.12s ease;
+}
+
+.chevron[data-open="true"] {
+  transform: rotate(180deg);
+  color: var(--accent);
+}
+
+.body {
+  padding-bottom: 16px;
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Empty State */
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.emptyText {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.addConditionBtn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.addConditionBtn:hover {
+  text-decoration: underline;
+}
+
+/* Form */
+.conditionForm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.summary {
+  margin: 4px 0 0;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  padding: 8px;
+  background: var(--bg-base);
+  border-radius: 6px;
+}
+
+.removeBtn {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  align-self: flex-start;
+  margin-top: 4px;
+  transition: all 0.15s ease;
+}
+
+.removeBtn:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+  background: #fef2f2;
+}
+
+/* ===== Panel Mode Styles ===== */
+
+.panelEmptyState {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.panelHint {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.panelAddBtn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-family: inherit;
+  padding: 4px 0;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.panelAddBtn:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* 有条件时的卡片容器 */
+.panelConditionCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid rgba(25, 118, 210, 0.3);
+  border-radius: 10px;
+  background: var(--bg-panel);
+  overflow: hidden;
+}
+
+/* 卡片顶部：badge + 移除按钮 */
+.panelConditionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--accent-subtle);
+  border-bottom: 1px solid rgba(25, 118, 210, 0.15);
+}
+
+.panelConditionBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent);
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.panelRemoveBtn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-family: inherit;
+  padding: 3px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.panelRemoveBtn:hover {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+}
+
+/* 表单区域 */
+.panelConditionForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+}
+
+/* 底部摘要 */
+.panelConditionSummary {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 8px 12px;
+  background: var(--bg-base);
+  border-top: 1px solid var(--border);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.panelConditionCode {
+  display: inline;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.7rem;
+  color: var(--accent);
+  background: rgba(25, 118, 210, 0.08);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-style: normal;
+}

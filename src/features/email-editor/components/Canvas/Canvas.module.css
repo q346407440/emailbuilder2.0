@@ -1,0 +1,200 @@
+/* ── 外層容器：相對定位，讓複製按鈕可以定位在右上角外側 ── */
+.canvasOuter {
+  position: relative;
+}
+
+.wrap {
+  width: 600px;
+  min-height: 400px;
+  /* 多层背景：用户颜色覆盖在棋盘格上，透明色时可透出棋盘格 */
+  background-color: transparent;
+  background-image:
+    linear-gradient(var(--canvas-bg, #ffffff), var(--canvas-bg, #ffffff)),
+    repeating-conic-gradient(#e8e8e8 0% 25%, #ffffff 0% 50%);
+  background-size: 100% 100%, 12px 12px;
+  /* 增强阴影层次：让画布从深色背景中明显浮起，增加专业感与深度 */
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.07),
+    0 2px 8px rgba(0, 0, 0, 0.08),
+    0 8px 24px rgba(0, 0, 0, 0.12),
+    0 20px 60px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  /* 改为 visible 使组件右侧外边距不被裁切 */
+  overflow: visible;
+  transition: box-shadow 0.2s var(--ease-out);
+}
+
+.empty {
+  padding: var(--editor-space-8) var(--editor-space-7);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--editor-font-size-lg);
+  letter-spacing: 0.01em;
+  border: 1.5px dashed var(--border-strong);
+  border-radius: var(--editor-radius-lg);
+  margin: var(--editor-space-7);
+  transition:
+    border-color var(--duration-normal) var(--ease-out),
+    background-color var(--duration-normal) var(--ease-out);
+  line-height: 1.5;
+}
+
+.emptyOver {
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+  border-style: solid;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.block {
+  position: relative;
+}
+
+/* 仅用于拖放指示：根级 block 的 drop 区域高亮，选中/hover 由各组件的 ComponentWrapper 统一处理 */
+.block::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background: transparent;
+  pointer-events: none;
+  z-index: 5;
+  transition:
+    box-shadow var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+}
+
+.block[data-drag-hover="true"]::after {
+  box-shadow: inset 0 0 0 2px rgba(25, 118, 210, 0.6);
+  background: rgba(25, 118, 210, 0.04);
+}
+
+.block.insideTarget::after {
+  box-shadow: inset 0 0 0 2px var(--accent);
+  background: rgba(25, 118, 210, 0.06);
+  border-radius: 4px;
+}
+
+.blockContent {
+  position: relative;
+}
+
+.dropZone {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 8px;
+  z-index: 2;
+  /* 绝对定位，不占用文档流空间，完全消除视觉间距 */
+  transform: translateY(-50%);
+  pointer-events: auto;
+}
+
+.dropZone[data-over="true"] {
+  /* visual indicator handled by InsertionIndicator */
+}
+
+/* 显示条件角标：绝对定位在组件右上角（right 由 inline style 动态控制，此处为默认值） */
+.visibilityBadge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 7px 2px 5px;
+  border-radius: 5px;
+  background: rgba(25, 118, 210, 0.88);
+  color: #fff;
+  font-size: 0.66rem;
+  font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: 0.03em;
+  pointer-events: none;
+  user-select: none;
+  backdrop-filter: blur(2px);
+  white-space: nowrap;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+}
+
+/* 条件分支角标：紫色，与显示条件角标并列 */
+.branchBadge {
+  position: absolute;
+  top: 4px;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 7px 2px 5px;
+  border-radius: 5px;
+  background: rgba(103, 58, 183, 0.88);
+  color: #fff;
+  font-size: 0.66rem;
+  font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: 0.03em;
+  pointer-events: none;
+  user-select: none;
+  backdrop-filter: blur(2px);
+  white-space: nowrap;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+}
+
+/* 循环区块角标：绿色，显示绑定的变量名 + 预览项切换 */
+.loopBadge {
+  position: absolute;
+  top: 4px;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 5px 2px 5px;
+  border-radius: 5px;
+  background: rgba(22, 163, 74, 0.9);
+  color: #fff;
+  font-size: 0.66rem;
+  font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: 0.03em;
+  backdrop-filter: blur(2px);
+  white-space: nowrap;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  pointer-events: auto;
+  user-select: none;
+}
+
+.loopNavBtn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 0.8rem;
+  padding: 0 2px;
+  cursor: pointer;
+  line-height: 1;
+  opacity: 0.85;
+  border-radius: 3px;
+}
+
+.loopNavBtn:hover:not(:disabled) {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.loopNavBtn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.loopIndexLabel {
+  font-size: 0.65rem;
+  opacity: 0.9;
+}

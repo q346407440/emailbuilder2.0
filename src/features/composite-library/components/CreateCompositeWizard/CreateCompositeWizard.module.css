@@ -1,0 +1,1409 @@
+/* ==========================================================
+   CreateCompositeWizard — 创建复合组件向导
+   设计方向：企业蓝精致极简，与项目已有树视图、卡片、表单风格统一
+   ========================================================== */
+
+/* ===== 步骤指示器 ===== */
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 4px 0 20px;
+}
+
+.stepItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.stepItemActive {
+  color: var(--accent);
+}
+
+.stepItemDone {
+  color: var(--accent);
+  opacity: 0.65;
+}
+
+.stepCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-panel);
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.stepItemActive .stepCircle {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.12);
+}
+
+.stepItemDone .stepCircle {
+  border-color: var(--accent);
+  background: rgba(25, 118, 210, 0.08);
+  color: var(--accent);
+}
+
+.stepConnector {
+  flex: 1;
+  height: 1px;
+  min-width: 16px;
+  margin: 0 10px;
+  background: var(--border);
+  transition: background-color 0.2s ease;
+}
+
+.stepConnectorDone {
+  background: rgba(25, 118, 210, 0.3);
+}
+
+/* ===== 保存方式切換（新組件 / 覆蓋舊組件）===== */
+.saveModeSwitch {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.saveModeBtn {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--text-secondary);
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.saveModeBtn:hover {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+.saveModeBtnActive {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+/* ===== 覆蓋舊組件：方案 A 雙欄佈局 ===== */
+.step0OverwriteLayout {
+  display: grid;
+  grid-template-columns: 1fr minmax(200px, 280px);
+  gap: 20px;
+  align-items: stretch;
+  min-height: 280px;
+}
+
+.step0OverwriteListColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.step0OverwriteModeColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+}
+
+.overwriteSearchInput {
+  width: 100%;
+  padding: 8px 12px 8px 32px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238A949C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 10px 50%;
+  background-size: 14px 14px;
+}
+
+.overwriteSearchInput::placeholder {
+  color: var(--text-muted);
+}
+
+.overwriteSearchInput:hover {
+  border-color: var(--border-strong);
+}
+
+.overwriteSearchInput:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.12);
+}
+
+.overwriteListScroll {
+  flex: 1;
+  min-height: 180px;
+  max-height: 320px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-panel);
+  padding: 8px;
+}
+
+.overwriteListScroll .compositeOptions {
+  max-height: none;
+}
+
+.overwriteListFooter {
+  flex-shrink: 0;
+  padding-top: 4px;
+  min-height: 20px;
+}
+
+.overwriteListCount {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* ===== 覆蓋列表項（與原 compositeOptions 共用） ===== */
+.overwriteHint {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  padding: 16px 0;
+}
+
+.compositeOptions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.compositeOptionRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-panel);
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  position: relative;
+  z-index: 0;
+  outline: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.compositeOptionRow:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-base);
+}
+
+.compositeOptionRowSelected {
+  border-color: var(--border);
+  background: var(--accent-subtle);
+  z-index: 1;
+}
+
+.compositeOptionRow:focus-visible {
+  background: rgba(25, 118, 210, 0.12);
+}
+
+.compositeOptionRadio {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 50%;
+  background: var(--bg-panel);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.compositeOptionRadioChecked {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: inset 0 0 0 2px var(--bg-panel);
+}
+
+.compositeOptionTitle {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ===== Step 0: 基本信息 ===== */
+.step0Wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.step0Section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sectionLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+/* 保存位置：与选择模式同级，企业蓝 + 清晰层级；与组件名称/保存方式同宽，两选项均分整行 */
+.saveLocationRow {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  width: 100%;
+}
+
+.saveLocationOption {
+  position: relative;
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 8px 12px;
+  box-sizing: border-box;
+  font-size: 0.82rem;
+  font-family: inherit;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.saveLocationOption:hover:not(:has(.saveLocationRadio:disabled)) {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+  background: var(--bg-base);
+}
+
+.saveLocationOption:has(.saveLocationRadio:checked) {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+.saveLocationOption:has(.saveLocationRadio:disabled) {
+  color: var(--text-muted);
+  background: var(--bg-base);
+  border-color: var(--border);
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+
+.saveLocationRadio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.saveLocationOption:has(.saveLocationRadio:focus-visible) {
+  border-color: var(--accent);
+}
+
+.modeSelector {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modeCard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-panel);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.modeCard:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-base);
+}
+
+.modeCardActive {
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+.modeCardActive:hover {
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+/* 卡片头部：icon + title + radio 一行 */
+.modeCardHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modeCardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  background: var(--bg-base);
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.modeCardActive .modeCardIcon {
+  background: rgba(25, 118, 210, 0.08);
+  color: var(--accent);
+}
+
+.modeCardTitle {
+  flex: 1;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.modeCardDesc {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  padding-left: 40px;
+}
+
+/* Radio indicator — 行内尾部 */
+.modeCardRadio {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-strong);
+  background: var(--bg-panel);
+  flex-shrink: 0;
+  transition: all 0.18s ease;
+}
+
+.modeCardActive .modeCardRadio {
+  border-color: var(--accent);
+  border-width: 5px;
+}
+
+/* ===== Step 1: 字段列表 ===== */
+.fieldListWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stepDesc {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0 0 12px;
+}
+
+.dataSourceSwitch {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.dataSourceBtn {
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-panel);
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+.dataSourceBtn:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-base);
+}
+
+.dataSourceBtnActive {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+.slotConfigCard {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-base);
+  margin-bottom: 10px;
+}
+
+.slotConfigHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.slotConfigBadge {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+  background: var(--bg-panel);
+}
+
+.slotActionRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.slotActionPrimary {
+  flex: 1;
+  height: 34px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-panel);
+  color: var(--accent);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.slotActionPrimary:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+.slotActionSecondary {
+  width: 92px;
+  height: 34px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+.slotActionSecondary:hover:not(:disabled) {
+  border-color: var(--border-strong);
+  background: var(--bg-base);
+}
+
+.slotActionPrimary:disabled,
+.slotActionSecondary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.slotConfigHint {
+  margin: 0;
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+}
+
+.slotConfigMeta {
+  margin: 0;
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+}
+
+.slotConfigSummary {
+  margin-bottom: 10px;
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+}
+
+.shopProductConfigWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.productSlotLayout {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr);
+  gap: 10px;
+  min-height: 240px;
+}
+
+.productSlotSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.productSlotSidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.productSlotSidebar::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+
+.productSlotTab {
+  position: relative;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-panel);
+  color: var(--text-secondary);
+  padding: 10px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.productSlotTab:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-base);
+}
+
+.productSlotTabActive {
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+  color: var(--accent);
+}
+
+.productSlotTabTitle {
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.productSlotTabMeta {
+  font-size: 0.72rem;
+}
+
+.productSlotDeleteInlineBtn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-panel);
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease, border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+.productSlotTab:hover .productSlotDeleteInlineBtn,
+.productSlotTabActive .productSlotDeleteInlineBtn {
+  opacity: 1;
+}
+
+.productSlotDeleteInlineBtn:hover:not(:disabled) {
+  border-color: #DC3545;
+  color: #DC3545;
+  background: rgba(220, 53, 69, 0.08);
+}
+
+.productSlotDeleteInlineBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.productSlotActions {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.productSlotAddBtn {
+  width: 100%;
+  height: 32px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-panel);
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.productSlotAddBtn {
+  color: var(--accent);
+}
+
+.productSlotAddBtn:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+.productSlotAddBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.productSlotContent {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-panel);
+  min-width: 0;
+  overflow: hidden;
+}
+
+.productSlotContentHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-base);
+  border-bottom: 1px solid var(--border);
+}
+
+.slotAddFieldBtn {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 10px;
+  background: var(--bg-panel);
+  color: var(--accent);
+  font-family: inherit;
+  font-size: 0.74rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.slotAddFieldBtn:hover {
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+.fieldList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  max-height: 320px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.fieldList::-webkit-scrollbar {
+  display: none;
+}
+
+.fieldItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--bg-panel);
+  transition: background-color 0.12s ease;
+}
+
+.fieldItem:not(:last-child) {
+  border-bottom: 1px solid var(--border);
+}
+
+.fieldItem:hover {
+  background: var(--bg-base);
+}
+
+.fieldIndex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background: var(--bg-base);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.fieldLabelInput {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 10px;
+  font-size: 0.82rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.fieldLabelInput:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.fieldLabelInput:focus {
+  border-color: var(--accent);
+  background: var(--bg-panel);
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.08);
+}
+
+.fieldLabelInput::placeholder {
+  color: var(--text-muted);
+}
+
+.fieldTypeSelect {
+  width: 80px;
+  padding: 5px 24px 5px 8px;
+  font-size: 0.76rem;
+  font-family: inherit;
+  color: var(--text-secondary);
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%235C6B7A' viewBox='0 0 16 16'%3E%3Cpath d='M4.646 5.646a.5.5 0 0 1 .708 0L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 6px center;
+  transition: border-color 0.15s ease;
+}
+
+.fieldTypeSelect:focus {
+  border-color: var(--accent);
+}
+
+.slotSemanticSelect {
+  width: 122px;
+  padding: 5px 24px 5px 8px;
+  font-size: 0.76rem;
+  font-family: inherit;
+  color: var(--text-secondary);
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%235C6B7A' viewBox='0 0 16 16'%3E%3Cpath d='M4.646 5.646a.5.5 0 0 1 .708 0L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 6px center;
+  transition: border-color 0.15s ease;
+}
+
+.slotSemanticSelect:focus {
+  border-color: var(--accent);
+}
+
+.slotMetaTag {
+  margin-left: auto;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.fieldRemoveBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.12s ease, color 0.12s ease, background-color 0.12s ease;
+}
+
+.fieldItem:hover .fieldRemoveBtn {
+  opacity: 1;
+}
+
+.fieldRemoveBtn:hover {
+  color: #DC3545;
+  background: rgba(220, 53, 69, 0.08);
+}
+
+.addFieldBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 10px 0;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--accent);
+  background: transparent;
+  border: 1.5px dashed rgba(25, 118, 210, 0.25);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.addFieldBtn:hover {
+  background: rgba(25, 118, 210, 0.04);
+  border-color: var(--accent);
+}
+
+.emptyFields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  gap: 8px;
+}
+
+.emptyFieldsIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--bg-base);
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.emptyFieldsText {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.emptyFieldsHint {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.independentFieldCard {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-panel);
+  overflow: hidden;
+}
+
+.independentFieldHead {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-base);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.independentFieldEmpty {
+  margin: 0;
+  padding: 12px;
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+}
+
+/* ===== Step 2: 绑定 ===== */
+.bindingLayout {
+  display: flex;
+  gap: 0;
+  min-height: 340px;
+  max-height: 420px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* 左侧字段列表 */
+.bindingFieldList {
+  width: 160px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-base);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.bindingFieldList::-webkit-scrollbar {
+  display: none;
+}
+
+.bindingFieldListHeader {
+  padding: 10px 14px 8px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border);
+}
+
+.bindingFieldItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-family: inherit;
+  transition: background-color 0.12s ease, color 0.12s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-left: 2px solid transparent;
+}
+
+.bindingFieldItem:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.bindingFieldItemActive {
+  background: var(--bg-panel);
+  color: var(--accent);
+  font-weight: 600;
+  border-left-color: var(--accent);
+}
+
+.bindingFieldItemActive:hover {
+  background: var(--bg-panel);
+}
+
+.bindingFieldBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  margin-left: auto;
+  font-size: 0.64rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  background: var(--accent);
+  border-radius: 9px;
+  flex-shrink: 0;
+}
+
+.bindingFieldTypeBadge {
+  font-size: 0.62rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.04);
+  padding: 1px 5px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* 右侧树 */
+.bindingTree {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-panel);
+  overflow: hidden;
+}
+
+.bindingTreeHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px 8px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--bg-panel);
+  z-index: 1;
+}
+
+/* 全部展开/收起快捷操作 */
+.treeToggleActions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.treeToggleBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.treeToggleBtn:hover {
+  color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+/* 树内容区域（可滚动） */
+.bindingTreeContent {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 4px 0;
+}
+
+.bindingTreeContent::-webkit-scrollbar {
+  display: none;
+}
+
+/* 折叠展开箭头 - 与 LeftContentPanel .chevron 一致 */
+.treeChevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: none;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, color 0.15s ease;
+}
+
+.treeChevron:hover {
+  color: var(--text-secondary);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.treeChevronOpen {
+  transform: rotate(90deg);
+}
+
+.treeChevronSpacer {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* 组件行 - 匹配项目 treeRow 模式 */
+.bindingTreeRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  user-select: none;
+}
+
+.bindingTreeIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+.bindingTreeLabel {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bindingTreePath {
+  font-size: 0.68rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+/* 属性勾选行 - 匹配项目 checkbox 模式 */
+.bindingPropItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 36px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: 0;
+  transition: background-color 0.1s ease;
+  user-select: none;
+}
+
+.bindingPropItem:hover {
+  background: var(--bg-base);
+}
+
+/* 复选框 - 匹配项目 editCheckboxBox 模式 */
+.checkbox {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 4px;
+  background: var(--bg-panel);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.checkboxChecked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.bindingEmpty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  padding: 20px;
+}
+
+/* ===== Step 3: 确认摘要 ===== */
+.summaryWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.summaryCard {
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-panel);
+  transition: border-color 0.15s ease;
+}
+
+.summaryCard:hover {
+  border-color: var(--border-strong);
+}
+
+.summaryCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.summaryCardLabel {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.summaryCardType {
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--bg-base);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.summaryBindings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.summaryBindingTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--accent);
+  background: rgba(25, 118, 210, 0.06);
+  border-radius: 4px;
+  border: 1px solid rgba(25, 118, 210, 0.12);
+}
+
+.summaryBindingIcon {
+  display: flex;
+  align-items: center;
+  color: var(--accent);
+  opacity: 0.6;
+}
+
+.summaryEmpty {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.summaryInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  background: rgba(25, 118, 210, 0.04);
+  border: 1px solid rgba(25, 118, 210, 0.1);
+  border-radius: 8px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.summaryInfoIcon {
+  display: flex;
+  align-items: center;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+/* ===== 底部操作 ===== */
+.wizardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.wizardFooterRight {
+  display: flex;
+  gap: 8px;
+}
+
+@media (max-width: 920px) {
+  .productSlotLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .productSlotSidebar {
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-height: none;
+  }
+
+  .productSlotTab {
+    width: 132px;
+    flex: 0 0 auto;
+  }
+
+  .productSlotActions {
+    flex-direction: row;
+    margin-top: 0;
+  }
+
+  .productSlotAddBtn {
+    width: 132px;
+    flex: 0 0 auto;
+  }
+}

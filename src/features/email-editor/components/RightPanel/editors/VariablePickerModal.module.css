@@ -1,0 +1,765 @@
+/* ── 容器：左侧 Tab + 右侧内容，占满弹窗 body，高度固定由弹窗控制 ── */
+.root {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── 左侧竖向 Tab；与分割线间距 16px（padding-right），右侧内容区与之对齐 ── */
+.sidebar {
+  width: 140px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-right: 16px;
+  border-right: 1px solid var(--border);
+  margin-right: 0;
+}
+
+.sidebarTab {
+  appearance: none;
+  -webkit-appearance: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+}
+
+.sidebarTab:hover {
+  color: var(--text-secondary);
+  background: var(--bg-base);
+  border-color: var(--border);
+}
+
+.sidebarTab[data-active='true'] {
+  color: var(--accent);
+  background: var(--accent-subtle);
+  border-color: rgba(25, 118, 210, 0.22);
+  font-weight: 600;
+}
+
+.sidebarDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.14s ease, transform 0.14s ease;
+}
+
+.sidebarTab[data-active='true'] .sidebarDot {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── 右侧主内容区：左右留白与分割线一致，占满剩余空间 ── */
+.main {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+/* ── 常规变量类别筛选（仅常规 Tab 显示）── */
+.categoryRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 10px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.categoryChip {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-panel);
+  color: var(--text-secondary);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+}
+
+.categoryChip:hover {
+  background: var(--bg-base);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+.categoryChip[data-active='true'] {
+  background: var(--accent-subtle);
+  border-color: rgba(25, 118, 210, 0.22);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* 筛选与列表之间：结果行（数量统计公用；无按钮时仅显示数量，有按钮时左按钮右数量） */
+.resultRow {
+  display: flex;
+  align-items: center;
+  margin: 0 0 10px;
+  padding: 0;
+  min-height: 28px;
+}
+/* 有左侧按钮时（如自定义 tab 的「新建自定义变量」）：数量靠右 */
+.resultRowWithAction {
+  justify-content: space-between;
+}
+.resultRowWithAction .resultCount {
+  margin-left: auto;
+}
+.resultCount {
+  margin: 0;
+  padding: 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ── 搜索栏：上下间距统一 ── */
+.searchRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 0 8px;
+  height: 36px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+.searchRow:focus-within {
+  border-color: var(--accent);
+}
+.searchIcon {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+.searchInput {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 0.84rem;
+  color: var(--text-primary);
+  outline: none;
+  min-width: 0;
+}
+.searchInput::placeholder {
+  color: var(--text-muted);
+}
+.searchClear {
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0 2px;
+  border-radius: 4px;
+  transition: color 0.12s;
+}
+.searchClear:hover {
+  color: var(--text-primary);
+}
+
+/* ── 可滚动列表区：占满右侧剩余高度，仅此区域滚动 ── */
+.list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.list::-webkit-scrollbar {
+  width: 4px;
+}
+.list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.list::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+/* ── 分组 ── */
+.group {
+  margin-bottom: 4px;
+}
+.groupHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 2px 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3px;
+}
+.groupCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 16px;
+  padding: 0 5px;
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* ── 变量列表表格（规范对齐） ── */
+.listTable {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: inherit;
+}
+.listThead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border);
+}
+.listTh {
+  padding: 6px 8px 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  text-align: left;
+}
+.listTh:first-child { width: 38%; }
+.listTh:nth-child(2) { width: auto; }
+.listTh:last-child { width: 56px; text-align: right; }
+.listTbody .listTr {
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.listTbody .listTr:hover {
+  background: var(--bg-base);
+}
+.listTbody .listTr[data-selected='true'] {
+  background: var(--accent-subtle);
+}
+.listTbody .listTr[data-selected='true'] .listTdKey {
+  color: var(--accent);
+}
+.listTd {
+  padding: 7px 8px;
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-bottom: 1px solid transparent;
+}
+.listTdKey {
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+.listTdLabel {
+  font-size: 0.82rem;
+  color: var(--text-primary);
+}
+.listTdTag {
+  text-align: right;
+  padding-right: 4px;
+}
+.listTdTag span {
+  font-size: 0.68rem;
+  padding: 1px 6px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* ── 变量条目（表格行内使用的标签样式，与下方 itemNs/itemCustomTag 一致） ── */
+.item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  padding: 7px 0;
+  border: none;
+  background: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.1s;
+}
+.item:hover {
+  background: var(--bg-base);
+}
+.item[data-selected='true'] {
+  background: var(--accent-subtle);
+}
+.item[data-selected='true'] .itemKey {
+  color: var(--accent);
+}
+.itemKey {
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.itemLabel {
+  font-size: 0.82rem;
+  color: var(--text-primary);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.itemNs,
+.itemCustomTag {
+  font-size: 0.68rem;
+  padding: 1px 6px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.itemNs {
+  background: var(--bg-base);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+.itemCustomTag {
+  background: rgba(25, 118, 210, 0.08);
+  color: var(--accent);
+  border: 1px solid rgba(25, 118, 210, 0.18);
+}
+
+/* ── 自定义空状态 ── */
+.emptyCustom {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 0 12px;
+}
+.emptyCustomText {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* ── 新建按钮 ── */
+.addCustomBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 8px;
+  border: none;
+  background: none;
+  color: var(--accent);
+  font-size: 0.82rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.12s;
+  font-weight: 500;
+}
+.addCustomBtn:hover {
+  background: var(--accent-subtle);
+}
+
+/* ── 新建表单 ── */
+.createForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin: 0 0 12px;
+}
+.createField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.createLabel {
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+.createInput,
+.createSelect {
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-panel);
+  font-size: 0.84rem;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.createInput:focus,
+.createSelect:focus {
+  border-color: var(--accent);
+}
+.createSelect {
+  cursor: pointer;
+}
+.createKeyRow {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--bg-panel);
+  transition: border-color 0.15s;
+}
+.createKeyRow:focus-within {
+  border-color: var(--accent);
+}
+.createKeyPrefix {
+  padding: 0 8px;
+  font-size: 0.84rem;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  color: var(--text-muted);
+  background: var(--bg-base);
+  border-right: 1px solid var(--border);
+  height: 32px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.createKeyInput {
+  border: none !important;
+  border-radius: 0 !important;
+  flex: 1;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+}
+.createKeyInput:focus {
+  border-color: transparent !important;
+}
+.createKeyPreview {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  padding: 0 2px;
+}
+.createKeyErrorBlock {
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: rgba(220, 53, 69, 0.06);
+  border: 1px solid rgba(220, 53, 69, 0.2);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.createKeyError {
+  font-size: 0.78rem;
+  color: #DC3545;
+}
+.existingVarInfo {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+.existingVarInfo code {
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.9em;
+  padding: 1px 4px;
+  background: var(--bg-base);
+  border-radius: 4px;
+  color: var(--accent);
+}
+.viewExistingBtn {
+  align-self: flex-start;
+  font-size: 0.78rem;
+  padding: 5px 12px;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.12s, color 0.12s;
+}
+.viewExistingBtn:hover {
+  background: var(--accent-subtle);
+}
+.createError {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #DC3545;
+}
+
+/* ── 新建时列表变量：列表项字段 schema 编辑 ── */
+.schemaEditor {
+  margin-top: 4px;
+  padding: 14px 16px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.schemaHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.schemaTitle {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.schemaPresetBtn {
+  font-size: 0.72rem;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--accent);
+  cursor: pointer;
+}
+.schemaPresetBtn:hover {
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+}
+.schemaEmpty {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 12px 0;
+  margin: 0;
+}
+.schemaFieldList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.schemaFieldRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto auto;
+  gap: 8px;
+  align-items: center;
+}
+.schemaFieldKey,
+.schemaFieldLabel {
+  font-size: 0.76rem;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--bg-panel);
+  color: var(--text-primary);
+}
+.schemaFieldKey:focus,
+.schemaFieldLabel:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.schemaFieldType {
+  font-size: 0.72rem;
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--bg-panel);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+.schemaFieldRemove {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 4px 6px;
+  line-height: 1;
+  border-radius: 3px;
+}
+.schemaFieldRemove:hover {
+  color: #DC3545;
+  background: rgba(220, 53, 69, 0.08);
+}
+.schemaAddBtn {
+  font-size: 0.75rem;
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px dashed var(--border-strong);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+.schemaAddBtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+.createActions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+.cancelBtn {
+  height: 28px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  border-radius: 5px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+.cancelBtn:hover {
+  background: var(--bg-base);
+  border-color: var(--border-strong);
+}
+.submitBtn {
+  height: 28px;
+  padding: 0 14px;
+  border: none;
+  background: var(--accent);
+  border-radius: 5px;
+  font-size: 0.82rem;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.12s;
+}
+.submitBtn:hover {
+  background: var(--accent-hover);
+}
+
+/* ── 无结果 ── */
+.noMatchText,
+.emptyAll {
+  padding: 10px 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ── 数组变量分组 ── */
+.arrayVarGroup {
+  margin-bottom: 4px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  overflow: hidden;
+}
+.arrayVarHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  background: var(--bg-base);
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+.arrayVarHeader:hover {
+  background: var(--accent-subtle);
+}
+.arrayVarChevron {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  width: 10px;
+}
+.arrayVarBody {
+  padding: 8px 10px;
+  border-top: 1px solid var(--border);
+}
+.arrayIndexRow {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.arrayIndexLabel {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  margin-right: 2px;
+}
+.arrayIndexBtn {
+  min-width: 28px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text-secondary);
+  font-size: 0.76rem;
+  cursor: pointer;
+  font-family: 'Source Sans 3', sans-serif;
+}
+.arrayIndexBtn[data-active='true'] {
+  border-color: var(--accent);
+  background: var(--accent-subtle);
+  color: var(--accent);
+  font-weight: 600;
+}
+.arrayHint {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 0 0 10px;
+  padding: 8px 10px;
+  background: rgba(22, 163, 74, 0.06);
+  border: 1px solid rgba(22, 163, 74, 0.18);
+  border-radius: 6px;
+}
+.arrayHint code {
+  font-family: monospace;
+  font-size: 0.76rem;
+  color: var(--success);
+  background: rgba(22, 163, 74, 0.08);
+  padding: 1px 4px;
+  border-radius: 3px;
+}
